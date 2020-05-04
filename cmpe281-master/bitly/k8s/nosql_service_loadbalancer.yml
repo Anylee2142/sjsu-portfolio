@@ -1,0 +1,16 @@
+# service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nosql-service-loadbalancer
+spec:
+  selector:
+    key: nosql-pod
+  ports:
+    - port: 8888
+      targetPort: 8888
+      name: admin
+    - port: 9090
+      targetPort: 9090
+      name: app
+  type: LoadBalancer

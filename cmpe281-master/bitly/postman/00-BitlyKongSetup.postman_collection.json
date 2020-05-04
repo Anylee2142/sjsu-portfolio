@@ -1,0 +1,527 @@
+{
+	"info": {
+		"_postman_id": "97eb23cb-c53f-4b74-b2ea-579674bb376e",
+		"name": "00-BitlyKongSetup",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Kong Add Control Panel API",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"ControlPanel\",\n\t\"url\": \"http://cp:3000/\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8006/services",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8006",
+					"path": [
+						"services"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Kong Add Control Panel Route",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"ControlPanelRouted\",\n\t\"protocols\": [\"http\", \"https\"],\n\t\"service\": \"ControlPanel\",\n\t\"paths\": [\"/link\"],\n\t\"strip_path\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8006/services/ControlPanel/routes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8006",
+					"path": [
+						"services",
+						"ControlPanel",
+						"routes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Kong Add Link Redirect API",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"LinkRedirect\",\n\t\"url\": \"http://lr:3001/\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8006/services",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8006",
+					"path": [
+						"services"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Kong Add Link Redirect Route",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"LinkRedirectRouted\",\n\t\"protocols\": [\"http\", \"https\"],\n\t\"service\": \"LinkRedirect\",\n\t\"paths\": [\"/\"],\n\t\"strip_path\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8006/services/LinkRedirect/routes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8006",
+					"path": [
+						"services",
+						"LinkRedirect",
+						"routes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Kong Add Trend Server API",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"TrendServer\",\n\t\"url\": \"http://ts:3002/\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8006/services",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8006",
+					"path": [
+						"services"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Kong Add Trend Server All Route",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"TrendServerAllRouted\",\n\t\"protocols\": [\"http\", \"https\"],\n\t\"service\": \"TrendServer\",\n\t\"paths\": [\"/all\"],\n\t\"strip_path\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8006/services/TrendServer/routes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8006",
+					"path": [
+						"services",
+						"TrendServer",
+						"routes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Kong Add Trend Server Generate Route",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"TrendServerGenerateRouted\",\n\t\"protocols\": [\"http\", \"https\"],\n\t\"service\": \"TrendServer\",\n\t\"paths\": [\"/generate\"],\n\t\"strip_path\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8006/services/TrendServer/routes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8006",
+					"path": [
+						"services",
+						"TrendServer",
+						"routes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Kong Add Trend Server Click Route",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"TrendServerClickRouted\",\n\t\"protocols\": [\"http\", \"https\"],\n\t\"service\": \"TrendServer\",\n\t\"paths\": [\"/click\"],\n\t\"strip_path\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8006/services/TrendServer/routes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8006",
+					"path": [
+						"services",
+						"TrendServer",
+						"routes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Kong Add Trend Server Aggregate Route",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"TrendServerAggregateRouted\",\n\t\"protocols\": [\"http\", \"https\"],\n\t\"service\": \"TrendServer\",\n\t\"paths\": [\"/aggregate\"],\n\t\"strip_path\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8006/services/TrendServer/routes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8006",
+					"path": [
+						"services",
+						"TrendServer",
+						"routes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Kong API Client Add (Docker)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5a5b22d-ec7c-4e24-b64f-44fd7f1ca61e",
+						"exec": [
+							"var response = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"consumer\", response.username);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"apiclient\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8006/consumers/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8006",
+					"path": [
+						"consumers",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Kong API Add Key-Auth plugin to Control Panel",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "65225aeb-a702-4875-82a2-62b159748cf6",
+						"exec": [
+							"var response = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"plugin_id\", response.username);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"key-auth\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8006/services/ControlPanel/plugins",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8006",
+					"path": [
+						"services",
+						"ControlPanel",
+						"plugins"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Kong API Add Key-Auth plugin to Link Redirect",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "65225aeb-a702-4875-82a2-62b159748cf6",
+						"exec": [
+							"var response = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"plugin_id\", response.username);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"key-auth\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8006/services/LinkRedirect/plugins",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8006",
+					"path": [
+						"services",
+						"LinkRedirect",
+						"plugins"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Kong API Add Key-Auth plugin to Trend Server",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "65225aeb-a702-4875-82a2-62b159748cf6",
+						"exec": [
+							"var response = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"plugin_id\", response.username);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"key-auth\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8006/services/TrendServer/plugins",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8006",
+					"path": [
+						"services",
+						"TrendServer",
+						"plugins"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Kong API Set API Key to Customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cb868395-bb2d-4c1b-a38c-2596cc72fd86",
+						"exec": [
+							"var response = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"starbucks_api_key\", response.key);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"key\":\"20200318A\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://ec2-54-149-150-229.us-west-2.compute.amazonaws.com:8001/consumers/apiclient/key-auth",
+					"protocol": "http",
+					"host": [
+						"ec2-54-149-150-229",
+						"us-west-2",
+						"compute",
+						"amazonaws",
+						"com"
+					],
+					"port": "8001",
+					"path": [
+						"consumers",
+						"apiclient",
+						"key-auth"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

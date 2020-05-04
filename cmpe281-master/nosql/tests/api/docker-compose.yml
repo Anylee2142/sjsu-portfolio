@@ -1,0 +1,28 @@
+
+
+version: "3"
+services:
+  node:
+    image: jkl2142/nosql:v1.0
+    networks:
+      - network   
+    ports:
+      - 9001-9005:9090
+      - 8001-8005:8888
+    environment:
+      - CLUSTER_NAME=NOSQL
+      - CAP_MODE=AP
+      - VERSION=MAIN
+      - FIRST_NOSQL=api_node_1
+      - SECOND_NOSQL=api_node_2
+      - THIRD_NOSQL=api_node_3
+      - FOURTH_NOSQL=api_node_4
+      - FIFTH_NOSQL=api_node_5
+      
+volumes:
+  schemas:
+    external: false
+
+networks:
+  network:
+    driver: bridge

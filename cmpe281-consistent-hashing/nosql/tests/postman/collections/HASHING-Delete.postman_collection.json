@@ -1,0 +1,560 @@
+{
+	"info": {
+		"_postman_id": "cce349d7-86e9-4d93-910f-1ad33c240ba7",
+		"name": "HASHING-Delete",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Document on Node 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b56ebdc-72a8-444e-a64a-d4afafc8ef9e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"message\" : \"Consistent Hashing Delete Document\" }\n"
+				},
+				"url": {
+					"raw": "http://localhost:{{api_node_1}}/api/zxcv",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{api_node_1}}",
+					"path": [
+						"api",
+						"zxcv"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Document on Node 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b56ebdc-72a8-444e-a64a-d4afafc8ef9e",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:{{api_node_1}}/api/zxcv",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{api_node_1}}",
+					"path": [
+						"api",
+						"zxcv"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Document on Node 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b56ebdc-72a8-444e-a64a-d4afafc8ef9e",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:{{api_node_2}}/api/zxcv",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{api_node_2}}",
+					"path": [
+						"api",
+						"zxcv"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Document on Node 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b56ebdc-72a8-444e-a64a-d4afafc8ef9e",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:{{api_node_3}}/api/zxcv",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{api_node_3}}",
+					"path": [
+						"api",
+						"zxcv"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Document on Node 4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b56ebdc-72a8-444e-a64a-d4afafc8ef9e",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:{{api_node_4}}/api/zxcv",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{api_node_4}}",
+					"path": [
+						"api",
+						"zxcv"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Document on Node 5",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b56ebdc-72a8-444e-a64a-d4afafc8ef9e",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:{{api_node_5}}/api/zxcv",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{api_node_5}}",
+					"path": [
+						"api",
+						"zxcv"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hash Delete Document",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b56ebdc-72a8-444e-a64a-d4afafc8ef9e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8001/hashing/zxcv",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"hashing",
+						"zxcv"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Document on Node 1 Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b56ebdc-72a8-444e-a64a-d4afafc8ef9e",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:{{api_node_1}}/api/zxcv",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{api_node_1}}",
+					"path": [
+						"api",
+						"zxcv"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Document on Node 2 Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b56ebdc-72a8-444e-a64a-d4afafc8ef9e",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:{{api_node_2}}/api/zxcv",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{api_node_2}}",
+					"path": [
+						"api",
+						"zxcv"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Document on Node 3 Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b56ebdc-72a8-444e-a64a-d4afafc8ef9e",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:{{api_node_3}}/api/zxcv",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{api_node_3}}",
+					"path": [
+						"api",
+						"zxcv"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Document on Node 4 Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b56ebdc-72a8-444e-a64a-d4afafc8ef9e",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:{{api_node_4}}/api/zxcv",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{api_node_4}}",
+					"path": [
+						"api",
+						"zxcv"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Document on Node 5 Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b56ebdc-72a8-444e-a64a-d4afafc8ef9e",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:{{api_node_5}}/api/zxcv",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{api_node_5}}",
+					"path": [
+						"api",
+						"zxcv"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

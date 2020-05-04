@@ -1,0 +1,18 @@
+# service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nosql-service-nodeport-4
+spec:
+  selector:
+    app: nosql-pod-4
+  ports:
+    - port: 8888
+      targetPort: 8888
+      nodePort: 30006
+      name: admin
+    - port: 9090
+      targetPort: 9090
+      nodePort: 30007
+      name: app
+  type: NodePort

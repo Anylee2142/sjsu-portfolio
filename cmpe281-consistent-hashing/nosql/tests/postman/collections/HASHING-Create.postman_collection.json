@@ -1,0 +1,269 @@
+{
+	"info": {
+		"_postman_id": "05da8592-ce90-4fb5-b535-adcdae82f4fa",
+		"name": "HASHING-Create",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Document on Node 1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"message\" : \"Consistent Hashing Create Document\" }\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9001/hashing/qwer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"hashing",
+						"qwer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Document on Node 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b56ebdc-72a8-444e-a64a-d4afafc8ef9e",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:{{api_node_1}}/api/qwer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{api_node_1}}",
+					"path": [
+						"api",
+						"qwer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Document on Node 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b56ebdc-72a8-444e-a64a-d4afafc8ef9e",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:{{api_node_2}}/api/qwer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{api_node_2}}",
+					"path": [
+						"api",
+						"qwer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Document on Node 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b56ebdc-72a8-444e-a64a-d4afafc8ef9e",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:{{api_node_3}}/api/qwer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{api_node_3}}",
+					"path": [
+						"api",
+						"qwer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Document on Node 4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b56ebdc-72a8-444e-a64a-d4afafc8ef9e",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:{{api_node_4}}/api/qwer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{api_node_4}}",
+					"path": [
+						"api",
+						"qwer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Document on Node 5",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b56ebdc-72a8-444e-a64a-d4afafc8ef9e",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:{{api_node_5}}/api/qwer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{api_node_5}}",
+					"path": [
+						"api",
+						"qwer"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

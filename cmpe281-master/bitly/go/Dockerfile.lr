@@ -1,0 +1,10 @@
+FROM golang:latest 
+EXPOSE 3001
+RUN mkdir /app 
+ADD ./src/lr/ /app/src/lr/
+ADD ./src/github.com /app/src/github.com
+WORKDIR /app 
+ENV GOPATH /app
+RUN cd /app ; go install lr
+CMD ["/app/bin/lr"]
+RUN rm -rf /app/src
