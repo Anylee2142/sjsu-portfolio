@@ -1,0 +1,36 @@
+<html lang="en">
+    <head>
+        <title>Delete</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <h3>Book Store App</h3>
+            <ul class="nav nav-pills">
+                <li><a href="/home">List All Books</a></li>
+                <li><a href="/create">Create a Book</a></li>
+                <li class="active"><a href="/delete">Delete a Book</a></li>
+            </ul>
+        </div>
+        <br>
+        <div class="container">
+            <h2>Delete a Book</h2>
+            <br>
+        </div>              
+        <div class="container">
+            <form action="http://127.0.0.1:3000/delete" method="post" id="Delete">
+                <input list="dropdown" name="dropdown">
+                <datalist id="dropdown">
+                    <% books.forEach(function(book){ %>
+                        <option value="<%= book.BookID %>"> <%= book.Title %> </option>
+                    <%  }); %>
+                </datalist>
+                <input type="submit">
+            </form>
+        </div>
+    </body>
+</html>

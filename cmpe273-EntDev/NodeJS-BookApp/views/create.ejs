@@ -1,0 +1,36 @@
+<html lang="en">
+    <head>
+        <title>Create</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <h3>Book Store App</h3>
+            <ul class="nav nav-pills">
+                <li><a href="/home">List All Books</a></li>
+                <li class="active"><a href="/create">Create a Book</a></li>
+                <li><a href="/delete">Delete a Book</a></li>
+            </ul>
+        </div>
+        <br>
+        <div class="container">
+            <h2>Create a Book</h2>
+            <form action="http://127.0.0.1:3000/create" method="post" id="Create">
+                <div class="form-group">
+                    <input type="number" class="form-control" name="BookID" placeholder="BookID" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="Title" placeholder="Title" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="Author" placeholder="Author" pattern="^[A-Za-z -]+$" required>
+                </div>
+                <button type="submit" class="btn btn-primary"> Submit </button>
+            </form>
+        </div>
+    </body>
+</html>
