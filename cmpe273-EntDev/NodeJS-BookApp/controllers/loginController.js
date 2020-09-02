@@ -1,5 +1,5 @@
 module.exports = (app) => {
-    var UsersLoader = require('../index');
+    var UsersLoader = require('../resources/usersResource');
 
     app.get('/login', function (req, res) {
         res.redirect("/")

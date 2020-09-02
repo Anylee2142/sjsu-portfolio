@@ -1,5 +1,5 @@
 module.exports = (app) => {
-    var booksLoader = require('../index');
+    var booksLoader = require('../resources/booksResource');
 
     app.get('/home', function (req, res) {
         if (!req.session.user) {

@@ -1,5 +1,5 @@
 module.exports = (app) => {
-    var booksLoader = require('../index');
+    var booksLoader = require('../resources/booksResource');
 
     app.get('/delete', function (req, res) {
         console.log("Session Data : ", req.session.user);

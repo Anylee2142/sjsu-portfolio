@@ -27,37 +27,9 @@ app.use(session({
     saveUninitialized: true
 }));
 
-//Only user allowed is admin
-var Users = [{
-    "username": "admin",
-    "password": "1234"
-}];
-
-//By Default we have 3 books
-var books = [
-    { "BookID": "1", "Title": "Outlier", "Author": "Malcomm Gladwell" },
-    { "BookID": "2", "Title": "Die Kunst ueber Geld nachzudenken", "Author": "Andre Kostolany" },
-    { "BookID": "3", "Title": "Cosmos", "Author": "Carl Sagan" }
-]
-
-module.exports = {
-    Users: () => Users,
-    books: () => books,
-    setBooks: (newBooks) => { books = newBooks },
-} ;
-
-//route to root
-app.get('/', function (req, res) {
-    //check if user session exits
-    if (req.session.user) {
-        res.redirect("/home");
-    } else
-        res.render('login', {
-            ErrorMessage: ""
-        });
-});
-
 // Load Controllers for API
+var rootController = require('./controllers/rootController');
+rootController(app);
 var loginController = require('./controllers/loginController');
 loginController(app);
 var homeController = require('./controllers/homeController');
