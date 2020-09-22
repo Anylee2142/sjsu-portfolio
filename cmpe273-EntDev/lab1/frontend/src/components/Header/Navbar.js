@@ -33,92 +33,25 @@ class Navbar extends Component {
                 </ul>
             )
         }
-        let redirectVar = null;
-        if (cookie.load('cookie')) {
-            redirectVar = <Redirect to="/home" />
-        } else {
-            redirectVar = <Redirect to="/login" />
-        }
         return (
             <div>
-                {redirectVar}
                 <nav class="navbar navbar-default navbar-background">
                     <div class="navbar-header">
                         <a href="#" class="navbar-brand">Yelp</a>
                     </div>
-
-                    <div class="container">
-
-                        <form class="navbar-form navbar-left">
-                            <div class="form-group">
-                                <input type="text" class="form-control"></input>
-                            </div>
-                            <button type="submit" class="btn btn-default"><span class="button-style">Search!</span></button>
-                        </form>
-
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a href="#">Sign Up</a></li>
-                            <li><a href="#">Login</a></li>
-                        </ul>
-
-                    </div>
-
-                </nav>
-
-                <div class="header container">
-                    <div class="user-profile-picture">
-                        Add a photo !
-                    </div>
-                    <div class="brief-summary">
-                        <h1>Alan Lee</h1>
-                        <p>Downtown San Jose, San Jose, CA</p>
-                        <p>Friends, Reviews Photos</p>
-                    </div>
-                    <div class="modify-menu">
-                        <ul class="list-unstyled">
-                            <li><a href="#">Add Profile Photos</a></li>
-                            <li><a href="#">Update Your Profile</a></li>
-                            <li><a href="#">Find Friends</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="main-content container">
-                    <div class="profile-list">
-                        <h1>Alan's Profile</h1>
-                        <div class="list-group">
-                            <a href="#" class="list-group-item">Profile Overview</a>
-                            <a href="#" class="list-group-item">Friends</a>
-                            <a href="#" class="list-group-item">Reviews</a>
-                            <a href="#" class="list-group-item">Compliments</a>
-                            <a href="#" class="list-group-item">Tips</a>
-                            <a href="#" class="list-group-item">Bookmarks</a>
-                            <a href="#" class="list-group-item">Collections</a>
-                            <a href="#" class="list-group-item">Events</a>
+                    <form class="navbar-form navbar-left">
+                        <div class="form-group">
+                            <input type="text" class="form-control"></input>
                         </div>
-                    </div>
-                    <div class="recent-activity">
-                        <h1>Notifications</h1>
-                        <p>Don't sleep !</p>
-                        <h1>Recent Activity</h1>
-                        <hr></hr>
-                    </div>
-                    <div class="about-user">
-                        <h1>About Alan Lee</h1>
-                        <ul class="list-unstyled">
-                            <li>
-                                <h2>Location</h2>
-                                <p>San Jose Downtown</p>
-                            </li>
-                            <li>
-                                <h2>Things I Love</h2>
-                                <p>Reading, Thinking</p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+                        <button type="submit" class="btn btn-default"><span class="button-style">Search!</span></button>
+                    </form>
 
+                    <ul class="nav navbar-nav navbar-right go-to-right">
+                        <li><a href="#">Sign Up</a></li>
+                        <li><a href="#">Login</a></li>
+                    </ul>
+                </nav>
+            </div>
         )
     }
 }
