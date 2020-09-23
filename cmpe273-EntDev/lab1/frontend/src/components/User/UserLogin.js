@@ -59,6 +59,7 @@ class UserLogin extends Component {
         axios.post('http://localhost:3001/user', data)
             .then(response => {
                 console.log("Status Code : ", response.status);
+                console.log(response.data);
                 if (response.status === 200) {
                     this.setState({
                         authFlag: true
@@ -67,7 +68,7 @@ class UserLogin extends Component {
             }).catch((error) => {
                 console.log("Error has been catched : ", error.response.status);
                 console.log(error.response);
-                console.log("qerqwerqwer", error.response.data);
+                console.log("Error response data = ", error.response.data);
                 if (error.response.status === 401) { // When couldn't find user
                     this.setState({
                         authFlag: false,
@@ -91,6 +92,7 @@ class UserLogin extends Component {
             )
         }
 
+        document.title = "Log in - Yelp"
         return (
             <div>
                 {redirectVar}

@@ -88,6 +88,7 @@ class RestaurantList extends Component {
             )
         }
 
+        document.title = "Find restaurant !"
         return (
             <div>
                 {redirectVar}

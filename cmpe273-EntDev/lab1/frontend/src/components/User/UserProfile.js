@@ -33,6 +33,8 @@ class UserProfile extends Component {
                 </ul>
             )
         }
+
+        document.title = "Your Yelp Profile"
         return (
             <div>
                 <div class="header container">

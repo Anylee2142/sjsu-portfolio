@@ -32,7 +32,7 @@ class UserProfile extends Component {
     }
     nameChangeHandler = (e) => {
         this.setState({
-            name: e.target.name
+            name: e.target.value
         })
     }
 
@@ -54,17 +54,19 @@ class UserProfile extends Component {
         //prevent page from refresh
         e.preventDefault();
         const data = {
+            name: this.state.name,
             emailID: this.state.emailID,
             password: this.state.password
         };
         this.setState({
+            name: "",
             emailID: "",
             password: ""
         });
         //set the with credentials to true
         axios.defaults.withCredentials = true;
         //make a post request with the user data
-        axios.post('http://localhost:3001/user', data)
+        axios.put('http://localhost:3001/user', data)
             .then(response => {
                 console.log("Status Code : ", response.status);
                 if (response.status === 200) {
@@ -75,7 +77,7 @@ class UserProfile extends Component {
             }).catch((error) => {
                 console.log("Error has been catched : ", error.response.status);
                 console.log(error.response);
-                console.log("qerqwerqwer", error.response.data);
+                console.log("Error response data = ", error.response.data);
                 if (error.response.status === 401) { // When couldn't find user
                     this.setState({
                         authFlag: false,
@@ -83,6 +85,7 @@ class UserProfile extends Component {
                     })
                 }
             });
+            this.props.history.push("/restaurantList");
     }
 
     render() {
@@ -90,7 +93,7 @@ class UserProfile extends Component {
         let redirectVar = null;
         if (cookie.load('cookie')) {
             redirectVar = <Redirect to="/restaurantList" />
-        }
+        } 
 
         let errorMessageVar = null;
         if (this.state.errorMessage !== "") {
@@ -99,6 +102,7 @@ class UserProfile extends Component {
             )
         }
 
+        document.title = "Sign up - Yelp"
         return (
             <div>
                 {redirectVar}
@@ -112,7 +116,7 @@ class UserProfile extends Component {
                                 Please enter your Name, Email ID, and Password
                             </div>
                             <div class="form-group">
-                                <input onChange={this.emailIDChangeHandler} type="text" name="name" placeholder="Name" value={this.state.name} />
+                                <input onChange={this.nameChangeHandler} type="text" name="name" placeholder="Name" value={this.state.name} />
                             </div>
                             <div class="form-group">
                                 <input onChange={this.emailIDChangeHandler} type="text" name="emailID" placeholder="Email ID" value={this.state.emailID} />
