@@ -30,14 +30,14 @@ module.exports = (app, conn) => {
         // Redirect
     });
 
-    // Signup
-    app.post('/user', (req, res) => {
-        // req.body = user input
-        // make INSERT Statement
-        let insertStatement = "";
-        let rows = queryFunction(query, insertStatement, conn);
-        // Redirect
-    });
+    // // login
+    // app.post('/user', (req, res) => {
+    //     // req.body = user input
+    //     // make INSERT Statement
+    //     let insertStatement = "";
+    //     let rows = queryFunction(query, insertStatement, conn);
+    //     // Redirect
+    // });
 
     // Profile view
     app.get('/user', (req, res) => {

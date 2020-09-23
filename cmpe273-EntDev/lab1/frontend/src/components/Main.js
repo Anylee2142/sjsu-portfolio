@@ -3,6 +3,9 @@ import {Route} from 'react-router-dom';
 
 import Navbar from './Header/Navbar';
 import UserProfile from './User/UserProfile';
+import UserLogin from './User/UserLogin';
+import UserSignup from './User/UserSignup'
+import RestaurantList from './Restaurant/RestaurantList'
 //Create a Main Component
 class Main extends Component {
     render(){
@@ -10,7 +13,10 @@ class Main extends Component {
             <div>
                 {/*Render Different Component based on Route*/}
                 <Route path="/" component={Navbar}/>
-                <Route path="/user" component={UserProfile}/>
+                <Route path="/userProfile" component={UserProfile}/>
+                <Route path="/userLogin" component={UserLogin}/>
+                <Route path="/userSignup" component={UserSignup}/>
+                <Route path="/restaurantList" component={RestaurantList}/>
             </div>
         )
     }
