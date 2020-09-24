@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import './UserProfile.css';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import cookie from 'react-cookies';
-import { Redirect } from 'react-router';
+
+import { connect } from 'react-redux';
+import * as actionTypes from '../../store/actions';
 
 //create the Navbar Component
 class UserProfile extends Component {
@@ -10,30 +12,24 @@ class UserProfile extends Component {
         super(props);
         this.handleLogout = this.handleLogout.bind(this);
     }
+
+    componentWillMount() {
+        // Triggered when refresh
+        if (this.props.user.email === "" && this.props.user.password === "") {
+            console.log("Reload state from local Storage !");
+            let userProfile = localStorage.getItem("user_profile");
+            this.props.renderToProfile(JSON.parse(userProfile));
+            console.log("Reloaded object is", userProfile);
+        }
+        console.log("User profile = ", this.props.user);
+    }
+
     //handle logout to destroy the cookie
     handleLogout = () => {
         cookie.remove('cookie', { path: '/' })
     }
-    render() {
-        //if Cookie is set render Logout Button
-        let navLogin = null;
-        if (cookie.load('cookie')) {
-            console.log("Able to read cookie");
-            navLogin = (
-                <ul class="nav navbar-nav navbar-right">
-                    <li><Link to="/" onClick={this.handleLogout}><span class="glyphicon glyphicon-user"></span>Logout</Link></li>
-                </ul>
-            );
-        } else {
-            //Else display login button
-            console.log("Not Able to read cookie");
-            navLogin = (
-                <ul class="nav navbar-nav navbar-right">
-                    <li><Link to="/login"><span class="glyphicon glyphicon-log-in"></span> Login</Link></li>
-                </ul>
-            )
-        }
 
+    render() {
         document.title = "Your Yelp Profile"
         return (
             <div>
@@ -42,14 +38,15 @@ class UserProfile extends Component {
                         Add a photo !
                     </div>
                     <div class="brief-summary">
-                        <h1>Alan Lee</h1>
-                        <p>Downtown San Jose, San Jose, CA</p>
+                        <h1>{this.props.user.name}</h1>
+                        <p>{this.props.user.city}, {this.props.user.state}</p>
+                        <p>{this.props.user.phone_number} {this.props.user.dob}</p>
                         <p>Friends, Reviews Photos</p>
                     </div>
                     <div class="modify-menu">
                         <ul class="list-unstyled">
                             <li><a href="#">Add Profile Photos</a></li>
-                            <li><a href="#">Update Your Profile</a></li>
+                            <li><li><NavLink to="/userModify">Update Your Profile</NavLink></li></li>
                             <li><a href="#">Find Friends</a></li>
                         </ul>
                     </div>
@@ -76,15 +73,23 @@ class UserProfile extends Component {
                         <hr></hr>
                     </div>
                     <div class="about-user">
-                        <h1>About Alan Lee</h1>
+                        <h1>About {this.props.user.name}</h1>
                         <ul class="list-unstyled">
                             <li>
                                 <h2>[ Location ]</h2>
-                                <p>San Jose Downtown</p>
+                                <p>{this.props.user.city}, {this.props.user.state}</p>
                             </li>
                             <li>
                                 <h2>[ Things I Love ]</h2>
-                                <p>Reading, Thinking</p>
+                                <p>{this.props.user.til}, {this.props.user.favorite}</p>
+                            </li>
+                            <li>
+                                <h2>[ Website ]</h2>
+                                <a href={this.props.user.website}>{this.props.user.website}</a>
+                            </li>
+                            <li>
+                                <h2>[ Nickname ]</h2>
+                                <p>{this.props.user.nickname}</p>
                             </li>
                         </ul>
                     </div>
@@ -95,4 +100,25 @@ class UserProfile extends Component {
     }
 }
 
-export default UserProfile;
+const mapStateToProps = state => {
+    // console.log("!!!!", state);
+    return {
+        user: state.user
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        renderToProfile: (payload) => dispatch({ type: actionTypes.RENDER_TO_PROFILE, payload: payload }),
+        flushUser: () => dispatch({ type: actionTypes.FLUSH_USER })
+        // onIncrementCounter: () => dispatch({type: actionTypes.INCREMENT}),
+        // onDecrementCounter: () => dispatch({type: actionTypes.DECREMENT}),
+        // onAddCounter: () => dispatch({type: actionTypes.ADD, val: 10}),
+        // onSubtractCounter: () => dispatch({type: actionTypes.SUBTRACT, val: 15}),
+        // onStoreResult: (result) => dispatch({type: actionTypes.STORE_RESULT, result: result}),
+        // onDeleteResult: (id) => dispatch({type: actionTypes.DELETE_RESULT, resultElId: id})
+    }
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 // import './UserLogin.css';
 import axios from 'axios';
-import cookie from 'react-cookies';
-import { Redirect } from 'react-router';
 
 //Define a Login Component
 class RestaurantList extends Component {

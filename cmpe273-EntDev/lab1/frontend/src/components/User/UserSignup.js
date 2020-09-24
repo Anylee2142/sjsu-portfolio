@@ -4,8 +4,11 @@ import axios from 'axios';
 import cookie from 'react-cookies';
 import { Redirect } from 'react-router';
 
+import { connect } from 'react-redux';
+import * as actionTypes from '../../store/actions';
+
 //Define a Login Component
-class UserProfile extends Component {
+class UserSignup extends Component {
     //call the constructor method
     constructor(props) {
         //Call the constrictor of Super class i.e The Component
@@ -29,6 +32,8 @@ class UserProfile extends Component {
         this.setState({
             authFlag: false
         })
+        console.log("User state = ", this.props.user);
+        console.log("Local Storage = ", localStorage.getItem("user_profile"));
     }
     nameChangeHandler = (e) => {
         this.setState({
@@ -73,19 +78,27 @@ class UserProfile extends Component {
                     this.setState({
                         authFlag: true
                     })
+                    let signUp_cache = {
+                        "name": data.name,
+                        "email": data.emailID,
+                        "password": data.password
+                    }
+                    this.props.renderToProfile(signUp_cache);
+                    localStorage.setItem("user_profile", JSON.stringify(signUp_cache));
+                    this.props.history.push("/restaurantList");
                 }
+
             }).catch((error) => {
                 console.log("Error has been catched : ", error.response.status);
                 console.log(error.response);
                 console.log("Error response data = ", error.response.data);
-                if (error.response.status === 401) { // When couldn't find user
+                if (true) { // When couldn't find user
                     this.setState({
                         authFlag: false,
                         errorMessage: error.response.data
                     })
                 }
             });
-            this.props.history.push("/restaurantList");
     }
 
     render() {
@@ -116,13 +129,13 @@ class UserProfile extends Component {
                                 Please enter your Name, Email ID, and Password
                             </div>
                             <div class="form-group">
-                                <input onChange={this.nameChangeHandler} type="text" name="name" placeholder="Name" value={this.state.name} />
+                                <input onChange={this.nameChangeHandler} type="text" name="name" placeholder="Name" value={this.state.name} required />
                             </div>
                             <div class="form-group">
-                                <input onChange={this.emailIDChangeHandler} type="text" name="emailID" placeholder="Email ID" value={this.state.emailID} />
+                                <input onChange={this.emailIDChangeHandler} type="email" name="emailID" placeholder="Email ID" value={this.state.emailID} required />
                             </div>
                             <div class="form-group">
-                                <input onChange={this.passwordChangeHandler} type="password" name="password" placeholder="Password" value={this.state.password} />
+                                <input onChange={this.passwordChangeHandler} type="password" name="password" placeholder="Password" value={this.state.password} required />
                             </div>
                             <button onClick={this.submitLogin} class="btn btn-primary">Login</button>
                         </div>
@@ -135,5 +148,25 @@ class UserProfile extends Component {
         )
     }
 }
+const mapStateToProps = state => {
+    console.log(state);
+    return {
+        user: state.user
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        renderToProfile: (payload) => dispatch({type: actionTypes.RENDER_TO_PROFILE, payload: payload}),
+        flushUser: () => dispatch({type: actionTypes.FLUSH_USER})
+        // onIncrementCounter: () => dispatch({type: actionTypes.INCREMENT}),
+        // onDecrementCounter: () => dispatch({type: actionTypes.DECREMENT}),
+        // onAddCounter: () => dispatch({type: actionTypes.ADD, val: 10}),
+        // onSubtractCounter: () => dispatch({type: actionTypes.SUBTRACT, val: 15}),
+        // onStoreResult: (result) => dispatch({type: actionTypes.STORE_RESULT, result: result}),
+        // onDeleteResult: (id) => dispatch({type: actionTypes.DELETE_RESULT, resultElId: id})
+    }
+};
+
 //export Login Component
-export default UserProfile;
+export default connect(mapStateToProps, mapDispatchToProps)(UserSignup);

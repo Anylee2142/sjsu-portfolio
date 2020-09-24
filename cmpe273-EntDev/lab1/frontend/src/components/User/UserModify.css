@@ -1,0 +1,11 @@
+.modify-container {
+    border: 3px solid black;
+    width: 60%;
+    padding: auto;
+    margin: auto;
+}
+
+.modify-container .form-group {
+    padding-left: 10px;
+    padding-top: 20px;
+}

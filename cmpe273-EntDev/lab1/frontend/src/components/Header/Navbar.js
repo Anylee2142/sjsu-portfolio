@@ -4,6 +4,10 @@ import { Link, NavLink } from 'react-router-dom';
 import cookie from 'react-cookies';
 import { Redirect } from 'react-router';
 
+import { connect } from 'react-redux';
+import * as actionTypes from '../../store/actions';
+
+
 //create the Navbar Component
 class Navbar extends Component {
     constructor(props) {
@@ -14,6 +18,8 @@ class Navbar extends Component {
     //handle logout to destroy the cookie
     handleLogout = () => {
         cookie.remove('cookie', { path: '/' })
+        localStorage.removeItem("user_profile");
+        this.props.flushUser();
     }
 
     handleClick = (e) => {
@@ -74,4 +80,24 @@ class Navbar extends Component {
     }
 }
 
-export default Navbar;
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        renderToProfile: (payload) => dispatch({type: actionTypes.RENDER_TO_PROFILE, payload: payload}),
+        flushUser: () => dispatch({type: actionTypes.FLUSH_USER})
+        // onIncrementCounter: () => dispatch({type: actionTypes.INCREMENT}),
+        // onDecrementCounter: () => dispatch({type: actionTypes.DECREMENT}),
+        // onAddCounter: () => dispatch({type: actionTypes.ADD, val: 10}),
+        // onSubtractCounter: () => dispatch({type: actionTypes.SUBTRACT, val: 15}),
+        // onStoreResult: (result) => dispatch({type: actionTypes.STORE_RESULT, result: result}),
+        // onDeleteResult: (id) => dispatch({type: actionTypes.DELETE_RESULT, resultElId: id})
+    }
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

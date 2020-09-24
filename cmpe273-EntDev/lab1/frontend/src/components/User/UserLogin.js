@@ -4,6 +4,10 @@ import axios from 'axios';
 import cookie from 'react-cookies';
 import { Redirect } from 'react-router';
 
+import { connect } from 'react-redux';
+import * as actionTypes from '../../store/actions';
+
+
 //Define a Login Component
 class UserLogin extends Component {
     //call the constructor method
@@ -27,6 +31,27 @@ class UserLogin extends Component {
         this.setState({
             authFlag: false
         })
+
+        // Triggered when refresh
+        if (this.props.user.email==="" && this.props.user.password==="") {
+            console.log("Reload state from local Storage !");
+            let userProfile = JSON.parse(localStorage.getItem("user_profile"));
+            this.props.renderToProfile(userProfile);
+            console.log("Reloaded object is", userProfile);
+        }
+
+        console.log("User state = ", this.props.user);
+        console.log("Local Storage = ", localStorage.getItem("user_profile"));
+    }
+
+    componentDidMount() {
+        console.log("after mount = ", this.props.user);
+        if (this.props.user.email !== "" && this.props.user.password !== "") {
+            this.setState({
+                emailID: this.props.user.email,
+                password: this.props.user.password
+            })
+        }
     }
     //username change handler to update state variable with the text entered by the user
     emailIDChangeHandler = (e) => {
@@ -59,17 +84,19 @@ class UserLogin extends Component {
         axios.post('http://localhost:3001/user', data)
             .then(response => {
                 console.log("Status Code : ", response.status);
-                console.log(response.data);
+                // console.log(response.data);
                 if (response.status === 200) {
                     this.setState({
                         authFlag: true
                     })
+                    this.props.renderToProfile(response.data[0]);
+                    localStorage.setItem("user_profile", JSON.stringify(response.data[0]));
                 }
             }).catch((error) => {
                 console.log("Error has been catched : ", error.response.status);
                 console.log(error.response);
                 console.log("Error response data = ", error.response.data);
-                if (error.response.status === 401) { // When couldn't find user
+                if (true) { // When couldn't find user
                     this.setState({
                         authFlag: false,
                         errorMessage: error.response.data
@@ -92,6 +119,7 @@ class UserLogin extends Component {
             )
         }
 
+
         document.title = "Log in - Yelp"
         return (
             <div>
@@ -106,10 +134,10 @@ class UserLogin extends Component {
                                 Please enter your Email ID and password
                             </div>
                             <div class="form-group">
-                                <input onChange={this.emailIDChangeHandler} type="text" name="emailID" placeholder="Email ID" value={this.state.emailID} />
+                                <input onChange={this.emailIDChangeHandler} type="email" name="emailID" placeholder="Email ID" value={this.state.emailID} required />
                             </div>
                             <div class="form-group">
-                                <input onChange={this.passwordChangeHandler} type="password" name="password" placeholder="Password" value={this.state.password} />
+                                <input onChange={this.passwordChangeHandler} type="password" name="password" placeholder="Password" value={this.state.password} required />
                             </div>
                             <button onClick={this.submitLogin} class="btn btn-primary">Login</button>
                         </div>
@@ -122,5 +150,26 @@ class UserLogin extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    // console.log(state);
+    return {
+        user: state.user
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        renderToProfile: (payload) => dispatch({type: actionTypes.RENDER_TO_PROFILE, payload: payload}),
+        flushUser: () => dispatch({type: actionTypes.FLUSH_USER})
+        // onIncrementCounter: () => dispatch({type: actionTypes.INCREMENT}),
+        // onDecrementCounter: () => dispatch({type: actionTypes.DECREMENT}),
+        // onAddCounter: () => dispatch({type: actionTypes.ADD, val: 10}),
+        // onSubtractCounter: () => dispatch({type: actionTypes.SUBTRACT, val: 15}),
+        // onStoreResult: (result) => dispatch({type: actionTypes.STORE_RESULT, result: result}),
+        // onDeleteResult: (id) => dispatch({type: actionTypes.DELETE_RESULT, resultElId: id})
+    }
+};
+
 //export Login Component
-export default UserLogin;
+export default connect(mapStateToProps, mapDispatchToProps)(UserLogin);

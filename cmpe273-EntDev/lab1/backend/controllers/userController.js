@@ -8,9 +8,30 @@ module.exports = (app, conn) => {
     app.put('/user/', (req, res) => {
         // req.params == id
         // req.body == user input
-        let updateStatement = "";
-        let rows = queryFunction(query, updateStatement, conn);
-        // Redirect
+        let insertStatement = `INSERT INTO users(name, email, password)
+        VALUES("${req.body.name}", "${req.body.emailID}", "${req.body.password}")`;
+
+        (async () => {
+            try {
+                rows = await query(insertStatement);
+                res.writeHead(200, {
+                    'Content-Type': "application/json"
+                })
+                res.end("Successfully created the User !");
+                console.log("Succesful create !")
+            } catch(e) {
+                console.log("Error has been catched when user create !", e);
+                rows = [];
+                // TODO = Switch statement here with proper http code with messages each case
+                res.writeHead(500, {
+                    'Content-Type': "text/plain"
+                })
+                if (e.code === "ER_DUP_ENTRY") {
+                    res.end("The email already exists! Try another one !");
+                }
+            }
+        })();
+                
     });
 
     // // login
@@ -27,8 +48,14 @@ module.exports = (app, conn) => {
                 if (rows.length >=2){
                     throw "Multiple user searched with one email";
                 } else if (rows.length == 0){
-                    throw "The User doesn't exist";
+                    throw "Check your ID or PASSWORD, and Try Again !";
                 }
+                res.cookie('cookie', rows[0].user_pk, { maxAge: 900000, httpOnly: false, path: '/' });
+                res.writeHead(200, {
+                    'Content-Type': "application/json"
+                })
+                res.end(JSON.stringify(rows))
+                console.log("Succesful login !")
             } catch(e) {
                 console.log("Error has been catched when user login !", e);
                 rows = [];
@@ -36,13 +63,7 @@ module.exports = (app, conn) => {
                     'Content-Type': "text/plain"
                 })
                 res.end(e);
-            } finally {
-                res.cookie('cookie', rows[0].user_pk, { maxAge: 900000, httpOnly: false, path: '/' });
-                res.writeHead(200, {
-                    'Content-Type': "application/json"
-                })
-                res.end(JSON.stringify(rows))
-            }
+            } 
         })();
     });
 

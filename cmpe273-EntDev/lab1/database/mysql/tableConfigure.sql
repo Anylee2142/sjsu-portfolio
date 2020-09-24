@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS users (
     user_pk MEDIUMINT NOT NULL AUTO_INCREMENT,
-    name char(30) NOT NULL UNIQUE,
-    email char(50) NOT NULL,
+    name char(30) NOT NULL,
+    email char(50) NOT NULL UNIQUE,
     password char(50) NOT NULL,
     phone_number char(20) NULL,
     favorite char(30) NULL,
