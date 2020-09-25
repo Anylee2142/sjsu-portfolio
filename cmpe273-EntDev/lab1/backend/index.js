@@ -5,6 +5,8 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var config = require('./config');
 var userController = require('./controllers/userController');
+var eventController = require('./controllers/eventController');
+var mysqlConnection = config.mysqlConnection;
 
 var port = process.env.PORT || 3001 ;
 
@@ -23,7 +25,8 @@ app.use(function (req, res, next) {
     next();
 });
 
-userController(app, config.mysqlConnection);
+userController(app, mysqlConnection);
+eventController(app, mysqlConnection);
 
 //start your server on port 3001
 app.listen(port, () => {

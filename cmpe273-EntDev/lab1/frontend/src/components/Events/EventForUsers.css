@@ -1,0 +1,11 @@
+.events-container {
+    border: 3px solid black;
+    width: 60%;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.res_name {
+    font-size : 40px;
+    font-weight: 300px;
+}

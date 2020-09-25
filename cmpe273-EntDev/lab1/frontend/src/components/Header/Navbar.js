@@ -37,7 +37,9 @@ class Navbar extends Component {
                     {/* <li><Link to="/restaurantList" onClick={this.handleLogout}><span class="glyphicon glyphicon-user"></span>Orders</Link></li>
                     <li><Link to="/restaurantList" onClick={this.handleLogout}><span class="glyphicon glyphicon-user"></span>Events</Link></li>
                     <li><Link to="/restaurantList" onClick={this.handleLogout}><span class="glyphicon glyphicon-user"></span>Reviews</Link></li> */}
-                    <li><Link to="/userProfile"><span class="glyphicon glyphicon-user"></span>Profile</Link></li>
+                    <li><Link to="/userProfile"><span class="glyphicon glyphicon-user"></span>{this.props.user["name"]}'s Profile</Link></li>
+                    <li><Link to="/eventUsers"><span class="glyphicon glyphicon-user"></span>Events</Link></li>
+                    <li><Link to="/userProfile"><span class="glyphicon glyphicon-user"></span>Orders</Link></li>
                     <li><Link to="/restaurantList" onClick={this.handleLogout}><span class="glyphicon glyphicon-user"></span>Logout</Link></li>
                 </ul>
             );

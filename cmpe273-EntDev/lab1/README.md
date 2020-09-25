@@ -33,3 +33,5 @@ Redux at Signup, Login, Logout and Profile
 2. Login = Load them automatically, Store user data
 3. Logout = Flush all the user related state
 4. Profile = Use stored user data from Login
+
+Redux at Restaurant's making events

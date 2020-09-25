@@ -8,6 +8,10 @@ import UserSignup from './User/UserSignup';
 import UserModify from './User/UserModify';
 
 import RestaurantList from './Restaurant/RestaurantList';
+
+import EventForUsers from './Events/EventForUsers'
+import EventDetailsForUsers from './Events/EventDetailsForUsers';
+
 //Create a Main Component
 class Main extends Component {
     render(){
@@ -19,6 +23,8 @@ class Main extends Component {
                 <Route path="/userLogin" component={UserLogin}/>
                 <Route path="/userSignup" component={UserSignup}/>
                 <Route path="/userModify" component={UserModify}/>
+                <Route path="/eventUsers" component={EventForUsers}/>
+                <Route path="/eventDetailsUsers" component={EventDetailsForUsers}/>
                 <Route path="/restaurantList" component={RestaurantList}/>
             </div>
         )

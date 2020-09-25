@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS restaurants (
     is_pickup_possible boolean NOT NULL,
     is_delivery_possible boolean NOT NULL,
     location char(80) NOT NULL,
-    avg_rating TINYINT NULL,
+    avg_rating FLOAT(3, 2) NULL,
     PRIMARY KEY(res_pk)
 );
 
@@ -54,6 +54,7 @@ CREATE TABLE IF NOT EXISTS orders (
     res_pk MEDIUMINT NOT NULL,
     order_date DATE NOT NULL,
     food_provide_code CHAR(10) NOT NULL, -- 0 = dine-in, 1 = pickup, 2 = delivery
+    order_status char(20) NOT NULL,
     PRIMARY KEY(order_pk),
     FOREIGN KEY (user_pk) REFERENCES users(user_pk),
     FOREIGN KEY (res_pk) REFERENCES restaurants(res_pk)
@@ -61,13 +62,25 @@ CREATE TABLE IF NOT EXISTS orders (
 
 CREATE TABLE IF NOT EXISTS events (
     event_pk MEDIUMINT NOT NULL AUTO_INCREMENT,
-    name char(30) NOT NULL UNIQUE,
+    name char(50) NOT NULL UNIQUE,
     content VARCHAR(500) NOT NULL,
-    start_date date NOT NULL,
-    end_date date NOT NULL,
+    start_time TIMESTAMP NOT NULL,
+    end_time TIMESTAMP NOT NULL,
     location char(80) NOT NULL,
-    user_pk MEDIUMINT NOT NULL,
+    hashtags VARCHAR(100) NULL,
+    res_pk MEDIUMINT NOT NULL,
     PRIMARY KEY(event_pk),
-    FOREIGN KEY (user_pk) REFERENCES users(user_pk)
+    FOREIGN KEY (res_pk) REFERENCES restaurants(res_pk)
 );
 
+CREATE TABLE IF NOT EXISTS eventRegister (
+    er_pk MEDIUMINT NOT NULL AUTO_INCREMENT,
+    user_pk MEDIUMINT NOT NULL,
+    event_pk MEDIUMINT NOT NULL,
+    res_pk MEDIUMINT NOT NULL,
+    PRIMARY KEY(er_pk),
+    UNIQUE KEY(user_pk, event_pk),
+    FOREIGN KEY (user_pk) REFERENCES users(user_pk),
+    FOREIGN KEY (event_pk) REFERENCES events(event_pk),
+    FOREIGN KEY (res_pk) REFERENCES restaurants(res_pk)
+);
