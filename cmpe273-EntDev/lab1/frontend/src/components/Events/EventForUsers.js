@@ -50,7 +50,12 @@ class EventForUsers extends Component {
         return (
             <div>
                 <div class="events-container">
-                    <h1>Events</h1>
+                    <h1 class="inline-h1">Events</h1>
+                    <Link class="inline-h1 go-right" to={{
+                        pathname: "/registeredEventUsers",
+                        state: { user_pk : this.props.user.user_pk}
+                    }}>[Click for Registered Events !]</Link>
+                    <br></br>
                     <ul>
                         {this.state.events.map(event => (
                             <li>
@@ -75,4 +80,25 @@ class EventForUsers extends Component {
     }
 }
 
-export default EventForUsers;
+const mapStateToProps = state => {
+    // console.log(state);
+    return {
+        user: state.user
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        renderToProfile: (payload) => dispatch({type: actionTypes.RENDER_TO_PROFILE, payload: payload}),
+        flushUser: () => dispatch({type: actionTypes.FLUSH_USER})
+        // onIncrementCounter: () => dispatch({type: actionTypes.INCREMENT}),
+        // onDecrementCounter: () => dispatch({type: actionTypes.DECREMENT}),
+        // onAddCounter: () => dispatch({type: actionTypes.ADD, val: 10}),
+        // onSubtractCounter: () => dispatch({type: actionTypes.SUBTRACT, val: 15}),
+        // onStoreResult: (result) => dispatch({type: actionTypes.STORE_RESULT, result: result}),
+        // onDeleteResult: (id) => dispatch({type: actionTypes.DELETE_RESULT, resultElId: id})
+    }
+};
+
+//export Login Component
+export default connect(mapStateToProps, mapDispatchToProps)(EventForUsers);

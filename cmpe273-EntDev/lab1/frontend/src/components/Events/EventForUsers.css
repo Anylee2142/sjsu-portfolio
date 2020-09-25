@@ -9,3 +9,11 @@
     font-size : 40px;
     font-weight: 300px;
 }
+
+.inline-h1 {
+    display: inline-block;
+}
+
+.go-right {
+    float: right;
+}

@@ -1,11 +1,12 @@
 const util = require('util');
 
-// const selectStatementQuery = (argumentObject) => {
-//     let selectStatement = `SELECT * FROM users 
-//     WHERE email="${argumentObject.emailID}" and password="${argumentObject.password}";`;
+const selectStatementQuery = (userPrimaryKey) => {
+    let selectStatement = `SELECT *
+    FROM eventRegister INNER JOIN events ON eventRegister.event_pk = events.event_pk
+    WHERE user_pk="${userPrimaryKey}";`;
 
-//     return selectStatement;
-// }
+    return selectStatement;
+}
 
 const insertStatementQuery = (argumentObject) => {
     let insertStatement = `INSERT INTO eventRegister(user_pk, event_pk, res_pk)
@@ -51,6 +52,40 @@ module.exports = (app, conn) => {
                 console.log("Succesful Event Register !")
             } catch (e) {
                 console.log("Error has been catched when event register !", e);
+                res.writeHead(500, {
+                    'Content-Type': "text/plain"
+                })
+                if (e.code === "ER_DUP_ENTRY") {
+                    res.end("You already registered to this event !");
+                }
+                else {
+                    res.end("Something went wrong !");
+                }
+            }
+        })();
+    });
+
+    // // Retrieve registered events
+    app.get('/eventRegisters/:user_pk', (req, res) => {
+        // req.body = user input
+        // make INSERT Statement
+        console.log("@@@ Inside Registered Event get request !");
+        console.log("User ID to update = ", req.params);
+        console.log("Updated field = ", req.body);
+        let selectStatement = selectStatementQuery(req.params.user_pk);
+        console.log(selectStatement);
+
+        let rows;
+        (async () => {
+            try {
+                rows = await query(selectStatement);
+                res.writeHead(200, {
+                    'Content-Type': "application/json"
+                })
+                res.end(JSON.stringify(rows))
+                console.log("Succesful on retrieving Registered Event!")
+            } catch (e) {
+                console.log("Error has been catched on retrieving Registered Event!", e);
                 res.writeHead(500, {
                     'Content-Type': "text/plain"
                 })
