@@ -18,7 +18,7 @@ class UserSignup extends Component {
             name: "",
             emailID: "",
             password: "",
-            authFlag: false,
+            // authFlag: false,
             errorMessage: ""
         }
         //Bind the handlers to this class
@@ -29,9 +29,9 @@ class UserSignup extends Component {
     }
     //Call the Will Mount to set the auth Flag to false
     componentWillMount() {
-        this.setState({
-            authFlag: false
-        })
+        // this.setState({
+        //     authFlag: false
+        // })
         console.log("User state = ", this.props.user);
         console.log("Local Storage = ", localStorage.getItem("user_profile"));
     }
@@ -71,13 +71,10 @@ class UserSignup extends Component {
         //set the with credentials to true
         axios.defaults.withCredentials = true;
         //make a post request with the user data
-        axios.put('http://localhost:3001/user', data)
+        axios.post('http://localhost:3001/user/', data)
             .then(response => {
                 console.log("Status Code : ", response.status);
                 if (response.status === 200) {
-                    this.setState({
-                        authFlag: true
-                    })
                     let signUp_cache = {
                         "name": data.name,
                         "email": data.emailID,
@@ -94,7 +91,6 @@ class UserSignup extends Component {
                 console.log("Error response data = ", error.response.data);
                 if (true) { // When couldn't find user
                     this.setState({
-                        authFlag: false,
                         errorMessage: error.response.data
                     })
                 }

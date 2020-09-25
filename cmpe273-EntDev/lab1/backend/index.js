@@ -23,55 +23,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-var Users = [{
-    username: "admin",
-    password: "admin",
-    name: "Jae Woong Lee"
-}]
-
 userController(app, config.mysqlConnection);
-
-app.put('/user', function(req, res) {
-    console.log("Inside Signup Put Request");
-    console.log("Req Body : ", req.body);
-
-    Users.push({
-        name: req.body.name,
-        username: req.body.emailID,
-        password: req.body.password
-    })
-    res.writeHead(200, {
-        'Content-Type': 'text/plain'
-    })
-    res.end("Successful Login");
-})
-
-//Route to handle Post Request Call
-// app.post('/user', function (req, res) {
-//     console.log("Inside Login Post Request");
-//     console.log("Req Body : ", req.body);
-
-//     let isUser = false;
-
-//     Users.filter(function (user) {
-//         if (user.username === req.body.emailID && user.password === req.body.password) {
-//             res.cookie('cookie', "admin", { maxAge: 900000, httpOnly: false, path: '/' });
-//             res.writeHead(200, {
-//                 'Content-Type': 'text/plain'
-//             })
-//             res.end("Successful Login");
-//             isUser = true;
-//         }
-//     });
-
-//     if (!isUser) {
-//         console.log("\t","Invalid Credentials")
-//         res.writeHead(401, {
-//             'Content-Type': 'text/plain'
-//         })
-//         res.end("Your ID or PW is wrong ! Try Again.")
-//     }
-// });
 
 //start your server on port 3001
 app.listen(port, () => {

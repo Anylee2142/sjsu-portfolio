@@ -29,6 +29,10 @@ class UserProfile extends Component {
         cookie.remove('cookie', { path: '/' })
     }
 
+    // TODO: text generator here
+    // if info, <p>{this.props.user.city}, {this.props.user.state}</p>
+    // else, <p>No information yet !<p>
+
     render() {
         document.title = "Your Yelp Profile"
         return (

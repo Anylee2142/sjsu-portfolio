@@ -1,11 +1,26 @@
 .modify-container {
     border: 3px solid black;
     width: 60%;
-    padding: auto;
-    margin: auto;
+    margin: 50px auto;
+    padding: 20px;
 }
 
 .modify-container .form-group {
     padding-left: 10px;
     padding-top: 20px;
+}
+
+.modify-container h1 {
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.btn-container {
+    text-align: center;
+}
+
+.modify-btn {
+    width: 200px;
+    height: 70px;
+    font-size: 30px;
 }

@@ -18,7 +18,7 @@ class UserLogin extends Component {
         this.state = {
             emailID: "",
             password: "",
-            authFlag: false,
+            // authFlag: false,
             errorMessage: ""
         }
         //Bind the handlers to this class
@@ -28,9 +28,9 @@ class UserLogin extends Component {
     }
     //Call the Will Mount to set the auth Flag to false
     componentWillMount() {
-        this.setState({
-            authFlag: false
-        })
+        // this.setState({
+        //     authFlag: false
+        // })
 
         // Triggered when refresh
         if (this.props.user.email==="" && this.props.user.password==="") {
@@ -42,6 +42,7 @@ class UserLogin extends Component {
 
         console.log("User state = ", this.props.user);
         console.log("Local Storage = ", localStorage.getItem("user_profile"));
+        console.log("User login local state = ", this.state);
     }
 
     componentDidMount() {
@@ -78,19 +79,18 @@ class UserLogin extends Component {
             emailID: "",
             password: ""
         });
+        console.log("Current login state before sending request = ", this.state);
         //set the with credentials to true
         axios.defaults.withCredentials = true;
         //make a post request with the user data
-        axios.post('http://localhost:3001/user', data)
+        axios.post('http://localhost:3001/user/login', data)
             .then(response => {
                 console.log("Status Code : ", response.status);
                 // console.log(response.data);
                 if (response.status === 200) {
-                    this.setState({
-                        authFlag: true
-                    })
                     this.props.renderToProfile(response.data[0]);
                     localStorage.setItem("user_profile", JSON.stringify(response.data[0]));
+                    this.props.history.push("/restaurantList");
                 }
             }).catch((error) => {
                 console.log("Error has been catched : ", error.response.status);
@@ -98,7 +98,6 @@ class UserLogin extends Component {
                 console.log("Error response data = ", error.response.data);
                 if (true) { // When couldn't find user
                     this.setState({
-                        authFlag: false,
                         errorMessage: error.response.data
                     })
                 }
@@ -118,7 +117,6 @@ class UserLogin extends Component {
                 <h5 class="error">{this.state.errorMessage}</h5>
             )
         }
-
 
         document.title = "Log in - Yelp"
         return (
