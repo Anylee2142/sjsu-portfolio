@@ -1,99 +1,109 @@
 import React, { Component } from 'react';
-// import './UserLogin.css';
+import './RestaurantList.css';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import * as actionTypes from '../../store/actions';
 
-//Define a Login Component
 class RestaurantList extends Component {
-    //call the constructor method
+
     constructor(props) {
-        //Call the constrictor of Super class i.e The Component
         super(props);
-        //maintain the state required for this component
+
         this.state = {
-            emailID: "",
-            password: "",
-            authFlag: false,
-            errorMessage: ""
+            restaurants: [],
+            isDineinPossible: false,
+            isPickupPossible: false,
+            isDeliveryPossible: false
         }
-        //Bind the handlers to this class
-        this.emailIDChangeHandler = this.emailIDChangeHandler.bind(this);
-        this.passwordChangeHandler = this.passwordChangeHandler.bind(this);
-        this.submitLogin = this.submitLogin.bind(this);
+
     }
-    //Call the Will Mount to set the auth Flag to false
+
     componentWillMount() {
-        this.setState({
-            authFlag: false
-        })
-    }
-    //username change handler to update state variable with the text entered by the user
-    emailIDChangeHandler = (e) => {
-        this.setState({
-            emailID: e.target.value
-        })
-    }
-    //password change handler to update state variable with the text entered by the user
-    passwordChangeHandler = (e) => {
-        this.setState({
-            password: e.target.value
-        })
-    }
-    //submit Login handler to send a request to the node backend
-    submitLogin = (e) => {
-        // var headers = new Headers();
-        //prevent page from refresh
-        e.preventDefault();
-        const data = {
-            emailID: this.state.emailID,
-            password: this.state.password
-        };
-        this.setState({
-            emailID: "",
-            password: ""
-        });
-        //set the with credentials to true
+        // Triggered when refresh
+        if (this.props.user.email === "" && this.props.user.password === "") {
+            console.log("Reload state from local Storage !");
+            let userProfile = localStorage.getItem("user_profile");
+            this.props.renderToProfile(JSON.parse(userProfile));
+            console.log("Reloaded object is", userProfile);
+        }
+
+        // Connect DB to fetch restaurants
         axios.defaults.withCredentials = true;
-        //make a post request with the user data
-        axios.post('http://localhost:3001/user', data)
+        axios.get("http://localhost:3001/restaurants")
             .then(response => {
-                console.log("Status Code : ", response.status);
-                if (response.status === 200) {
-                    this.setState({
-                        authFlag: true
-                    })
-                }
-            }).catch((error) => {
+                this.setState({
+                    restaurants: response.data,
+                    isDineinPossible: response.data
+                });
+                console.log("Loaded Restaurants = ", this.state.restaurants);
+            }).catch(error => {
                 console.log("Error has been catched : ", error.response.status);
                 console.log(error.response);
-                console.log("qerqwerqwer", error.response.data);
-                if (error.response.status === 401) { // When couldn't find user
+                console.log("Error response data = ", error.response.data);
+                if (true) {
                     this.setState({
-                        authFlag: false,
                         errorMessage: error.response.data
                     })
                 }
             });
+
     }
 
     render() {
-        //redirect based on successful login
-        let redirectVar = null;
-
-        let errorMessageVar = null;
-        if (this.state.errorMessage !== "") {
-            errorMessageVar = (
-                <h5 class="error">{this.state.errorMessage}</h5>
-            )
-        }
-
+        var imageURL = "https://www.thesprucepets.com/thmb/bH92K8TCfifpML07q5-typkH4HM=/960x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/1024px-Bulldog_inglese-cf544d354159462c8c0d93db5f1adbe6.jpg"
         document.title = "Find restaurant !"
+
         return (
-            <div>
-                {redirectVar}
-                <h1>Implement your restaurant list here !</h1>
+            <div class="res-container">
+                <div class="row">
+                    <div class="col-lg-2 filter-config">
+                        YOUR FILTER
+                        <div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6 res-list">
+                        <h1>RESTAURANTS !</h1>
+                        {this.state.restaurants.map(restaurant => (
+                            <div class="res-spec">
+                                {/* <img class="res-image" src={imageURL}></img> */}
+                                <div class="res-content">
+                                    <div class="res-image-container"><img class="res-image" src={imageURL}></img></div>
+                                    <h2 class="res-inline">{restaurant.name}</h2>
+                                    <h2 class="res-inline inline-go-right">{restaurant.phone_number}</h2>
+                                    <br></br>
+                                    <p class="p-inline inline-go-right">{restaurant.city}, {restaurant.state}</p>
+                                    <p class="p-inline">{restaurant.avg_rating} / 5.0</p>
+                                    <p>{restaurant.type_of_food}</p>
+                                    {/* Location, contact information */}
+                                    <p class="delivery-spec">Dine-in: [{restaurant.is_dine_in_possible ? "Y" : "X"}] Delivery: [{restaurant.is_delivery_possible ? "Y" : "X"}] Pickup: [{restaurant.is_pickup_possible ? "Y" : "X"}]</p>
+                                </div>
+                                <div class="res-description">
+                                    <p>{restaurant.res_desc}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    <div class="col-lg-4 api-map">
+                        YOUR GOOGLE MAP API HERE
+                        </div>
+                </div>
             </div>
         )
     }
 }
-//export Login Component
-export default RestaurantList;
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        renderToProfile: (payload) => dispatch({ type: actionTypes.RENDER_TO_PROFILE, payload: payload }),
+        flushUser: () => dispatch({ type: actionTypes.FLUSH_USER })
+    }
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(RestaurantList);

@@ -16,49 +16,59 @@ VALUES(
     "1992-02-03", "San Jose", "CA", "U.S.", "THE GUY WHO NEVER SURRENDERS ;)"
 );
 
-INSERT INTO restaurants(name, type_of_food,
+INSERT INTO restaurants(name, email, password, city, state,
+phone_number, res_desc, type_of_food,
 is_dine_in_possible, is_pickup_possible, is_delivery_possible,
-location, avg_rating)
+avg_rating)
 VALUES(
-    "Rooster & Rice", "Asian",
-    false, true, true,
-    "TBD", "4.5"
+    "Rooster & Rice", "rooster@rice.com", "1234", "San Jose", "California",
+    "408-111-2222", "The best rice and chicken bowl restaurant ever, Come by!", "Asian",
+    true, false, true,
+    4.5
 );
 
-INSERT INTO restaurants(name, type_of_food,
+INSERT INTO restaurants(name, email, password, city, state,
+phone_number, res_desc, type_of_food,
 is_dine_in_possible, is_pickup_possible, is_delivery_possible,
-location, avg_rating)
+avg_rating)
 VALUES(
-    "The Corner", "Breakfast & Burgers",
+    "The Corner", "corner@corner.com", "1234", "San Jose", "California",
+    "408-222-3333", "Western restaurant ran by Vietnamese", "Breakfast and Burgers",
     false, true, true,
-    "TBD", "4.1"
+    4.1
 );
 
-INSERT INTO restaurants(name, type_of_food,
+INSERT INTO restaurants(name, email, password, city, state,
+phone_number, res_desc, type_of_food,
 is_dine_in_possible, is_pickup_possible, is_delivery_possible,
-location, avg_rating)
+avg_rating)
 VALUES(
-    "Happi House", "Japanese",
+    "Happi House", "happi@house.com", "1234", "Santa Clara", "California",
+    "408-333-4444", "Japanese Restaurant with lots of fried foods", "Japanese",
     false, true, true,
-    "TBD", "3.9"
+    3.9
 );
 
-INSERT INTO restaurants(name, type_of_food,
+INSERT INTO restaurants(name, email, password, city, state,
+phone_number, res_desc, type_of_food,
 is_dine_in_possible, is_pickup_possible, is_delivery_possible,
-location, avg_rating)
+avg_rating)
 VALUES(
-    "Wingstop", "Chicken",
+    "Wingstop", "wing@stop.com", "1234", "San Mateo", "California",
+    "408-444-5555", "Chicken Yammy", "Chicken",
     false, true, true,
-    "TBD", "3.5"
+    3.5
 );
 
-INSERT INTO restaurants(name, type_of_food,
+INSERT INTO restaurants(name, email, password, city, state,
+phone_number, res_desc, type_of_food,
 is_dine_in_possible, is_pickup_possible, is_delivery_possible,
-location, avg_rating)
+avg_rating)
 VALUES(
-    "Omogari", "Korean",
+    "Omogari", "omo@gari.com", "1234", "San Jose", "California",
+    "408-555-6666", "Korean Restaurant ever", "Korean",
     false, true, true,
-    "TBD", "4.8"
+    4.8
 );
 
 INSERT INTO events(name, content,

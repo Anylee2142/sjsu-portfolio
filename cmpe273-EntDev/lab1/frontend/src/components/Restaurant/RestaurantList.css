@@ -1,0 +1,73 @@
+.res-container {
+    border: 3px solid black;
+    width: 90%;
+    margin: 20px auto;
+    padding: 40px;
+}
+
+.res-spec {
+    /* height: ; */
+    margin: 15px;
+    padding: 10px;
+    border: solid 1px gray;
+}
+
+.res-content {
+    /* border: solid 10px green; */
+    height: 220px;
+}
+
+.res-image-container {
+    float:left;
+    height: 200px;
+    width: 220px;
+    object-fit: contain;
+    margin-right: 20px;
+    border: solid 1px black;
+}
+
+.res-image {
+    height: 200px;
+    width: 220px;
+}
+
+.res-description {
+    /* border: solid 5px yellow; */
+    margin-top: 10px;
+    padding: 5px;
+    box-shadow: inset 10px 12px 12px -12px rgba(0, 0, 0, 0.5);
+}
+
+.res-list {
+    padding-bottom: 30px;
+}
+
+.res-list h1 {
+    padding-left: 30px;
+}
+
+.res-inline {
+    display: inline-block;
+}
+
+.inline-go-right {
+    float: right;
+}
+
+.filter-config {
+    /* border: solid 1px black; */
+    height: 750px;
+}
+
+.filter-config div {
+    border: solid 1px black;
+    height: 700px;
+}
+
+.api-map {
+
+}
+
+.delivery-spec {
+    text-align: center;
+}

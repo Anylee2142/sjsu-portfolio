@@ -35,3 +35,20 @@ Redux at Signup, Login, Logout and Profile
 4. Profile = Use stored user data from Login
 
 Redux at Restaurant's making events (?)
+
+Restaurants List
+1. Search = use WHERE + OR for dish names, cuisines, location, and mode of delivery
+2. Filter = [Delivery, location], filter them after loading restaurants, and re-render
+
+MYSQL VERSION (`SHOW VARIABLES LIKE "%version%";` from mysql console)
++-------------------------+------------------+
+| Variable_name           | Value            |
++-------------------------+------------------+
+| innodb_version          | 5.6.16           |
+| protocol_version        | 10               |
+| slave_type_conversions  |                  |
+| version                 | 5.6.16-1~exp1    |
+| version_comment         | (Ubuntu)         |
+| version_compile_machine | x86_64           |
+| version_compile_os      | debian-linux-gnu |
++-------------------------+------------------+

@@ -8,21 +8,29 @@ CREATE TABLE IF NOT EXISTS users (
     til char(30) NULL, -- Things I Love
     website varchar(50) NULL,
     dob date NULL,
-    city char(10) NULL,
+    city char(20) NULL,
     state char(20) NULL,
     country char(20) NULL,
     nickname char(30) NULL,
+    headline char(100) NULL,
     PRIMARY KEY(user_pk)
 );
 
 CREATE TABLE IF NOT EXISTS restaurants (
     res_pk MEDIUMINT NOT NULL AUTO_INCREMENT,
     name char(30) NOT NULL UNIQUE,
-    type_of_food char(30) NOT NULL, -- Mexican, American, Asian etc
-    is_dine_in_possible boolean NOT NULL,
-    is_pickup_possible boolean NOT NULL,
-    is_delivery_possible boolean NOT NULL,
-    location char(80) NOT NULL,
+    email char(50) NOT NULL UNIQUE,
+    password CHAR(50) NOT NULL,
+    city char(20) NOT NULL,
+    state char(20) NOT NULL,
+    phone_number char(20) NULL,
+    res_lat MEDIUMINT NULL,
+    res_long MEDIUMINT NULL,
+    res_desc char(100) NULL,
+    type_of_food char(30) NULL, -- Mexican, American, Asian etc
+    is_dine_in_possible boolean NULL,
+    is_pickup_possible boolean NULL,
+    is_delivery_possible boolean NULL,
     avg_rating FLOAT(3, 2) NULL,
     PRIMARY KEY(res_pk)
 );

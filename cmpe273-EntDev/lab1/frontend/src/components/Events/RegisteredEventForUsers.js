@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import './RegisteredEventForUsers.css';
 import axios from 'axios';
-import { Link, NavLink } from 'react-router-dom';
-import cookie from 'react-cookies';
-import { Redirect } from 'react-router';
-
-import { connect } from 'react-redux';
-import * as actionTypes from '../../store/actions';
+import { Link } from 'react-router-dom';
 
 
 //create the Navbar Component

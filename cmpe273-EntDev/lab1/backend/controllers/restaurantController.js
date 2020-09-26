@@ -5,16 +5,10 @@ module.exports = (app, conn) => {
     const query = util.promisify(conn.query).bind(conn);
 
     // Fetch the orders user have made
-    app.get('/orders/:user_pk', (req, res) => {
-        // /orders?user_pk=M&res_pk=N
-        // req.query.user_pk
-        // req.query.res_pk
+    app.get('/restaurants', (req, res) => {
+        console.log("@@@ Inside Restaurants GET request !");
 
-        console.log("@@@ Inside Orders GET request !");
-
-        let selectStatement = `SELECT orders.*, restaurants.name as res_name, restaurants.avg_rating as res_avg_rating
-        FROM orders INNER JOIN restaurants ON orders.res_pk = restaurants.res_pk
-        WHERE user_pk="${req.params.user_pk}"`;
+        let selectStatement = `SELECT * FROM restaurants`;
         console.log(selectStatement);
 
         let rows;
