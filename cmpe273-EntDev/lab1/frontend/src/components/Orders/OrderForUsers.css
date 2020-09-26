@@ -1,6 +1,6 @@
 .orders-container {
-    border: 3px solid black;
-    width: 60%;
+    /* border: 3px solid black; */
+    width: 40%;
     margin: 20px auto;
     padding: 20px;
 }
@@ -17,11 +17,13 @@
     float: right;
 }
 
-li {
+.orders-container li {
     padding-top: 20px;
     padding-bottom: 30px;
 }
 
-h2 {
-    display: inline-block;
+.each-order {
+    border: 1px solid black;
+    padding: 15px;
+    margin: 20px;
 }

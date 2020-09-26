@@ -18,6 +18,6 @@
     float: right;
 }
 
-li {
+.events-container li {
     padding-bottom: 20px;
 }

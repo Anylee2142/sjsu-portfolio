@@ -55,7 +55,7 @@ class OrderForUsers extends Component {
                     <br></br>
                     <ul>
                         {this.state.orders.map(order => (
-                            <li>
+                            <li class="each-order">
                                 <div class="inline-div">[{order.order_status}]</div>
                                 <div class="inline-div div-go-right">{order.order_date.split("T")[0]}</div>
                                 <br></br>
