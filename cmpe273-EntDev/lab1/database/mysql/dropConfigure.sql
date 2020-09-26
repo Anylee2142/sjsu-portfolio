@@ -1,4 +1,5 @@
 drop table eventRegister;
+drop table orderMenu;
 drop table menus;
 drop table orders;
 drop table reviews;

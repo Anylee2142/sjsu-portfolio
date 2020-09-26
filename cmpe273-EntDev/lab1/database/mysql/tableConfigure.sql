@@ -54,7 +54,8 @@ CREATE TABLE IF NOT EXISTS orders (
     res_pk MEDIUMINT NOT NULL,
     order_date DATE NOT NULL,
     food_provide_code CHAR(10) NOT NULL, -- 0 = dine-in, 1 = pickup, 2 = delivery
-    order_status char(20) NOT NULL,
+    order_status char(20) NOT NULL, -- Order Received, Preparing, (On the Way, Delivered), (Pick up Ready, Picked up)
+    total_price MEDIUMINT NOT NULL,
     PRIMARY KEY(order_pk),
     FOREIGN KEY (user_pk) REFERENCES users(user_pk),
     FOREIGN KEY (res_pk) REFERENCES restaurants(res_pk)
@@ -69,6 +70,7 @@ CREATE TABLE IF NOT EXISTS events (
     location char(80) NOT NULL,
     hashtags VARCHAR(100) NULL,
     res_pk MEDIUMINT NOT NULL,
+    res_name char(30) NOT NULL, -- If join at `/eventRegisters/:user_pk` take too much time, then use this -- Denormalization
     PRIMARY KEY(event_pk),
     FOREIGN KEY (res_pk) REFERENCES restaurants(res_pk)
 );
@@ -82,5 +84,18 @@ CREATE TABLE IF NOT EXISTS eventRegister (
     UNIQUE KEY(user_pk, event_pk),
     FOREIGN KEY (user_pk) REFERENCES users(user_pk),
     FOREIGN KEY (event_pk) REFERENCES events(event_pk),
-    FOREIGN KEY (res_pk) REFERENCES restaurants(res_pk)
+    FOREIGN KEY (res_pk) REFERENCES restaurants(res_pk) -- Denormalization
 );
+
+CREATE TABLE IF NOT EXISTS orderMenu (
+    om_pk MEDIUMINT NOT NULL AUTO_INCREMENT,
+    order_pk MEDIUMINT NOT NULL,
+    menu_pk MEDIUMINT NOT NULL,
+    qtn MEDIUMINT NOT NULL, -- at least 1
+    price MEDIUMINT NOT NULL,   -- Denormalization
+    PRIMARY KEY(om_pk),
+    FOREIGN KEY (order_pk) REFERENCES orders(order_pk),
+    FOREIGN KEY (menu_pk) REFERENCES menus(menu_pk)
+);
+
+

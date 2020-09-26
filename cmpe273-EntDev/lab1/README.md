@@ -30,8 +30,8 @@ How to deal with state go empty every refresh?
 
 Redux at Signup, Login, Logout and Profile
 1. Signup = Store ID, PW
-2. Login = Load them automatically, Store user data
+2. Login = Load them automatically, Store user data after login
 3. Logout = Flush all the user related state
 4. Profile = Use stored user data from Login
 
-Redux at Restaurant's making events
+Redux at Restaurant's making events (?)

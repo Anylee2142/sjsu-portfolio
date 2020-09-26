@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './EventForUsers.css';
+import './OrderForUsers.css';
 import axios from 'axios';
 import { Link, NavLink } from 'react-router-dom';
 import cookie from 'react-cookies';
@@ -10,14 +10,14 @@ import * as actionTypes from '../../store/actions';
 
 
 //create the Navbar Component
-class EventForUsers extends Component {
+class OrderForUsers extends Component {
     //call the constructor method
     constructor(props) {
         //Call the constrictor of Super class i.e The Component
         super(props);
         //maintain the state required for this component
         this.state = {
-            events: [],
+            orders: [],
             errorMessage: ""
         }
     }
@@ -25,11 +25,11 @@ class EventForUsers extends Component {
     componentWillMount() {
         // Connect DB to fetch events
         axios.defaults.withCredentials = true;
-        axios.get("http://localhost:3001/events")
+        axios.get(`http://localhost:3001/orders/${this.props.user.user_pk}`)
             .then(response => {
-                console.log("Fetched Events = ", response.data);
+                console.log("Fetched Orderse = ", response.data);
                 this.setState({
-                    events: response.data
+                    orders: response.data
                 });
                 console.log("Chaning Local State Finished !");
             }).catch(error => {
@@ -46,31 +46,24 @@ class EventForUsers extends Component {
 
     render() {
 
-        document.title = "Find your Events !"
+        document.title = "Check your Orders !"
         return (
             <div>
-                <div class="events-container">
-                    <h1 class="inline-h1">Events</h1>
-                    <Link class="inline-h1 go-right" to={{
-                        pathname: "/registeredEventUsers",
-                        state: { user_pk : this.props.user.user_pk}
-                    }}>[Click for Registered Events !]</Link>
+                <div class="orders-container">
+                    <h1 class="inline-h1">Your Orders !</h1>
+                
                     <br></br>
                     <ul>
-                        {this.state.events.map(event => (
+                        {this.state.orders.map(order => (
                             <li>
-                                <div class="res_name">
-                                    <Link to= {{
-                                        pathname: "/eventDetailsUsers",
-                                        state: { event: event }
-                                    }}>{event.name}</Link>
-                                </div>
-                                <div>by {event.res_name}</div>
+                                <div class="inline-div">[{order.order_status}]</div>
+                                <div class="inline-div div-go-right">{order.order_date.split("T")[0]}</div>
+                                <br></br>
                                 <div>
-                                    {event.start_time.replace("T", " ").split(".")[0]} ~ {event.end_time.replace("T", " ").split(".")[0]}
+                                {order.res_name} {order.res_avg_rating} / 5.0
                                 </div>
-                                <div>{event.location}</div>
-                                <div>Hash tags: [ {event.hashtags} ]</div>
+                                <div>Total of ${order.total_price}</div>
+                                <div>YOUR_ORDER_MENUS_HERE !</div>
                             </li>
                         ))}
                     </ul>
@@ -101,4 +94,4 @@ const mapDispatchToProps = dispatch => {
 };
 
 //export Login Component
-export default connect(mapStateToProps, mapDispatchToProps)(EventForUsers);
+export default connect(mapStateToProps, mapDispatchToProps)(OrderForUsers);

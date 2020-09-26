@@ -13,6 +13,8 @@ import EventForUsers from './Events/EventForUsers'
 import EventDetailsForUsers from './Events/EventDetailsForUsers';
 import RegisteredEventForUsers from './Events/RegisteredEventForUsers';
 
+import OrderForUsers from './Orders/OrderForUsers';
+
 //Create a Main Component
 class Main extends Component {
     render(){
@@ -27,6 +29,7 @@ class Main extends Component {
                 <Route path="/eventUsers" component={EventForUsers}/>
                 <Route path="/eventDetailsUsers" component={EventDetailsForUsers}/>
                 <Route path="/registeredEventUsers" component={RegisteredEventForUsers}/>
+                <Route path="/orderUsers" component={OrderForUsers}/>
                 <Route path="/restaurantList" component={RestaurantList}/>
             </div>
         )

@@ -17,3 +17,7 @@
 .go-right {
     float: right;
 }
+
+li {
+    padding-bottom: 20px;
+}

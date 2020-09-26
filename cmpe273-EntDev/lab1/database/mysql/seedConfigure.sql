@@ -63,38 +63,66 @@ VALUES(
 
 INSERT INTO events(name, content,
 start_time, end_time,
-location, hashtags, res_pk)
+location, hashtags, res_name, res_pk)
 VALUES(
     "Discounts 10% for Today's Lunch !", "Get your meal cheaper and more.",
     "2020-09-25 11:00", "2020-09-26 13:00",
-    "TBD", "", "1"
+    "TBD", "#FreeLunch? #Just_Take_it!", "Rooster & Rice", "1"
 );
 
 
 INSERT INTO events(name, content,
 start_time, end_time,
-location, hashtags, res_pk)
+location, hashtags, res_name, res_pk)
 VALUES(
     "Free dumpings !", "Get your free dumpling !",
     "2020-09-22 10:00", "2020-09-23 13:00",
-    "TBD", "", "5"
+    "TBD", "#DumpyDumpy", "Omogari", "5"
 );
 
 
 INSERT INTO events(name, content,
 start_time, end_time,
-location, hashtags, res_pk)
+location, hashtags, res_name, res_pk)
 VALUES(
     "Free dumpings 1!", "Get your free dumpling !",
     "2020-09-22 10:00", "2020-09-23 13:00",
-    "TBD", "", "5"
+    "TBD", "#DumpyDumpy 1", "Omogari", "5"
 );
 
 INSERT INTO events(name, content,
 start_time, end_time,
-location, hashtags, res_pk)
+location, hashtags, res_name, res_pk)
 VALUES(
     "Free dumpings 21!", "Get your free dumpling !",
     "2020-09-22 10:00:00", "2020-09-23 13:00:00",
-    "TBD", "", "5"
+    "TBD", "#DumpyDumpy2", "Omogari", "5"
 );
+
+INSERT INTO orders(user_pk, res_pk,
+order_date, food_provide_code, order_status,
+total_price)
+VALUES(
+    "1", "5",
+    "2020-09-25 12:00:00", "2", "Preparing",
+    "25"
+);
+
+INSERT INTO orders(user_pk, res_pk,
+order_date, food_provide_code, order_status,
+total_price)
+VALUES(
+    "1", "1",
+    "2020-09-24 12:00:00", "2", "Delivered",
+    "21"
+);
+
+INSERT INTO orders(user_pk, res_pk,
+order_date, food_provide_code, order_status,
+total_price)
+VALUES(
+    "1", "2",
+    "2020-09-23 14:00:00", "2", "Delivered",
+    "32"
+);
+

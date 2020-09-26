@@ -6,6 +6,8 @@ var cors = require('cors');
 var config = require('./config');
 var userController = require('./controllers/userController');
 var eventController = require('./controllers/eventController');
+var orderController = require('./controllers/orderController')
+
 var mysqlConnection = config.mysqlConnection;
 
 var port = process.env.PORT || 3001 ;
@@ -27,6 +29,7 @@ app.use(function (req, res, next) {
 
 userController(app, mysqlConnection);
 eventController(app, mysqlConnection);
+orderController(app, mysqlConnection);
 
 //start your server on port 3001
 app.listen(port, () => {

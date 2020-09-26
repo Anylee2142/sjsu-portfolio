@@ -69,7 +69,7 @@ class RegisteredEventForUsers extends Component {
                                     {event.start_time.replace("T", " ").split(".")[0]} ~ {event.end_time.replace("T", " ").split(".")[0]}
                                 </div>
                                 <div>{event.location}</div>
-                                <div>Hash tags: [ {event.hashtag} ]</div>
+                                <div>Hash tags: [ {event.hashtags} ]</div>
                             </li>
                         ))}
                     </ul>

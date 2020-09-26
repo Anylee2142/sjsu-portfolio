@@ -44,7 +44,7 @@ class EventDetailsForUsers extends Component {
                     this.setState({
                     }) // Flush after successful register
                     // this.props.history.push("/restaurantList"); // To Registered Events
-                    this.props.history.push("/restaurantList");
+                    this.props.history.push("/eventUsers");
                     console.log("Finshed !");
                 }
             }).catch((error) => {
@@ -78,7 +78,7 @@ class EventDetailsForUsers extends Component {
                         {this.state.event.start_time.replace("T", " ").split(".")[0]} ~ {this.state.event.end_time.replace("T", " ").split(".")[0]}
                     </div>
                     <div>{this.state.event.location}</div>
-                    <div>Hash tags: [ {this.state.event.hashtag} ]</div>
+                    <div>Hash tags: [ {this.state.event.hashtags} ]</div>
                 </div>
                 <div class="btn-container">
                     <button onClick={this.submitRegister} class="btn btn-primary register-btn">Register !</button>

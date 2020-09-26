@@ -1,0 +1,27 @@
+.orders-container {
+    border: 3px solid black;
+    width: 60%;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.inline-h1 {
+    display: inline-block;
+}
+
+.inline-div {
+    display: inline-block;
+}
+
+.div-go-right {
+    float: right;
+}
+
+li {
+    padding-top: 20px;
+    padding-bottom: 30px;
+}
+
+h2 {
+    display: inline-block;
+}
