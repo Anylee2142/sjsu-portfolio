@@ -17,6 +17,7 @@ class RegisteredEventForUsers extends Component {
             user_pk: this.props.location.state.user_pk,
             errorMessage: ""
         }
+        console.log("QWERWERQWER", this.props);
     }
 
     componentWillMount() {
@@ -48,7 +49,7 @@ class RegisteredEventForUsers extends Component {
         document.title = "Find your Events !"
         return (
             <div>
-                <Navbar></Navbar>
+                <Navbar {...this.props}></Navbar>
                 <div class="events-container">
                     <h1 class="inline-h1">Your Registered Events !</h1>
                     <br></br>

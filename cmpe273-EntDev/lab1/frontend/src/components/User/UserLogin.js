@@ -69,6 +69,7 @@ class UserLogin extends Component {
     //submit Login handler to send a request to the node backend
     submitLogin = (e) => {
         // var headers = new Headers();
+        
         //prevent page from refresh
         e.preventDefault();
         const data = {
@@ -90,7 +91,7 @@ class UserLogin extends Component {
                 if (response.status === 200) {
                     this.props.renderToProfile(response.data[0]);
                     localStorage.setItem("user_profile", JSON.stringify(response.data[0]));
-                    this.props.history.push("/restaurantList");
+                    this.props.history.push("/home");
                 }
             }).catch((error) => {
                 console.log("Error has been catched : ", error.response.status);

@@ -62,5 +62,6 @@ Non existing page handle
 
 2. Without Cookie
     - if Non existing, then route to 404
-    - if existing other than restaurant list, user login, and sign up, then route to userLoging 
+    - if existing other than restaurant list, user login, and sign up, then route to userLoging
+        - Make sure that router "/" should be always with `exact path`, otherwise non existing routed path will be routed to "/"
 

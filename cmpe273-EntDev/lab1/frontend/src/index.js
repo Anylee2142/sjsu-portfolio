@@ -6,10 +6,13 @@ import * as serviceWorker from './serviceWorker';
 
 import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
+
 import userReducer from './store/reducer/user';
+import restaurantReducer from './store/reducer/searchedRestaurant';
 
 const rootReducer = combineReducers({
   user: userReducer,
+  restaurant: restaurantReducer
 });
 
 const store = createStore(rootReducer);

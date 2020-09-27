@@ -3,6 +3,7 @@ import './Navbar.css';
 import { Link } from 'react-router-dom';
 import cookie from 'react-cookies';
 import { Redirect } from 'react-router';
+import axios from 'axios';
 
 import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions';
@@ -19,10 +20,15 @@ class Navbar extends Component {
                 "userSignup",
                 "home",
                 ""
-            ]
+            ],
+            keyword: ""
         }
         this.handleLogout = this.handleLogout.bind(this);
+        this.keywordChangeHandler = this.keywordChangeHandler.bind(this);
+        this.refreshPage = this.refreshPage.bind(this);
         this.submitSearch = this.submitSearch.bind(this);
+
+        console.log("Navbar for props", this.props);
     }
     //handle logout to destroy the cookie
     handleLogout = () => {
@@ -40,42 +46,123 @@ class Navbar extends Component {
             this.props.renderToProfile(JSON.parse(userProfile));
             console.log("Reloaded object is", userProfile);
         }
+
+        this.setState({
+            keyword: ""
+        })
+
+        // TODO - Explicit compare, not includes !
+        if (window.location.href.includes("home") || window.location.href.includes("restaurantList")) {
+            // Connect DB to fetch restaurants
+            axios.defaults.withCredentials = true;
+
+            // If there's something in global state of searched
+            // Pass them into state's restaurant
+            axios.get("http://localhost:3001/restaurants")
+                .then(response => {
+                    this.props.renderToRestaurant(response.data);
+                    console.log("Loaded Restaurants = ", this.state.restaurants);
+                }).catch(error => {
+                    console.log("Error has been catched : ", error.response.status);
+                    console.log(error.response);
+                    console.log("Error response data = ", error.response.data);
+                    if (true) {
+                        this.setState({
+                            errorMessage: error.response.data
+                        })
+                    }
+                })
+        }
+
+
         console.log("User profile = ", this.props.user);
     }
 
+    keywordChangeHandler = (e) => {
+        this.setState({
+            keyword: e.target.value
+        })
+    }
+
+    refreshPage = (e) => {
+
+        this.setState({
+            keyword: ""
+        }) 
+        // TODO - Explicit compare, not includes !
+        if (window.location.href.includes("home") || window.location.href.includes("restaurantList")) {
+            window.location.reload();
+        } else {
+            this.props.history.push("/home");
+        }
+    }
+
     submitSearch = (e) => {
-        // console.log("Current login state before sending request = ", this.state);
-        // //set the with credentials to true
-        // axios.defaults.withCredentials = true;
-        // //make a post request with the user data
-        // axios.post('http://localhost:3001/user/login', data)
-        //     .then(response => {
-        //         console.log("Status Code : ", response.status);
-        //         // console.log(response.data);
-        //         if (response.status === 200) {
-        //             this.props.renderToProfile(response.data[0]);
-        //             localStorage.setItem("user_profile", JSON.stringify(response.data[0]));
-        //             this.props.history.push("/restaurantList");
-        //         }
-        //     }).catch((error) => {
-        //         console.log("Error has been catched : ", error.response.status);
-        //         console.log(error.response);
-        //         console.log("Error response data = ", error.response.data);
-        //         if (true) { // When couldn't find user
-        //             this.setState({
-        //                 errorMessage: error.response.data
-        //             })
-        //         }
-        //     });
+
+        e.preventDefault();
+        axios.defaults.withCredentials = true;
+
+        if (this.state.keyword.replace(/\s/g, '') === "") {
+            alert("You must enter some word !");
+            this.setState({ keyword: "" });
+            return;
+        }
+
+        if (this.state.keyword.length < 5) {
+            alert("Keyword should be bigger than length of 5");
+            this.setState({ keyword: "" })
+            return;
+        }
+
+        console.log("Current Search state before sending request = ", this.state);
+
+        if (cookie.load('cookie')) {
+            let processedKeyword = this.state.keyword.replace(/[^A-Z0-9]+/ig, "").toLowerCase();
+            let argumentKeyword = null;
+
+            if (processedKeyword.includes("delivery")) {
+                argumentKeyword = "delivery";
+            } else if (processedKeyword.includes("pickup")) {
+                argumentKeyword = "pickup";
+            } else if (processedKeyword.includes("dinein")) {
+                argumentKeyword = "dinein";
+            }
+            argumentKeyword = argumentKeyword ? argumentKeyword : this.state.keyword;
+
+            console.log("Final keyword for request = ", argumentKeyword);
+            axios.get(`http://localhost:3001/search?keyword=${argumentKeyword}`)
+                .then(response => {
+                    console.log("Status Code : ", response.status);
+                    // console.log(response.data);
+                    if (response.status === 200) {
+                        console.log("data = ", response.data);
+                        this.setState({
+                            keyword: ""
+                        });
+                        this.props.renderToRestaurant(response.data);
+                        console.log("SEARCHED RESTAURANTS = ", response.data);
+                        console.log(this.props);
+                        this.props.history.push("/home");
+                    }
+                }).catch((error) => {
+                    console.log("Error has been catched : ", error);
+                    // console.log(error.response);
+                    // console.log("Error response data = ", error.response.data);
+                    if (true) { // When couldn't find user
+                        this.setState({
+                            errorMessage: error.response.data
+                        })
+                    }
+                });
+        } else {
+            this.props.history.push("/userLogin");
+        }
     }
 
     render() {
         //if Cookie is set render Logout Button
         let navLogin = null;
         let redirectVar = null;
-        console.log("!!!Current location = ", window.location.href);
-        console.log(this.props);
-        console.log(this.state);
         if (cookie.load('cookie')) {
             console.log("Able to read cookie");
             navLogin = (
@@ -99,7 +186,7 @@ class Navbar extends Component {
             let splits = window.location.href.split("/");
             this.state.ALLOWED_PAGES.map(PAGE => {
                 console.log(splits.slice(2, splits.length).join("/"))
-                console.log(window.location.host + "/" +PAGE)
+                console.log(window.location.host + "/" + PAGE)
                 if (splits.slice(2, splits.length).join("/") === window.location.host + "/" + PAGE) {
                     let redirectdPage = PAGE === "" ? "home" : PAGE;
                     redirectVar = (<Redirect to={"/" + redirectdPage}></Redirect>);
@@ -112,23 +199,23 @@ class Navbar extends Component {
                 redirectVar = (<Redirect to="/userLogin"></Redirect>);
             }
         }
-        
+
         let navBarVar = null;
         if (!window.location.href.includes("/userLogin") && !window.location.href.includes("/userSignup")) {
+            let placeHolder = "Dish name, Restaurant name, Food type, Location or Delivery";
+
             navBarVar = (
                 <nav class="navbar navbar-default navbar-background">
                     <div class="navbar-header">
-                        <Link to="/home" class="navbar-brand">Yelp</Link>
+                        <Link to="/home" onClick={this.refreshPage} class="navbar-brand">Yelp</Link>
                         {/* <a href="#" onClick={this.handleClick} class="navbar-brand">Yelp</a> */}
                     </div>
                     <form class="navbar-form navbar-left">
                         <div class="form-group">
-                            <input type="text" class="form-control search-bar"></input>
+                            <input type="text" onChange={this.keywordChangeHandler} class="form-control search-bar" placeholder={placeHolder} value={this.state.keyword}></input>
                         </div>
-                        <button type="submit" class="btn btn-default search-btn">
-                            <Link to="/home">
-                                <span class="button-style">Search!</span>
-                            </Link>
+                        <button type="submit" class="btn btn-default search-btn" onClick={this.submitSearch}>
+                            <span class="button-style">Search!</span>
                         </button>
                     </form>
                     {navLogin}
@@ -145,18 +232,20 @@ class Navbar extends Component {
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
     return {
-        user: state.user
+        user: state.user,
+        restaurant: state.restaurant
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         renderToProfile: (payload) => dispatch({ type: actionTypes.RENDER_TO_PROFILE, payload: payload }),
-        flushUser: () => dispatch({ type: actionTypes.FLUSH_USER })
+        renderToRestaurant: (payload) => dispatch({ type: actionTypes.RENDER_TO_RESTAURANT, payload: payload }),
+        flushUser: () => dispatch({ type: actionTypes.FLUSH_USER }),
+        flushSearch: () => dispatch({ type: actionTypes.FLUSH_SEARCH })
     }
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

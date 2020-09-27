@@ -19,6 +19,7 @@ class EventForUsers extends Component {
             events: [],
             errorMessage: ""
         }
+        console.log("Event for props = ", this.props);
     }
 
     componentWillMount() {
@@ -48,7 +49,7 @@ class EventForUsers extends Component {
         document.title = "Find your Events !"
         return (
             <div>
-                <Navbar></Navbar>
+                <Navbar {...this.props}></Navbar>
                 <div class="events-container">
                     <h1 class="inline-h1">Events</h1>
                     <Link class="inline-h1 go-right" to={{

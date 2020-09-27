@@ -17,9 +17,10 @@ class OrderForUsers extends Component {
             orders: [],
             errorMessage: ""
         }
+        console.log("Orders for props = ", this.props);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         // Connect DB to fetch events
         axios.defaults.withCredentials = true;
         axios.get(`http://localhost:3001/orders/${this.props.user.user_pk}`)
@@ -46,7 +47,7 @@ class OrderForUsers extends Component {
         document.title = "Check your Orders !"
         return (
             <div>
-                <Navbar></Navbar>
+                <Navbar {...this.props}></Navbar>
                 <div class="orders-container">
                     <h1 class="inline-h1">Your Orders !</h1>
                 

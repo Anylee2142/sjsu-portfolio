@@ -3,11 +3,13 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var cors = require('cors');
+
 var config = require('./config');
 var userController = require('./controllers/userController');
 var eventController = require('./controllers/eventController');
 var orderController = require('./controllers/orderController');
 var restaurantController = require('./controllers/restaurantController');
+var seacrhController = require('./controllers/seacrhController');
 
 var mysqlConnection = config.mysqlConnection;
 var port = process.env.PORT || 3001 ;
@@ -31,6 +33,7 @@ userController(app, mysqlConnection);
 eventController(app, mysqlConnection);
 orderController(app, mysqlConnection);
 restaurantController(app, mysqlConnection);
+seacrhController(app, mysqlConnection);
 
 //start your server on designated port or 3001
 app.listen(port, () => {

@@ -63,7 +63,7 @@ class EventDetailsForUsers extends Component {
         document.title = "[ Event Details ]"
         return (
             <div>
-                <Navbar></Navbar>
+                <Navbar {...this.props}></Navbar>
                 <div class="event-container">
                     <h1>Event</h1>
                     <div class="res_name">{this.state.event.name}</div>

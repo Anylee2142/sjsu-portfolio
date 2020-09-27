@@ -1,5 +1,7 @@
 export const RENDER_TO_PROFILE = "RENDER_TO_PROFILE";
 export const FLUSH_USER = "FLUSH_USER";
+export const RENDER_TO_RESTAURANT = "RENDER_TO_RESTAURANT";
+export const FLUSH_SEARCH = "FLUSH_SEARCH";
 
 // export const INCREMENT = 'INCREMENT';
 // export const DECREMENT = 'DECREMENT';

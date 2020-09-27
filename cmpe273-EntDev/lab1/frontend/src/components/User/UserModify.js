@@ -148,7 +148,7 @@ class UserModify extends Component {
         document.title = "Modify Profile"
         return (
             <div>
-                <Navbar></Navbar>
+                <Navbar {...this.props}></Navbar>
                 <div class="modify-container">
                     <h1> Update Your Profile !</h1>
                     <div>

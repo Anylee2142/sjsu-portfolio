@@ -23,7 +23,7 @@ class UserProfile extends Component {
             this.props.renderToProfile(JSON.parse(userProfile));
             console.log("Reloaded object is", userProfile);
         }
-        console.log("User profile = ", this.props.user);
+        console.log("User profile = ", this.props);
     }
 
     //handle logout to destroy the cookie
@@ -40,7 +40,7 @@ class UserProfile extends Component {
         document.title = "Your Yelp Profile"
         return (
             <div>
-                <Navbar></Navbar>
+                <Navbar {...this.props}></Navbar>
 
                 <div class="header container">
                     <div class="user-profile-picture">
