@@ -19,56 +19,56 @@ VALUES(
 INSERT INTO restaurants(name, email, password, city, state,
 phone_number, res_desc, type_of_food,
 is_dine_in_possible, is_pickup_possible, is_delivery_possible,
-avg_rating)
+avg_rating, res_long, res_lat)
 VALUES(
     "Rooster & Rice", "rooster@rice.com", "1234", "San Jose", "California",
     "408-111-2222", "The best rice and chicken bowl restaurant ever, Come by!", "Asian",
     true, false, true,
-    4.5
+    4.5, -121.896508, 37.382539
 );
 
 INSERT INTO restaurants(name, email, password, city, state,
 phone_number, res_desc, type_of_food,
 is_dine_in_possible, is_pickup_possible, is_delivery_possible,
-avg_rating)
+avg_rating, res_long, res_lat)
 VALUES(
     "The Corner", "corner@corner.com", "1234", "San Jose", "California",
     "408-222-3333", "Western restaurant ran by Vietnamese", "Breakfast and Burgers",
     false, true, true,
-    4.1
+    4.1, -121.875639, 37.332908
 );
 
 INSERT INTO restaurants(name, email, password, city, state,
 phone_number, res_desc, type_of_food,
 is_dine_in_possible, is_pickup_possible, is_delivery_possible,
-avg_rating)
+avg_rating, res_long, res_lat)
 VALUES(
     "Happi House", "happi@house.com", "1234", "Santa Clara", "California",
     "408-333-4444", "Japanese Restaurant with lots of fried foods", "Japanese",
     false, true, true,
-    3.9
+    3.9, -121.896037, 37.350799
 );
 
 INSERT INTO restaurants(name, email, password, city, state,
 phone_number, res_desc, type_of_food,
 is_dine_in_possible, is_pickup_possible, is_delivery_possible,
-avg_rating)
+avg_rating, res_long, res_lat)
 VALUES(
     "Wingstop", "wing@stop.com", "1234", "San Mateo", "California",
     "408-444-5555", "Chicken Yammy", "Chicken",
     false, true, true,
-    3.5
+    3.5, -121.903779, 37.340214
 );
 
 INSERT INTO restaurants(name, email, password, city, state,
 phone_number, res_desc, type_of_food,
 is_dine_in_possible, is_pickup_possible, is_delivery_possible,
-avg_rating)
+avg_rating, res_long, res_lat)
 VALUES(
     "Omogari", "omo@gari.com", "1234", "San Jose", "California",
     "408-555-6666", "Korean Restaurant ever", "Korean",
     false, true, true,
-    4.8
+    4.8, -121.895113, 37.348456
 );
 
 INSERT INTO events(name, content,

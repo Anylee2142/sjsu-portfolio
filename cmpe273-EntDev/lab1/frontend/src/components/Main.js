@@ -16,6 +16,8 @@ import RegisteredEventForUsers from './Events/RegisteredEventForUsers';
 
 import OrderForUsers from './Orders/OrderForUsers';
 
+import RootRouter from './Root/RootRouter';
+
 import NotFound_404 from './etc/NotFound_404';
 
 //Create a Main Component
@@ -33,9 +35,9 @@ class Main extends Component {
                     <Route path="/eventDetailsUsers" component={EventDetailsForUsers} />
                     <Route path="/registeredEventUsers" component={RegisteredEventForUsers} />
                     <Route path="/orderUsers" component={OrderForUsers} />
-                    <Route path="/restaurantList" component={RestaurantList} />
+                    <Route path="/restaurantList" component={RootRouter} />
                     <Route path="/home" component={RestaurantList} />
-                    <Route exact path="/" component={RestaurantList} />  {/* If not `exact`, then all the other routes will be directed here */}
+                    <Route exact path="/" component={RootRouter} />  {/* If not `exact`, then all the other routes will be directed here */}
                     <Route component={NotFound_404}/>
                 </Switch>
             </div>

@@ -11,7 +11,7 @@ class NotFound_404 extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            second: 5
+            second: 3
         }
     }
 

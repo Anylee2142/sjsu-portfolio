@@ -65,3 +65,8 @@ Non existing page handle
     - if existing other than restaurant list, user login, and sign up, then route to userLoging
         - Make sure that router "/" should be always with `exact path`, otherwise non existing routed path will be routed to "/"
 
+                    // if 0 < math.sqrt(long_delta**2 + lat_delta**2) < 0.006 -> within 4 blocks
+                    // 0.006 < the_value < 0.012 -> walking
+                    // 0.012 < the_value < 0.018 -> biking
+                    // 0.018 < the_value < 0.024 -> driving
+                    // 0.024 < the_value < 0.050 -> birdview

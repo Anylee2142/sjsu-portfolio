@@ -4,7 +4,7 @@ const selectStatementQuery = (keyword) => {
 
     let selectStatement = `SELECT DISTINCT restaurants.name, restaurants.avg_rating, restaurants.phone_number, 
     restaurants.type_of_food, restaurants.city, restaurants.state, restaurants.res_desc,
-    restaurants.is_dine_in_possible, restaurants.is_pickup_possible, restaurants.is_delivery_possible
+    restaurants.is_dine_in_possible, restaurants.is_pickup_possible, restaurants.is_delivery_possible, res_long, res_lat
     FROM restaurants INNER JOIN menus ON restaurants.res_pk = menus.res_pk `;
 
     if (!keyword.includes("delivery") && !keyword.includes("pickup") && !keyword.includes("dinein")) {

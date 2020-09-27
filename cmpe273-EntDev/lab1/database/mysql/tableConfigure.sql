@@ -24,8 +24,8 @@ CREATE TABLE IF NOT EXISTS restaurants (
     city char(20) NOT NULL,
     state char(20) NOT NULL,
     phone_number char(20) NULL,
-    res_lat MEDIUMINT NULL,
-    res_long MEDIUMINT NULL,
+    res_long FLOAT(9, 6) NULL,
+    res_lat FLOAT(9, 6) NULL,
     res_desc char(100) NULL,
     type_of_food char(30) NULL, -- Mexican, American, Asian etc
     is_dine_in_possible boolean NULL,

@@ -47,12 +47,20 @@ class Navbar extends Component {
             console.log("Reloaded object is", userProfile);
         }
 
+        console.log("My current location = ", navigator.geolocation.getCurrentPosition((position) => {
+            console.log("Long = ", position.coords.longitude, "Lat = ",position.coords.latitude);
+            this.props.renderToGeolocation({
+                longitude: position.coords.longitude,
+                latitude: position.coords.latitude
+            });
+        }));
+
         this.setState({
             keyword: ""
         })
 
         // TODO - Explicit compare, not includes !
-        if (window.location.href.includes("home") || window.location.href.includes("restaurantList")) {
+        if (window.location.href.split("/").slice(2).join("/") === window.location.host + "/home") {
             // Connect DB to fetch restaurants
             axios.defaults.withCredentials = true;
 
@@ -90,7 +98,7 @@ class Navbar extends Component {
             keyword: ""
         }) 
         // TODO - Explicit compare, not includes !
-        if (window.location.href.includes("home") || window.location.href.includes("restaurantList")) {
+        if (window.location.href.split("/").slice(2).join("/") === window.location.host + "/home") {
             window.location.reload();
         } else {
             this.props.history.push("/home");
@@ -235,7 +243,8 @@ class Navbar extends Component {
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        restaurant: state.restaurant
+        restaurant: state.restaurant,
+        geolocation: state.geolocation
     }
 };
 
@@ -243,8 +252,10 @@ const mapDispatchToProps = dispatch => {
     return {
         renderToProfile: (payload) => dispatch({ type: actionTypes.RENDER_TO_PROFILE, payload: payload }),
         renderToRestaurant: (payload) => dispatch({ type: actionTypes.RENDER_TO_RESTAURANT, payload: payload }),
+        renderToGeolocation: (payload) => dispatch({ type: actionTypes.RENDER_TO_GEOLOCATION, payload: payload }),
         flushUser: () => dispatch({ type: actionTypes.FLUSH_USER }),
-        flushSearch: () => dispatch({ type: actionTypes.FLUSH_SEARCH })
+        flushSearch: () => dispatch({ type: actionTypes.FLUSH_SEARCH }),
+        flushGeolocation: () => dispatch({ type: actionTypes.FLUSH_GEOLOCATION }),
     }
 };
 
