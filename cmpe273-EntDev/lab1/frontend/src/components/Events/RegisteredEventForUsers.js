@@ -3,6 +3,7 @@ import './RegisteredEventForUsers.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+import Navbar from '../Header/Navbar';
 
 //create the Navbar Component
 class RegisteredEventForUsers extends Component {
@@ -47,6 +48,7 @@ class RegisteredEventForUsers extends Component {
         document.title = "Find your Events !"
         return (
             <div>
+                <Navbar></Navbar>
                 <div class="events-container">
                     <h1 class="inline-h1">Your Registered Events !</h1>
                     <br></br>

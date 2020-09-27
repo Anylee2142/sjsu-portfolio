@@ -4,6 +4,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions';
 
+import Navbar from '../Header/Navbar';
 
 //create the Navbar Component
 class EventDetailsForUsers extends Component {
@@ -62,6 +63,7 @@ class EventDetailsForUsers extends Component {
         document.title = "[ Event Details ]"
         return (
             <div>
+                <Navbar></Navbar>
                 <div class="event-container">
                     <h1>Event</h1>
                     <div class="res_name">{this.state.event.name}</div>

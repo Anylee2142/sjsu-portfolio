@@ -4,6 +4,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions';
 
+import Navbar from '../Header/Navbar';
 
 //create the Navbar Component
 class OrderForUsers extends Component {
@@ -45,6 +46,7 @@ class OrderForUsers extends Component {
         document.title = "Check your Orders !"
         return (
             <div>
+                <Navbar></Navbar>
                 <div class="orders-container">
                     <h1 class="inline-h1">Your Orders !</h1>
                 

@@ -30,7 +30,7 @@ How to deal with state go empty every refresh?
 
 Redux at Signup, Login, Logout and Profile
 1. Signup = Store ID, PW
-2. Login = Load them automatically, Store user data after login
+2. Login = Load them automatically, Store user data after login, and every navbar use user name to print everytime 
 3. Logout = Flush all the user related state
 4. Profile = Use stored user data from Login
 
@@ -52,3 +52,15 @@ MYSQL VERSION (`SHOW VARIABLES LIKE "%version%";` from mysql console)
 | version_compile_machine | x86_64           |
 | version_compile_os      | debian-linux-gnu |
 +-------------------------+------------------+
+
+DB CONFIGURE
+= dropConfigure.sql -> tableConfigure.sql -> seedConfigure.sql
+
+Non existing page handle
+1. With Cookie
+    - if Non existing, then route to 404
+
+2. Without Cookie
+    - if Non existing, then route to 404
+    - if existing other than restaurant list, user login, and sign up, then route to userLoging 
+

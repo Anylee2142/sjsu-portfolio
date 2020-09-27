@@ -32,13 +32,13 @@ class UserLogin extends Component {
         //     authFlag: false
         // })
 
-        // Triggered when refresh
-        if (this.props.user.email==="" && this.props.user.password==="") {
-            console.log("Reload state from local Storage !");
-            let userProfile = JSON.parse(localStorage.getItem("user_profile"));
-            this.props.renderToProfile(userProfile);
-            console.log("Reloaded object is", userProfile);
-        }
+        // // Triggered when refresh
+        // if (this.props.user.email==="" && this.props.user.password==="") {
+        //     console.log("Reload state from local Storage !");
+        //     let userProfile = JSON.parse(localStorage.getItem("user_profile"));
+        //     this.props.renderToProfile(userProfile);
+        //     console.log("Reloaded object is", userProfile);
+        // }
 
         console.log("User state = ", this.props.user);
         console.log("Local Storage = ", localStorage.getItem("user_profile"));

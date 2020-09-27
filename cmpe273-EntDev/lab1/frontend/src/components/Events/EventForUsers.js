@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions';
 
+import Navbar from '../Header/Navbar';
 
 //create the Navbar Component
 class EventForUsers extends Component {
@@ -47,6 +48,7 @@ class EventForUsers extends Component {
         document.title = "Find your Events !"
         return (
             <div>
+                <Navbar></Navbar>
                 <div class="events-container">
                     <h1 class="inline-h1">Events</h1>
                     <Link class="inline-h1 go-right" to={{

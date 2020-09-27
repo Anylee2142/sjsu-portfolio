@@ -136,3 +136,85 @@ VALUES(
     "32"
 );
 
+INSERT INTO menus(name, price, res_pk)
+VALUES(
+    "Chicken Breast, Thigh and Rice", "15", "1"
+);
+
+INSERT INTO menus(name, price, res_pk)
+VALUES(
+    "Only Chicken Brest, Brown Rice", "16", "1"
+);
+
+INSERT INTO menus(name, price, res_pk)
+VALUES(
+    "Vegatbles Broth", "3", "1"
+);
+
+INSERT INTO menus(name, price, res_pk)
+VALUES(
+    "French Toast and Sausage", "17", "2"
+);
+
+INSERT INTO menus(name, price, res_pk)
+VALUES(
+    "Salmon Salad", "21", "2"
+);
+
+INSERT INTO menus(name, price, res_pk)
+VALUES(
+    "Ice Tea", "6", "2"
+);
+
+INSERT INTO menus(name, price, res_pk)
+VALUES(
+    "Tempura Bundles", "25", "3"
+);
+
+
+INSERT INTO menus(name, price, res_pk)
+VALUES(
+    "Udon with beef", "15", "3"
+);
+
+
+INSERT INTO menus(name, price, res_pk)
+VALUES(
+    "Happy Face Potatoes", "6", "3"
+);
+
+
+INSERT INTO menus(name, price, res_pk)
+VALUES(
+    "Buffalo Wings", "12", "4"
+);
+
+
+INSERT INTO menus(name, price, res_pk)
+VALUES(
+    "French Fries with Cheese", "13", "4"
+);
+
+
+INSERT INTO menus(name, price, res_pk)
+VALUES(
+    "Coke", "5", "4"
+);
+
+
+INSERT INTO menus(name, price, res_pk)
+VALUES(
+    "Marinated, Grilled Beef", "27", "5"
+);
+
+
+INSERT INTO menus(name, price, res_pk)
+VALUES(
+    "Kimchi jji-gae", "16", "5"
+);
+
+
+INSERT INTO menus(name, price, res_pk)
+VALUES(
+    "Bi-bim-Bop", "15", "5"
+);

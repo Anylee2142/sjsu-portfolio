@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
-import {Route} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { Redirect } from 'react-router';
 
 import Navbar from './Header/Navbar';
 import UserProfile from './User/UserProfile';
@@ -15,22 +16,28 @@ import RegisteredEventForUsers from './Events/RegisteredEventForUsers';
 
 import OrderForUsers from './Orders/OrderForUsers';
 
+import NotFound_404 from './etc/NotFound_404';
+
 //Create a Main Component
 class Main extends Component {
-    render(){
-        return(
+    render() {
+        return (
             <div>
                 {/*Render Different Component based on Route*/}
-                <Route path="/" component={Navbar}/>
-                <Route path="/userProfile" component={UserProfile}/>
-                <Route path="/userLogin" component={UserLogin}/>
-                <Route path="/userSignup" component={UserSignup}/>
-                <Route path="/userModify" component={UserModify}/>
-                <Route path="/eventUsers" component={EventForUsers}/>
-                <Route path="/eventDetailsUsers" component={EventDetailsForUsers}/>
-                <Route path="/registeredEventUsers" component={RegisteredEventForUsers}/>
-                <Route path="/orderUsers" component={OrderForUsers}/>
-                <Route path="/restaurantList" component={RestaurantList}/>
+                <Switch>
+                    <Route path="/userProfile" component={UserProfile} />
+                    <Route path="/userLogin" component={UserLogin} />
+                    <Route path="/userSignup" component={UserSignup} />
+                    <Route path="/userModify" component={UserModify} />
+                    <Route path="/eventUsers" component={EventForUsers} />
+                    <Route path="/eventDetailsUsers" component={EventDetailsForUsers} />
+                    <Route path="/registeredEventUsers" component={RegisteredEventForUsers} />
+                    <Route path="/orderUsers" component={OrderForUsers} />
+                    <Route path="/restaurantList" component={RestaurantList} />
+                    <Route path="/home" component={RestaurantList} />
+                    <Route exact path="/" component={RestaurantList} />  {/* If not `exact`, then all the other routes will be directed here */}
+                    <Route component={NotFound_404}/>
+                </Switch>
             </div>
         )
     }

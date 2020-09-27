@@ -117,3 +117,11 @@
 .navbar-header {
     padding-right: 50px;
 }
+
+.search-bar {
+    font-size: 30px;
+}
+
+.search-btn {
+    margin-left: 15px;
+}

@@ -5,6 +5,8 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions';
 
+import Navbar from '../Header/Navbar';
+
 //create the Navbar Component
 class UserModify extends Component {
     constructor(props) {
@@ -29,13 +31,13 @@ class UserModify extends Component {
     }
 
     componentWillMount() {
-        // Triggered when refresh
-        if (this.props.user.email === "" && this.props.user.password === "") {
-            console.log("Reload state from local Storage !");
-            let userProfile = localStorage.getItem("user_profile");
-            this.props.renderToProfile(JSON.parse(userProfile));
-            console.log("Reloaded object is", userProfile);
-        }
+        // // Triggered when refresh
+        // if (this.props.user.email === "" && this.props.user.password === "") {
+        //     console.log("Reload state from local Storage !");
+        //     let userProfile = localStorage.getItem("user_profile");
+        //     this.props.renderToProfile(JSON.parse(userProfile));
+        //     console.log("Reloaded object is", userProfile);
+        // }
         console.log("User profile = ", this.props.user);
         console.log("Profile Update page state = ", this.state);
     }
@@ -146,6 +148,7 @@ class UserModify extends Component {
         document.title = "Modify Profile"
         return (
             <div>
+                <Navbar></Navbar>
                 <div class="modify-container">
                     <h1> Update Your Profile !</h1>
                     <div>

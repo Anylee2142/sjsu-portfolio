@@ -6,6 +6,8 @@ import cookie from 'react-cookies';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions';
 
+import Navbar from '../Header/Navbar';
+
 //create the Navbar Component
 class UserProfile extends Component {
     constructor(props) {
@@ -32,11 +34,14 @@ class UserProfile extends Component {
     // TODO: text generator here
     // if info, <p>{this.props.user.city}, {this.props.user.state}</p>
     // else, <p>No information yet !<p>
-    
+
     render() {
+        console.log("###", this.props.user.dob);
         document.title = "Your Yelp Profile"
         return (
             <div>
+                <Navbar></Navbar>
+
                 <div class="header container">
                     <div class="user-profile-picture">
                         Add a photo !
@@ -44,7 +49,7 @@ class UserProfile extends Component {
                     <div class="brief-summary">
                         <h1>{this.props.user.name}</h1>
                         <p>{this.props.user.city}, {this.props.user.state}</p>
-                        <p>{this.props.user.phone_number} {this.props.user.dob.split("T")[0]}</p>
+                        <p>{this.props.user.phone_number} {this.props.user.dob != null ? this.props.user.dob.split("T")[0] : ""}</p>
                         <p>Friends, Reviews Photos</p>
                     </div>
                     <div class="modify-menu">
