@@ -10,11 +10,13 @@ import { createStore, combineReducers } from 'redux';
 import userReducer from './store/reducer/user';
 import restaurantReducer from './store/reducer/searchedRestaurant';
 import geolocationReducer from './store/reducer/geolocation';
+import googlemapReducer from './store/reducer/googleMap';
 
 const rootReducer = combineReducers({
   user: userReducer,
   restaurant: restaurantReducer,
-  geolocation: geolocationReducer
+  geolocation: geolocationReducer,
+  google: googlemapReducer
 });
 
 const store = createStore(rootReducer);

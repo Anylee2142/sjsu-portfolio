@@ -1,10 +1,10 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component } from 'react';
 import './RestaurantList.css';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions';
-
 import Navbar from '../Header/Navbar';
+import { Map, Marker, InfoWindow } from "google-maps-react";
+import CustomMarker from "../GoogleMap/MapContainer";
 
 class RestaurantList extends Component {
 
@@ -25,8 +25,9 @@ class RestaurantList extends Component {
             walking: false,
             within4: false,
 
-            render: false
+            render: false,
         }
+
 
         this.togglePickup = this.togglePickup.bind(this);
         this.toggleDinein = this.toggleDinein.bind(this);
@@ -138,6 +139,11 @@ class RestaurantList extends Component {
         var restaurants = null;
         var restaurantsVar = null;
 
+        var my_long = this.props.geolocation.long;
+        var my_lat = this.props.geolocation.lat;
+
+        var mapVar = null;
+
         console.log(this.state);
         console.log(this.props);
 
@@ -153,8 +159,8 @@ class RestaurantList extends Component {
                     console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
                     restaurants = this.props.restaurant.restaurants.filter(restaurant => {
                         return (restaurant.is_pickup_possible == this.state.pickup)
-                        || (restaurant.is_dine_in_possible == this.state.dinein)
-                        || (restaurant.is_delivery_possible == this.state.delivery)
+                            || (restaurant.is_dine_in_possible == this.state.dinein)
+                            || (restaurant.is_delivery_possible == this.state.delivery)
                     });
                 }
                 // Neighbor filter
@@ -166,9 +172,6 @@ class RestaurantList extends Component {
                     // 0.012 < the_value < 0.018 -> biking
                     // 0.018 < the_value < 0.024 -> driving
                     // 0.024 < the_value < 0.050 -> birdview
-
-                    let my_long = this.props.geolocation.long;
-                    let my_lat = this.props.geolocation.lat;
 
                     let lower_bound = -1;
                     let upper_bound = -1;
@@ -185,27 +188,27 @@ class RestaurantList extends Component {
                         lower_bound = 0.018;
                         upper_bound = 0.024;
                     } else if (this.state.birdview) {
-                        lower_bound = 0.024;
+                        lower_bound = 0.000;
                         upper_bound = 0.100;
                     }
                     console.log("STandrads = ", lower_bound, upper_bound);
 
                     restaurants = this.props.restaurant.restaurants.filter(restaurant => {
-                        const long_delta = (my_long - restaurant.res_long)**2;
-                        const lat_delta = (my_lat - restaurant.res_lat)**2;
+                        const long_delta = (my_long - restaurant.res_long) ** 2;
+                        const lat_delta = (my_lat - restaurant.res_lat) ** 2;
                         const total_delta = Math.sqrt(long_delta + lat_delta);
-                        
+
                         console.log("RES NAME = ", restaurant.name, total_delta);
-                        
+
                         if ((lower_bound <= total_delta) && (total_delta < upper_bound)) {
                             return true
                         }
                         return false
                     });
                 }
-                
+
             }
-            
+
             if (restaurants.length > 0) {
                 restaurantsVar = (
                     restaurants.map(restaurant => (
@@ -231,6 +234,10 @@ class RestaurantList extends Component {
                         </div>
                     ))
                 );
+
+                mapVar = (
+                    <CustomMarker initialCenter={{lng: my_long, lat: my_lat}} {...{restaurants}}></CustomMarker>
+                );
             } else {
                 console.log("##############################")
                 restaurantsVar = (
@@ -245,7 +252,6 @@ class RestaurantList extends Component {
                 <div class="res-container">
                     <div class="row">
                         <div class="col-lg-2 filter-config">
-                            YOUR FILTER
                             <div class="delivery-config">
                                 <label>
                                     <input type="checkbox" class="filter-square"
@@ -305,11 +311,14 @@ class RestaurantList extends Component {
                             </div>
                         </div>
                         <div class="col-lg-6 res-list">
-                            <h1>RESTAURANTS !</h1>
+                            <h1>Try Adjust Filters on left</h1>
                             {restaurantsVar}
                         </div>
-                        <div class="col-lg-4 api-map">
-                            YOUR GOOGLE MAP API HERE
+                        <div class="col-lg-4 google-map-container">
+                            CHECK LOCATIONS HERE
+                            <div class="google-map">
+                                {mapVar}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -322,7 +331,8 @@ const mapStateToProps = (state) => {
     return {
         user: state.user,
         restaurant: state.restaurant,
-        geolocation: state.geolocation
+        geolocation: state.geolocation,
+        google: state.google
     }
 };
 

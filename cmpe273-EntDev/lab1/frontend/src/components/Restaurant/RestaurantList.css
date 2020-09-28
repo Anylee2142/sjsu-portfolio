@@ -56,7 +56,7 @@
 }
 
 .filter-config {
-    /* border: solid 1px black; */
+    border-right: solid 1px black;
     height: 750px;
 }
 
@@ -91,8 +91,12 @@
     padding: 10px;
 }
 
-.api-map {
+.google-map-container {
+    border-left: 1px solid gray;
+    height: 750px;
+}
 
+.google-map {
 }
 
 .delivery-spec {

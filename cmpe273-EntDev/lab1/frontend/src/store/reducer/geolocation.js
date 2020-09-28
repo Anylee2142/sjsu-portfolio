@@ -1,7 +1,8 @@
 import * as actionTypes from '../actions';
 
 const initialState = {
-    long: -1, lat: -1
+    long: -121.8907556,
+    lat: 37.3372668
 };
 
 const reducer = (state = initialState, action) => {
@@ -14,7 +15,7 @@ const reducer = (state = initialState, action) => {
             };
 
         case actionTypes.FLUSH_GEOLOCATION:
-            console.log("RES Initial state = ", initialState);
+            console.log("GEO Initial state = ", initialState);
             return {
                 long: -1, lat: -1
             }

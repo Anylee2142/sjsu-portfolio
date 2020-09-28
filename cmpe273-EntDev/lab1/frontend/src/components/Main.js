@@ -23,6 +23,7 @@ import NotFound_404 from './etc/NotFound_404';
 //Create a Main Component
 class Main extends Component {
     render() {
+        console.log("Main props", this.props);
         return (
             <div>
                 {/*Render Different Component based on Route*/}
@@ -35,9 +36,9 @@ class Main extends Component {
                     <Route path="/eventDetailsUsers" component={EventDetailsForUsers} />
                     <Route path="/registeredEventUsers" component={RegisteredEventForUsers} />
                     <Route path="/orderUsers" component={OrderForUsers} />
-                    <Route path="/restaurantList" component={RootRouter} />
-                    <Route path="/home" component={RestaurantList} />
-                    <Route exact path="/" component={RootRouter} />  {/* If not `exact`, then all the other routes will be directed here */}
+                    <Route path="/restaurantList" component={RootRouter} google={this.props.google}/>
+                    <Route path="/home" component={RestaurantList} google={this.props.google}/>
+                    <Route exact path="/" component={RootRouter} google={this.props.google}/>  {/* If not `exact`, then all the other routes will be directed here */}
                     <Route component={NotFound_404}/>
                 </Switch>
             </div>

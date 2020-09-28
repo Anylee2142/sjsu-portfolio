@@ -70,3 +70,5 @@ Non existing page handle
                     // 0.012 < the_value < 0.018 -> biking
                     // 0.018 < the_value < 0.024 -> driving
                     // 0.024 < the_value < 0.050 -> birdview
+
+Google map api key = AIzaSyC4yz_VXPDqonzJZ7q3TTDsgiLmKxk8wgY
