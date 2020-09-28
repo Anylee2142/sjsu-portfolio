@@ -62,7 +62,7 @@
 
 .delivery-config {
     border: 1px solid black;
-    height: 200px;
+    height: 250px;
     margin-top: 15px;
     padding-left: 15px;
     padding-top: 10px;
@@ -88,7 +88,7 @@
     -webkit-transform: scale(2); /* Safari and Chrome */
     -o-transform: scale(2); /* Opera */
     transform: scale(2);
-    padding: 10px;
+    /* padding: 10px; */
 }
 
 .google-map-container {

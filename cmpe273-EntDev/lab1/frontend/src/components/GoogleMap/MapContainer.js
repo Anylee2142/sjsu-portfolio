@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { Map, Marker, InfoWindow } from 'google-maps-react';
-
 import { connect } from 'react-redux';
-import * as actionTypes from '../../store/actions';
 
-class CustomMarker extends Component {
+class MapContainer extends Component {
     state = {
         activeMarker: {},
         selectedPlace: {},
@@ -37,16 +35,20 @@ class CustomMarker extends Component {
         console.log(this.props);
 
         var restaurants = this.props.restaurants;
+        var markersVar = null;
+        
+        if (restaurants != null && restaurants.length > 0 ) {
+            markersVar = (
+                restaurants.map(restaurant => {
+                    return <Marker
+                        name={restaurant.name}
+                        onClick={this.onMarkerClick}
+                        position={{ lng: restaurant.res_long, lat: restaurant.res_lat }}
+                    />
+                })
+                )
+        }
 
-        var markersVar = (
-            restaurants.map(restaurant => {
-                return <Marker
-                    name={restaurant.name}
-                    onClick={this.onMarkerClick}
-                    position={{ lng: restaurant.res_long, lat: restaurant.res_lat }}
-                />
-            })
-        );
         const icon = { url: require("./map-marker.png"), scaledSize: { width: 32, height: 32 } };
         return (
             <Map
@@ -85,4 +87,4 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps, null)(CustomMarker);
+export default connect(mapStateToProps, null)(MapContainer);

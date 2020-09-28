@@ -3,8 +3,7 @@ import './RestaurantList.css';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions';
 import Navbar from '../Header/Navbar';
-import { Map, Marker, InfoWindow } from "google-maps-react";
-import CustomMarker from "../GoogleMap/MapContainer";
+import MapContainer from "../GoogleMap/MapContainer";
 
 class RestaurantList extends Component {
 
@@ -142,7 +141,7 @@ class RestaurantList extends Component {
         var my_long = this.props.geolocation.long;
         var my_lat = this.props.geolocation.lat;
 
-        var mapVar = null;
+        var mapVar = <MapContainer initialCenter={{lng: my_long, lat: my_lat}}></MapContainer>;
 
         console.log(this.state);
         console.log(this.props);
@@ -236,7 +235,7 @@ class RestaurantList extends Component {
                 );
 
                 mapVar = (
-                    <CustomMarker initialCenter={{lng: my_long, lat: my_lat}} {...{restaurants}}></CustomMarker>
+                    <MapContainer initialCenter={{lng: my_long, lat: my_lat}} {...{restaurants}}></MapContainer>
                 );
             } else {
                 console.log("##############################")
@@ -258,15 +257,15 @@ class RestaurantList extends Component {
                                         checked={this.state.pickup}
                                         onChange={this.togglePickup} />
                                     <p class="filter-checkbox">Pick Up</p>
-
                                 </label>
+                                <br></br>
                                 <label>
                                     <input type="checkbox" class="filter-square"
                                         checked={this.state.dinein}
                                         onChange={this.toggleDinein} />
                                     <p class="filter-checkbox">Dine in</p>
-
                                 </label>
+                                <br></br>
                                 <label>
                                     <input type="checkbox" class="filter-square"
                                         checked={this.state.delivery}
