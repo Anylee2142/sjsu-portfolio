@@ -6,6 +6,8 @@ export const RENDER_TO_GEOLOCATION ="RENDER_TO_GEOLOCATION";
 export const FLUSH_GEOLOCATION = "FLUSH_GEOLOCATION";
 export const RENDER_TO_GOOGLE = "RENDER_TO_GOOGLE";
 export const FLUSH_GOOGLE = "FLUSH_GOOGLE";
+export const RENDER_TO_MENU = "RENDER_TO_MENU";
+export const FLUSH_MENU = "FLUSH_MENU";
 
 // export const INCREMENT = 'INCREMENT';
 // export const DECREMENT = 'DECREMENT';

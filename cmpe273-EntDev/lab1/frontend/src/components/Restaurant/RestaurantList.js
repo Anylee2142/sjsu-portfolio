@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './RestaurantList.css';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions';
 import Navbar from '../Header/Navbar';
@@ -120,7 +121,7 @@ class RestaurantList extends Component {
             this.setState({
                 render: true,
             })
-        }.bind(this), 50)
+        }.bind(this), 200)
     }
 
     isDeliveryFilterOff() {
@@ -215,7 +216,14 @@ class RestaurantList extends Component {
                             {/* <img class="res-image" src={imageURL}></img> */}
                             <div class="res-content">
                                 <div class="res-image-container"><img class="res-image" src={imageURL}></img></div>
-                                <h2 class="res-inline">{restaurant.name}</h2>
+                                <h2 class="res-inline">
+                                    <Link to ={
+                                        {
+                                            pathname: "/restaurantDetail",
+                                            state: {restaurant: restaurant}
+                                        }
+                                    }>{restaurant.name}</Link>
+                                </h2>
                                 <h2 class="res-inline inline-go-right">{restaurant.phone_number}</h2>
                                 <br></br>
                                 <p class="p-inline inline-go-right">{restaurant.city}, {restaurant.state}</p>
@@ -223,7 +231,7 @@ class RestaurantList extends Component {
                                 <p>{restaurant.type_of_food}</p>
                                 {/* Location, contact information */}
                                 <p class="delivery-spec">
-                                    Dine-in: [{restaurant.is_dine_in_possible ? this.state.YES_SIGN : this.state.NO_SIGN}]
+                                Dine-in: [{restaurant.is_dine_in_possible ? this.state.YES_SIGN : this.state.NO_SIGN}]
                                 Delivery: [{restaurant.is_delivery_possible ? this.state.YES_SIGN : this.state.NO_SIGN}]
                                 Pickup: [{restaurant.is_pickup_possible ? this.state.YES_SIGN : this.state.NO_SIGN}]</p>
                             </div>

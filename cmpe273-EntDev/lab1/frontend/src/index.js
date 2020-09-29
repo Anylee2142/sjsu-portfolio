@@ -11,12 +11,14 @@ import userReducer from './store/reducer/user';
 import restaurantReducer from './store/reducer/searchedRestaurant';
 import geolocationReducer from './store/reducer/geolocation';
 import googlemapReducer from './store/reducer/googleMap';
+import menuReducer from './store/reducer/menu';
 
 const rootReducer = combineReducers({
   user: userReducer,
   restaurant: restaurantReducer,
   geolocation: geolocationReducer,
-  google: googlemapReducer
+  google: googlemapReducer,
+  menu: menuReducer
 });
 
 const store = createStore(rootReducer);

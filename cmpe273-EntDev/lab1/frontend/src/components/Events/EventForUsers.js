@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import './EventForUsers.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-
 import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions';
-
 import Navbar from '../Header/Navbar';
 
 //create the Navbar Component
