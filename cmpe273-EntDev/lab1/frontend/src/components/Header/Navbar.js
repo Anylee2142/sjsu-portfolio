@@ -218,6 +218,7 @@ class Navbar extends Component {
                         <Link to="/home" onClick={this.refreshPage} class="navbar-brand">Yelp</Link>
                         {/* <a href="#" onClick={this.handleClick} class="navbar-brand">Yelp</a> */}
                     </div>
+                    
                     <form class="navbar-form navbar-left">
                         <div class="form-group">
                             <input type="text" onChange={this.keywordChangeHandler} class="form-control search-bar" placeholder={placeHolder} value={this.state.keyword}></input>

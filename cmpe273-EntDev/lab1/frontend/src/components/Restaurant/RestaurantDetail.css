@@ -89,16 +89,17 @@
 }
 
 .restaurant-body-content-review-yourinput {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     min-height: 400px;
 }
 
 .restaurant-body-content-review-others {
-    border: 1px solid black;
+    margin-top: 20px;
 }
 
 .review-submit-btn {
-    margin-left: 70%;
+    width: 100%;
+    margin-top: 20px;
 }
 
 .restaurant-body-content-menu-detail {
@@ -109,4 +110,27 @@
     padding-left: 5px;
     margin-top: 15px;
     margin-left: 7px;
+}
+
+.others-detail {
+    border: 1px solid black;
+}
+.others-comment {
+    border: 1px solid black;
+    padding-top: 10px;
+}
+
+.restaurant-body-content-review-others-detail div {
+    /* border: 1px solid black; */
+    padding-left: 10px;
+    min-height: 200px;
+    margin-bottom: 10px;
+}
+
+.yourinput-text {
+    border: 1px solid black;
+    margin-top: 10px;
+    margin-left: 10px;
+    height: 300px;
+    width: 97%;
 }

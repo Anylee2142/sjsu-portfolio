@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS reviews (
     user_pk MEDIUMINT NOT NULL,
     res_pk MEDIUMINT NOT NULL,
     content VARCHAR(300) NOT NULL,
-    rating TINYINT NOT NULL,
+    rating FLOAT(3, 2) NOT NULL,
     post_date DATE NOT NULL,
     PRIMARY KEY(review_pk),
     FOREIGN KEY (user_pk) REFERENCES users(user_pk),

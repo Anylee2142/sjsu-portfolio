@@ -11,6 +11,7 @@ var orderController = require('./controllers/orderController');
 var restaurantController = require('./controllers/restaurantController');
 var seacrhController = require('./controllers/seacrhController');
 var menuController = require('./controllers/menuControllers');
+var reviewController = require('./controllers/reviewController');
 
 var mysqlConnection = config.mysqlConnection;
 var port = process.env.PORT || 3001 ;
@@ -36,6 +37,7 @@ orderController(app, mysqlConnection);
 restaurantController(app, mysqlConnection);
 seacrhController(app, mysqlConnection);
 menuController(app, mysqlConnection);
+reviewController(app, mysqlConnection);
 
 //start your server on designated port or 3001
 app.listen(port, () => {

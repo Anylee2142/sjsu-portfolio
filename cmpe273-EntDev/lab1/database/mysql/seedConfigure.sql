@@ -218,3 +218,94 @@ INSERT INTO menus(name, price, res_pk)
 VALUES(
     "Bi-bim-Bop", "15", "5"
 );
+
+INSERT INTO reviews(user_pk, res_pk,
+content, 
+rating, post_date)
+VALUES(
+    "1", "1",
+    "Food is really clean and healthy",
+    4.8, "2020-09-29 14:56:00"
+);
+
+INSERT INTO reviews(user_pk, res_pk,
+content, 
+rating, post_date)
+VALUES(
+    "2", "1",
+    "Sometimes they miss some side stuffs though",
+    4.5, "2020-09-29 11:00:00"
+);
+
+INSERT INTO reviews(user_pk, res_pk,
+content, 
+rating, post_date)
+VALUES(
+    "1", "2",
+    "French Toast is really awesome !",
+    4.3, "2020-09-28 14:56:00"
+);
+
+INSERT INTO reviews(user_pk, res_pk,
+content, 
+rating, post_date)
+VALUES(
+    "1", "2",
+    "With Salmon Salad, what a full day",
+    4.4, "2020-09-27 14:56:00"
+);
+
+INSERT INTO reviews(user_pk, res_pk,
+content, 
+rating, post_date)
+VALUES(
+    "2", "3",
+    "Too many fried foods",
+    3.8, "2020-09-29 14:10:00"
+);
+
+INSERT INTO reviews(user_pk, res_pk,
+content, 
+rating, post_date)
+VALUES(
+    "2", "3",
+    "Udon tastes a bit bitter",
+    3.2, "2020-09-28 10:56:00"
+);
+
+INSERT INTO reviews(user_pk, res_pk,
+content, 
+rating, post_date)
+VALUES(
+    "1", "4",
+    "Chicken itself is good, but marination",
+    2.5, "2020-09-21 09:56:00"
+);
+
+INSERT INTO reviews(user_pk, res_pk,
+content, 
+rating, post_date)
+VALUES(
+    "2", "4",
+    "Fried food was fine though",
+    4.5, "2020-09-29 15:56:00"
+);
+
+INSERT INTO reviews(user_pk, res_pk,
+content, 
+rating, post_date)
+VALUES(
+    "2", "5",
+    "Grilled Beef and Kim-chi ggi-gae are awesome !",
+    4.8, "2020-09-29 14:56:00"
+);
+
+INSERT INTO reviews(user_pk, res_pk,
+content, 
+rating, post_date)
+VALUES(
+    "1", "5",
+    "Try ho-ddeouk next time !",
+    4.8, "2020-09-29 11:56:00"
+);
+
