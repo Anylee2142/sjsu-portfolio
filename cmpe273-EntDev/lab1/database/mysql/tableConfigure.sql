@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS orders (
     order_date DATE NOT NULL,
     food_provide_code CHAR(10) NOT NULL, -- 0 = dine-in, 1 = pickup, 2 = delivery
     order_status char(20) NOT NULL, -- Order Received, Preparing, (On the Way, Delivered), (Pick up Ready, Picked up)
-    total_price MEDIUMINT NOT NULL,
+    total_price FLOAT NOT NULL,
     PRIMARY KEY(order_pk),
     FOREIGN KEY (user_pk) REFERENCES users(user_pk),
     FOREIGN KEY (res_pk) REFERENCES restaurants(res_pk)

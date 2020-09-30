@@ -121,7 +121,7 @@ class RestaurantDetail extends Component {
                     })
                 }
             });
-        
+
         // And then reload !
         window.location.reload();
     }
@@ -217,29 +217,39 @@ class RestaurantDetail extends Component {
                         <div class="col-lg-4 restaurant-body-order">
                             <div class="restaurant-body-order-orderbutton">
                                 <p>Order Online for Delivery!</p>
+                                <Link to={
+                                    {
+                                        pathname: "/restaurantOrder",
+                                        state: { 
+                                            restaurant: this.state.restaurant,
+                                            menus: this.state.menus 
+                                        }
+                                    }
+                                }>
                                 <button type="submit" class="btn btn-default order-btn" onClick={this.submitSearch}>
                                     {/* Go to order link */}
                                     <span class="button-style">Order!</span>
                                 </button>
-                            </div>
-                            <div class="restaurant-body-order-info">
-                                <h3>Food type: {this.state.restaurant.type_of_food}</h3>
+                                </Link>
+                        </div>
+                        <div class="restaurant-body-order-info">
+                            <h3>Food type: {this.state.restaurant.type_of_food}</h3>
                                 Dine-in: [{this.state.restaurant.is_dine_in_possible ? this.state.YES_SIGN : this.state.NO_SIGN}]
                                 Delivery: [{this.state.restaurant.is_delivery_possible ? this.state.YES_SIGN : this.state.NO_SIGN}]
                                 Pickup: [{this.state.restaurant.is_pickup_possible ? this.state.YES_SIGN : this.state.NO_SIGN}]
                                 <hr></hr>
-                                <p>{this.state.restaurant.state}, {this.state.restaurant.city}</p>
-                                <hr></hr>
-                                <p>{this.state.restaurant.email}</p>
-                                <hr></hr>
-                                <p>{this.state.restaurant.phone_number}</p>
+                            <p>{this.state.restaurant.state}, {this.state.restaurant.city}</p>
+                            <hr></hr>
+                            <p>{this.state.restaurant.email}</p>
+                            <hr></hr>
+                            <p>{this.state.restaurant.phone_number}</p>
 
-                            </div>
                         </div>
-
                     </div>
+
                 </div>
             </div>
+            </div >
         )
     }
 }
@@ -247,7 +257,6 @@ class RestaurantDetail extends Component {
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        restaurant: state.restaurant,
         menu: state.menu
     }
 };

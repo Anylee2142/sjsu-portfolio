@@ -1,7 +1,7 @@
 .orders-container {
     /* border: 3px solid black; */
-    width: 40%;
-    margin: 20px auto;
+    width: 55%;
+    margin: 20px 100px;
     padding: 20px;
 }
 
@@ -27,3 +27,39 @@
     padding: 15px;
     margin: 20px;
 }
+
+.order-user-details {
+    border: 1px solid black;
+    margin-top: 15px;
+}
+
+.order-filter-config {
+    border: 1px solid black;
+    margin-left: 300px;
+    padding-left: 30px;
+    margin-top: 100px;
+    width: 400px;
+}
+
+.filter-checkbox {
+    display: inline-block;
+    padding-top: 5px;
+    padding-left: 30px;
+}
+
+.filter-square {
+    -ms-transform: scale(2); /* IE */
+    -moz-transform: scale(2); /* FF */
+    -webkit-transform: scale(2); /* Safari and Chrome */
+    -o-transform: scale(2); /* Opera */
+    transform: scale(2);
+    /* padding: 10px; */
+}
+
+/* .col-lg-4 {
+    border: 1px solid black;
+}
+
+.col-lg-8 {
+    border: 1px solid black;
+} */

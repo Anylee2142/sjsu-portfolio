@@ -7,9 +7,9 @@ import UserProfile from './User/UserProfile';
 import UserLogin from './User/UserLogin';
 import UserSignup from './User/UserSignup';
 import UserModify from './User/UserModify';
-
 import RestaurantList from './Restaurant/RestaurantList';
 import RestaurantDetail from './Restaurant/RestaurantDetail';
+import RestaurantOrder from './Restaurant/RestaurantOrder';
 import EventForUsers from './Events/EventForUsers'
 import EventDetailsForUsers from './Events/EventDetailsForUsers';
 import RegisteredEventForUsers from './Events/RegisteredEventForUsers';
@@ -35,6 +35,7 @@ class Main extends Component {
                     <Route path="/orderUsers" component={OrderForUsers} />
                     <Route path="/restaurantList" component={RootRouter}/>
                     <Route path="/restaurantDetail" component={RestaurantDetail}/>
+                    <Route path="/restaurantOrder" component={RestaurantOrder}/>
                     <Route path="/home" component={RestaurantList}/>
                     <Route exact path="/" component={RootRouter}/>  {/* If not `exact`, then all the other routes will be directed here */}
                     <Route component={NotFound_404}/>
