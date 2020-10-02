@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './UserSignup.css';
+import './RestaurantSignup.css';
 import axios from 'axios';
 import cookie from 'react-cookies';
 import { Redirect } from 'react-router';
@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions';
 
 //Define a Login Component
-class UserSignup extends Component {
+class RestaurantSignup extends Component {
     //call the constructor method
     constructor(props) {
         //Call the constrictor of Super class i.e The Component
@@ -18,6 +18,8 @@ class UserSignup extends Component {
             name: "",
             emailID: "",
             password: "",
+            city: "", state: "",
+            res_long: "", res_lat: "",
             // authFlag: false,
             errorMessage: ""
         }
@@ -25,6 +27,10 @@ class UserSignup extends Component {
         this.nameChangeHandler = this.nameChangeHandler.bind(this);
         this.emailIDChangeHandler = this.emailIDChangeHandler.bind(this);
         this.passwordChangeHandler = this.passwordChangeHandler.bind(this);
+        this.cityChangeHandler = this.cityChangeHandler.bind(this);
+        this.stateChangeHandler = this.stateChangeHandler.bind(this);
+        this.longChangeHandler = this.longChangeHandler.bind(this);
+        this.latChangeHandler = this.latChangeHandler.bind(this);
         this.submitLogin = this.submitLogin.bind(this);
     }
     //Call the Will Mount to set the auth Flag to false
@@ -32,9 +38,10 @@ class UserSignup extends Component {
         // this.setState({
         //     authFlag: false
         // })
-        console.log("User state = ", this.props.user);
-        console.log("Local Storage = ", localStorage.getItem("user_profile"));
+        console.log("User state = ", this.props.restaurantUser);
+        console.log("Local Storage = ", localStorage.getItem("restaurant_profile"));
     }
+
     nameChangeHandler = (e) => {
         this.setState({
             name: e.target.value
@@ -47,12 +54,38 @@ class UserSignup extends Component {
             emailID: e.target.value
         })
     }
+
     //password change handler to update state variable with the text entered by the user
     passwordChangeHandler = (e) => {
         this.setState({
             password: e.target.value
         })
     }
+
+    cityChangeHandler = (e) => {
+        this.setState({
+            city: e.target.value
+        })
+    }
+
+    stateChangeHandler = (e) => {
+        this.setState({
+            state: e.target.value
+        })
+    }
+
+    longChangeHandler = (e) => {
+        this.setState({
+            res_long: e.target.value
+        })
+    }
+
+    latChangeHandler = (e) => {
+        this.setState({
+            res_lat: e.target.value
+        })
+    }
+
     //submit Login handler to send a request to the node backend
     submitLogin = (e) => {
         // var headers = new Headers();
@@ -61,17 +94,21 @@ class UserSignup extends Component {
         const data = {
             name: this.state.name,
             emailID: this.state.emailID,
-            password: this.state.password
+            password: this.state.password,
+            city: this.state.city, state: this.state.state,
+            res_long: this.state.res_long, res_lat: this.state.res_lat
         };
         this.setState({
             name: "",
             emailID: "",
-            password: ""
+            password: "",
+            city: "", state: "",
+            res_long: "", res_lat: ""
         });
         //set the with credentials to true
         axios.defaults.withCredentials = true;
         //make a post request with the user data
-        axios.post('http://localhost:3001/user/', data)
+        axios.post('http://localhost:3001/restaurants/', data)
             .then(response => {
                 console.log("Status Code : ", response.status);
                 if (response.status === 200) {
@@ -80,8 +117,8 @@ class UserSignup extends Component {
                         "email": data.emailID,
                         "password": data.password
                     }
-                    this.props.renderToProfile(signUp_cache);
-                    localStorage.setItem("user_profile", JSON.stringify(signUp_cache));
+                    this.props.renderToRestaurantProfile(signUp_cache);
+                    localStorage.setItem("restaurant_profile", JSON.stringify(signUp_cache));
                     this.props.history.push("/restaurantList");
                 }
 
@@ -100,7 +137,7 @@ class UserSignup extends Component {
     render() {
         //redirect based on successful login
         let redirectVar = null;
-        if (cookie.load('userCookie')) {
+        if (cookie.load('restaurantCookie')) {
             redirectVar = <Redirect to="/restaurantList" />
         } 
 
@@ -120,7 +157,7 @@ class UserSignup extends Component {
                     <div class="login-form">
                         <div class="main-div">
                             <div class="panel">
-                                <h2>Yelp User Signup</h2>
+                                <h2>Yelp Restaurant Signup</h2>
                                 {errorMessageVar}
                                 Please enter your Name, Email ID, and Password
                             </div>
@@ -133,6 +170,18 @@ class UserSignup extends Component {
                             <div class="form-group">
                                 <input onChange={this.passwordChangeHandler} type="password" name="password" placeholder="Password" value={this.state.password} required />
                             </div>
+                            <div class="form-group">
+                                <input onChange={this.cityChangeHandler} type="text" name="city" placeholder="City" value={this.state.city} required />
+                            </div>
+                            <div class="form-group">
+                                <input onChange={this.stateChangeHandler} type="text" name="state" placeholder="State" value={this.state.state} required />
+                            </div>
+                            <div class="form-group">
+                                <input onChange={this.longChangeHandler} type="test" name="longitude" placeholder="Longitude" value={this.state.res_long} required />
+                            </div>
+                            <div class="form-group">
+                                <input onChange={this.latChangeHandler} type="text" name="latitude" placeholder="Latitude" value={this.state.res_lat} required />
+                            </div>
                             <button onClick={this.submitLogin} class="btn btn-primary">Login</button>
                         </div>
                     </div>
@@ -144,25 +193,20 @@ class UserSignup extends Component {
         )
     }
 }
+
 const mapStateToProps = state => {
-    console.log(state);
+    // console.log(state);
     return {
-        user: state.user
+        restaurantUser: state.restaurantUser
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        renderToProfile: (payload) => dispatch({type: actionTypes.RENDER_TO_PROFILE, payload: payload}),
-        flushUser: () => dispatch({type: actionTypes.FLUSH_USER})
-        // onIncrementCounter: () => dispatch({type: actionTypes.INCREMENT}),
-        // onDecrementCounter: () => dispatch({type: actionTypes.DECREMENT}),
-        // onAddCounter: () => dispatch({type: actionTypes.ADD, val: 10}),
-        // onSubtractCounter: () => dispatch({type: actionTypes.SUBTRACT, val: 15}),
-        // onStoreResult: (result) => dispatch({type: actionTypes.STORE_RESULT, result: result}),
-        // onDeleteResult: (id) => dispatch({type: actionTypes.DELETE_RESULT, resultElId: id})
+        renderToRestaurantProfile: (payload) => dispatch({type: actionTypes.RENDER_TO_RESTAURANT_PROFILE, payload: payload}),
+        flushRestaurantProfile: () => dispatch({type: actionTypes.FLUSH_RESTAURANT_PROFILE})
     }
 };
 
 //export Login Component
-export default connect(mapStateToProps, mapDispatchToProps)(UserSignup);
+export default connect(mapStateToProps, mapDispatchToProps)(RestaurantSignup);

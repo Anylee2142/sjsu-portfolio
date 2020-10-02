@@ -9,6 +9,7 @@ import { createStore, combineReducers } from 'redux';
 
 import userReducer from './store/reducer/user';
 import restaurantReducer from './store/reducer/searchedRestaurant';
+import restuarantProfileReducer from './store/reducer/restaurantUser';
 import geolocationReducer from './store/reducer/geolocation';
 import googlemapReducer from './store/reducer/googleMap';
 import menuReducer from './store/reducer/menu';
@@ -16,6 +17,7 @@ import menuReducer from './store/reducer/menu';
 const rootReducer = combineReducers({
   user: userReducer,
   restaurant: restaurantReducer,
+  restaurantUser: restuarantProfileReducer,
   geolocation: geolocationReducer,
   google: googlemapReducer,
   menu: menuReducer

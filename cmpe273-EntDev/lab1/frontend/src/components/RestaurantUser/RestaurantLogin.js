@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './UserSignup.css';
+import './RestaurantLogin.css';
 import axios from 'axios';
 import cookie from 'react-cookies';
 import { Redirect } from 'react-router';
@@ -7,22 +7,21 @@ import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions';
 
+
 //Define a Login Component
-class UserSignup extends Component {
+class RestaurantLogin extends Component {
     //call the constructor method
     constructor(props) {
         //Call the constrictor of Super class i.e The Component
         super(props);
         //maintain the state required for this component
         this.state = {
-            name: "",
             emailID: "",
             password: "",
             // authFlag: false,
             errorMessage: ""
         }
         //Bind the handlers to this class
-        this.nameChangeHandler = this.nameChangeHandler.bind(this);
         this.emailIDChangeHandler = this.emailIDChangeHandler.bind(this);
         this.passwordChangeHandler = this.passwordChangeHandler.bind(this);
         this.submitLogin = this.submitLogin.bind(this);
@@ -32,15 +31,29 @@ class UserSignup extends Component {
         // this.setState({
         //     authFlag: false
         // })
-        console.log("User state = ", this.props.user);
-        console.log("Local Storage = ", localStorage.getItem("user_profile"));
-    }
-    nameChangeHandler = (e) => {
-        this.setState({
-            name: e.target.value
-        })
+
+        // // Triggered when refresh
+        // if (this.props.user.email==="" && this.props.user.password==="") {
+        //     console.log("Reload state from local Storage !");
+        //     let userProfile = JSON.parse(localStorage.getItem("user_profile"));
+        //     this.props.renderToProfile(userProfile);
+        //     console.log("Reloaded object is", userProfile);
+        // }
+
+        console.log("Restaurant User state = ", this.props.restaurantUser);
+        console.log("Local Storage = ", localStorage.getItem("restaurant_profile"));
+        console.log("Restaurant User login local state = ", this.state);
     }
 
+    componentDidMount() {
+        console.log("after mount = ", this.props.restaurantUser);
+        if (this.props.restaurantUser.email !== "" && this.props.restaurantUser.password !== "") {
+            this.setState({
+                emailID: this.props.restaurantUser.email,
+                password: this.props.restaurantUser.password
+            })
+        }
+    }
     //username change handler to update state variable with the text entered by the user
     emailIDChangeHandler = (e) => {
         this.setState({
@@ -56,35 +69,30 @@ class UserSignup extends Component {
     //submit Login handler to send a request to the node backend
     submitLogin = (e) => {
         // var headers = new Headers();
+        
         //prevent page from refresh
         e.preventDefault();
         const data = {
-            name: this.state.name,
             emailID: this.state.emailID,
             password: this.state.password
         };
         this.setState({
-            name: "",
             emailID: "",
             password: ""
         });
+        console.log("Current login state before sending request = ", this.state);
         //set the with credentials to true
         axios.defaults.withCredentials = true;
         //make a post request with the user data
-        axios.post('http://localhost:3001/user/', data)
+        axios.post('http://localhost:3001/restaurants/login', data)
             .then(response => {
                 console.log("Status Code : ", response.status);
+                // console.log(response.data);
                 if (response.status === 200) {
-                    let signUp_cache = {
-                        "name": data.name,
-                        "email": data.emailID,
-                        "password": data.password
-                    }
-                    this.props.renderToProfile(signUp_cache);
-                    localStorage.setItem("user_profile", JSON.stringify(signUp_cache));
-                    this.props.history.push("/restaurantList");
+                    this.props.renderToRestaurantProfile(response.data[0]);
+                    localStorage.setItem("restaurant_profile", JSON.stringify(response.data[0]));
+                    this.props.history.push("/home");
                 }
-
             }).catch((error) => {
                 console.log("Error has been catched : ", error.response.status);
                 console.log(error.response);
@@ -102,7 +110,7 @@ class UserSignup extends Component {
         let redirectVar = null;
         if (cookie.load('userCookie')) {
             redirectVar = <Redirect to="/restaurantList" />
-        } 
+        }
 
         let errorMessageVar = null;
         if (this.state.errorMessage !== "") {
@@ -111,21 +119,18 @@ class UserSignup extends Component {
             )
         }
 
-        document.title = "Sign up - Yelp"
+        document.title = "Log in - Yelp"
         return (
             <div>
                 {redirectVar}
                 <div class="red-header">Yelp !</div>
-                <div class="signup-container">
+                <div class="login-container">
                     <div class="login-form">
                         <div class="main-div">
                             <div class="panel">
-                                <h2>Yelp User Signup</h2>
+                                <h2>Yelp RESTAURANT Login</h2>
                                 {errorMessageVar}
-                                Please enter your Name, Email ID, and Password
-                            </div>
-                            <div class="form-group">
-                                <input onChange={this.nameChangeHandler} type="text" name="name" placeholder="Name" value={this.state.name} required />
+                                Please enter your Email ID and password
                             </div>
                             <div class="form-group">
                                 <input onChange={this.emailIDChangeHandler} type="email" name="emailID" placeholder="Email ID" value={this.state.emailID} required />
@@ -144,25 +149,20 @@ class UserSignup extends Component {
         )
     }
 }
+
 const mapStateToProps = state => {
-    console.log(state);
+    // console.log(state);
     return {
-        user: state.user
+        restaurantUser: state.restaurantUser
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        renderToProfile: (payload) => dispatch({type: actionTypes.RENDER_TO_PROFILE, payload: payload}),
-        flushUser: () => dispatch({type: actionTypes.FLUSH_USER})
-        // onIncrementCounter: () => dispatch({type: actionTypes.INCREMENT}),
-        // onDecrementCounter: () => dispatch({type: actionTypes.DECREMENT}),
-        // onAddCounter: () => dispatch({type: actionTypes.ADD, val: 10}),
-        // onSubtractCounter: () => dispatch({type: actionTypes.SUBTRACT, val: 15}),
-        // onStoreResult: (result) => dispatch({type: actionTypes.STORE_RESULT, result: result}),
-        // onDeleteResult: (id) => dispatch({type: actionTypes.DELETE_RESULT, resultElId: id})
+        renderToRestaurantProfile: (payload) => dispatch({type: actionTypes.RENDER_TO_RESTAURANT_PROFILE, payload: payload}),
+        flushRestaurantProfile: () => dispatch({type: actionTypes.FLUSH_RESTAURANT_PROFILE})
     }
 };
 
 //export Login Component
-export default connect(mapStateToProps, mapDispatchToProps)(UserSignup);
+export default connect(mapStateToProps, mapDispatchToProps)(RestaurantLogin);

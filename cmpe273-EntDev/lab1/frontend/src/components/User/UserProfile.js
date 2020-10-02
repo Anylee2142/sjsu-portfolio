@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './UserProfile.css';
 import { NavLink } from 'react-router-dom';
-import cookie from 'react-cookies';
 
 import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions';
@@ -12,7 +11,6 @@ import Navbar from '../Header/Navbar';
 class UserProfile extends Component {
     constructor(props) {
         super(props);
-        this.handleLogout = this.handleLogout.bind(this);
     }
 
     componentWillMount() {
@@ -24,11 +22,6 @@ class UserProfile extends Component {
             console.log("Reloaded object is", userProfile);
         }
         console.log("User profile = ", this.props);
-    }
-
-    //handle logout to destroy the cookie
-    handleLogout = () => {
-        cookie.remove('cookie', { path: '/' })
     }
 
     // TODO: text generator here

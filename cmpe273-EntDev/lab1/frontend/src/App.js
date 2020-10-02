@@ -14,7 +14,7 @@ class App extends Component {
   }
 
   render() {
-    console.log("APp props ", this.props);
+    console.log("App props ", this.props);
     return (
       //Use Browser Router to route to different pages
       <BrowserRouter>

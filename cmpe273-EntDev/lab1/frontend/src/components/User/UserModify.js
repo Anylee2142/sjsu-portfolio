@@ -99,6 +99,11 @@ class UserModify extends Component {
         for (const key in this.state) {
             const user_input = this.state[key];
             console.log("@@@@", key, user_input);
+
+            if (key === "errorMessage") {
+                continue;
+            }
+
             // If user enters nothing, then don't put it
             if (!user_input.replace(/\s/g, '')) {
                 console.log("!!");

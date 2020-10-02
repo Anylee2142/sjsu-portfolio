@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions';
 
 import Navbar from '../Header/Navbar';
+import cookie from 'react-cookies';
 
 //create the Navbar Component
 class RestaurantDetail extends Component {
@@ -28,6 +29,7 @@ class RestaurantDetail extends Component {
 
         this.reviewChangeHandler = this.reviewChangeHandler.bind(this);
         this.ratingChangeHandler = this.ratingChangeHandler.bind(this);
+        this.decodeCategoryCode = this.decodeCategoryCode.bind(this);
         this.submitReview = this.submitReview.bind(this);
     }
 
@@ -126,26 +128,48 @@ class RestaurantDetail extends Component {
         window.location.reload();
     }
 
+    decodeCategoryCode(categoryCode) {
+        // Appetizer, Salads, Main Dish, Desserts, and Beverages from 0 to 4 respectively
+        let category = "Not designated yet";
+        if (categoryCode === 0) category = "Appetizer";
+        if (categoryCode === 1) category = "Salads";
+        if (categoryCode === 2) category = "Main Dish";
+        if (categoryCode === 3) category = "Desserts";
+        if (categoryCode === 4) category = "Beverages";
+        return "Category : " + category;
+    }
+
     render() {
         console.log(this.state);
         console.log(this.props);
 
         var menuVar = "";
         var reviewVar = "";
+        var orderButtonVar = "";
+        var reviewInputVar = "";
         if (this.state.render) {
             menuVar = (
                 <div class="restaurant-body-content-menu">
                     <div class="restaurant-body-content-menu-detail">
                         <p>{(this.state.menus.length >= 1) ? this.state.menus[0].name : ""}</p>
-                        <p>{(this.state.menus.length >= 1) ? "$ " + this.state.menus[0].price : ""}</p>
+                        <p>{(this.state.menus.length >= 1) ? "$ " + this.state.menus[0].price : "TBD"}</p>
+                        <p>[{(this.state.menus.length >= 1) ? this.state.menus[0].ingredient: "TBD"}]</p>
+                        <p>[{(this.state.menus.length >= 1) ? this.state.menus[0].menu_desc: "TBD"}]</p>
+                        <p>[{(this.state.menus.length >= 1) ? this.decodeCategoryCode(this.state.menus[0].category): "TBD"}]</p>
                     </div>
                     <div class="restaurant-body-content-menu-detail">
                         <p>{(this.state.menus.length >= 2) ? this.state.menus[1].name : ""}</p>
-                        <p>{(this.state.menus.length >= 2) ? "$ " + this.state.menus[1].price : ""}</p>
+                        <p>{(this.state.menus.length >= 2) ? "$ " + this.state.menus[1].price : "TBD"}</p>
+                        <p>[{(this.state.menus.length >= 2) ? this.state.menus[1].ingredient : "TBD"}]</p>
+                        <p>[{(this.state.menus.length >= 2) ? this.state.menus[1].menu_desc : "TBD"}]</p>
+                        <p>[{(this.state.menus.length >= 2) ? this.decodeCategoryCode(this.state.menus[1].category) : "TBD"}]</p>
                     </div>
                     <div class="restaurant-body-content-menu-detail">
                         <p>{(this.state.menus.length >= 3) ? this.state.menus[2].name : ""}</p>
-                        <p>{(this.state.menus.length >= 3) ? "$ " + this.state.menus[2].price : ""}</p>
+                        <p>{(this.state.menus.length >= 3) ? "$ " + this.state.menus[2].price : "TBD"}</p>
+                        <p>[{(this.state.menus.length >= 3) ? this.state.menus[2].ingredient : "TBD"}]</p>
+                        <p>[{(this.state.menus.length >= 3) ? this.state.menus[2].menu_desc : "TBD"}]</p>
+                        <p>[{(this.state.menus.length >= 3) ? this.decodeCategoryCode(this.state.menus[2].category) : "TBD"}]</p>
                     </div>
                 </div>
             );
@@ -168,6 +192,51 @@ class RestaurantDetail extends Component {
                     </div>
                 ))
             );
+
+        }
+
+        if (!cookie.load("restaurantCookie")) {
+            orderButtonVar = (
+                <div class="restaurant-body-order-orderbutton">
+                    <p>Order Online for Delivery!</p>
+                    <Link to={
+                        {
+                            pathname: "/restaurantOrder",
+                            state: {
+                                restaurant: this.state.restaurant,
+                                menus: this.state.menus
+                            }
+                        }
+                    }>
+                        <button type="submit" class="btn btn-default order-btn" onClick={this.submitSearch}>
+                            {/* Go to order link */}
+                            <span class="button-style">Order!</span>
+                        </button>
+                    </Link>
+                </div>
+            );
+
+            reviewInputVar = (
+                <div>
+                    <h2 class="restaurant-detail-inliner">Your Review! </h2>
+                    <div class="go-right">Your rate
+                                    <input onChange={this.ratingChangeHandler} type="number" name="rating" min="1" max="5" class="go-right" value={this.state.your_rating}></input>
+                    </div>
+                    <div class="restaurant-body-content-review-yourinput">
+                        <form>
+                            <textarea
+                                onChange={this.reviewChangeHandler}
+                                class="yourinput-text"
+                                value={this.state.your_review}
+                                placeholder="Let us know your thoughts !"
+                            ></textarea>
+                            <button type="submit" class="btn btn-default review-submit-btn" onClick={this.submitReview}>
+                                <span class="button-style">Submit!</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            );
         }
 
         document.title = "[ Restaurant Details ]"
@@ -189,23 +258,7 @@ class RestaurantDetail extends Component {
                             {menuVar}
 
                             <div clas="restaurant-body-content-review">
-                                <h2 class="restaurant-detail-inliner">Your Review! </h2>
-                                <div class="go-right">Your rate
-                                    <input onChange={this.ratingChangeHandler} type="number" name="rating" min="1" max="5" class="go-right" value={this.state.your_rating}></input>
-                                </div>
-                                <div class="restaurant-body-content-review-yourinput">
-                                    <form>
-                                        <textarea
-                                            onChange={this.reviewChangeHandler}
-                                            class="yourinput-text"
-                                            value={this.state.your_review}
-                                            placeholder="Let us know your thoughts !"
-                                        ></textarea>
-                                        <button type="submit" class="btn btn-default review-submit-btn" onClick={this.submitReview}>
-                                            <span class="button-style">Submit!</span>
-                                        </button>
-                                    </form>
-                                </div>
+                                {reviewInputVar}
 
                                 <div class="restaurant-body-content-review-others">
                                     {reviewVar}
@@ -215,40 +268,23 @@ class RestaurantDetail extends Component {
                         </div>
 
                         <div class="col-lg-4 restaurant-body-order">
-                            <div class="restaurant-body-order-orderbutton">
-                                <p>Order Online for Delivery!</p>
-                                <Link to={
-                                    {
-                                        pathname: "/restaurantOrder",
-                                        state: { 
-                                            restaurant: this.state.restaurant,
-                                            menus: this.state.menus 
-                                        }
-                                    }
-                                }>
-                                <button type="submit" class="btn btn-default order-btn" onClick={this.submitSearch}>
-                                    {/* Go to order link */}
-                                    <span class="button-style">Order!</span>
-                                </button>
-                                </Link>
-                        </div>
-                        <div class="restaurant-body-order-info">
-                            <h3>Food type: {this.state.restaurant.type_of_food}</h3>
+                            {orderButtonVar}
+                            <div class="restaurant-body-order-info">
+                                <h3>Food type: {this.state.restaurant.type_of_food}</h3>
                                 Dine-in: [{this.state.restaurant.is_dine_in_possible ? this.state.YES_SIGN : this.state.NO_SIGN}]
                                 Delivery: [{this.state.restaurant.is_delivery_possible ? this.state.YES_SIGN : this.state.NO_SIGN}]
                                 Pickup: [{this.state.restaurant.is_pickup_possible ? this.state.YES_SIGN : this.state.NO_SIGN}]
                                 <hr></hr>
-                            <p>{this.state.restaurant.state}, {this.state.restaurant.city}</p>
-                            <hr></hr>
-                            <p>{this.state.restaurant.email}</p>
-                            <hr></hr>
-                            <p>{this.state.restaurant.phone_number}</p>
-
+                                <p>{this.state.restaurant.state}, {this.state.restaurant.city}</p>
+                                <hr></hr>
+                                <p>{this.state.restaurant.email}</p>
+                                <hr></hr>
+                                <p>{this.state.restaurant.phone_number}</p>
+                            </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
-            </div>
             </div >
         )
     }

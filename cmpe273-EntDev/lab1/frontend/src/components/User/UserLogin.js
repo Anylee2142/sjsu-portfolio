@@ -108,7 +108,7 @@ class UserLogin extends Component {
     render() {
         //redirect based on successful login
         let redirectVar = null;
-        if (cookie.load('cookie')) {
+        if (cookie.load('userCookie')) {
             redirectVar = <Redirect to="/restaurantList" />
         }
 
@@ -128,7 +128,7 @@ class UserLogin extends Component {
                     <div class="login-form">
                         <div class="main-div">
                             <div class="panel">
-                                <h2>Yelp Login</h2>
+                                <h2>Yelp USER Login</h2>
                                 {errorMessageVar}
                                 Please enter your Email ID and password
                             </div>

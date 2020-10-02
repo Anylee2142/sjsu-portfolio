@@ -38,8 +38,11 @@ CREATE TABLE IF NOT EXISTS restaurants (
 CREATE TABLE IF NOT EXISTS menus (
     menu_pk MEDIUMINT NOT NULL AUTO_INCREMENT,
     res_pk MEDIUMINT NOT NULL,
-    name char(50) NOT NULL,
+    name char(50) NOT NULL UNIQUE,
     price int NOT NULL,
+    ingredient char(100) NULL,
+    menu_desc char(200) NULL,
+    category TINYINT NULL, -- Appetizer, Salads, Main Dish, Desserts, and Beverages from 0 to 4 respectively
     PRIMARY KEY(menu_pk),
     FOREIGN KEY (res_pk) REFERENCES restaurants(res_pk)
 );

@@ -32,19 +32,32 @@ class Navbar extends Component {
     }
     //handle logout to destroy the cookie
     handleLogout = () => {
-        cookie.remove('cookie', { path: '/' })
-        localStorage.removeItem("user_profile");
-        this.props.flushUser();
+        if (cookie.load("userCookie")) {
+            cookie.remove('userCookie', { path: '/' })
+            localStorage.removeItem("user_profile");
+            this.props.flushUser();
+        } else if (cookie.load("restaurantCookie")) {
+            cookie.remove('restaurantCookie', { path: '/' })
+            localStorage.removeItem("restaurant_profile");
+            this.props.flushRestaurantProfile();
+        }
     }
 
     componentWillMount() {
         // Triggered when refresh, individual page doesn't need to load redux from local storage everytime. Just do it once here
         // Since Navbar is rendered everytime
-        if (this.props.user.email === "" && this.props.user.password === "") {
-            console.log("Reload state from local Storage !");
+        if (this.props.user.email === "" && this.props.user.password === "" && cookie.load("userCookie")) {
+            console.log("Reload User Global State from local Storage !");
             let userProfile = localStorage.getItem("user_profile");
             this.props.renderToProfile(JSON.parse(userProfile));
             console.log("Reloaded object is", userProfile);
+        }
+
+        else if (this.props.restaurantUser.email === "" && this.props.restaurantUser.password === "" && cookie.load("restaurantCookie")) {
+            console.log("Reload Restaurant User Global State from local Storage !");
+            let restaurantUserProfile = localStorage.getItem("restaurant_profile");
+            this.props.renderToRestaurantProfile(JSON.parse(restaurantUserProfile));
+            console.log("Reloaded object is", restaurantUserProfile);
         }
 
         console.log("My current location = ", navigator.geolocation.getCurrentPosition((position) => {
@@ -83,7 +96,7 @@ class Navbar extends Component {
         }
 
 
-        console.log("User profile = ", this.props.user);
+        console.log("Navbar  current props = ", this.props);
     }
 
     keywordChangeHandler = (e) => {
@@ -93,7 +106,6 @@ class Navbar extends Component {
     }
 
     refreshPage = (e) => {
-
         this.setState({
             keyword: ""
         }) 
@@ -124,7 +136,7 @@ class Navbar extends Component {
 
         console.log("Current Search state before sending request = ", this.state);
 
-        if (cookie.load('cookie')) {
+        if (cookie.load('userCookie')) {
             let processedKeyword = this.state.keyword.replace(/[^A-Z0-9]+/ig, "").toLowerCase();
             let argumentKeyword = null;
 
@@ -171,7 +183,7 @@ class Navbar extends Component {
         //if Cookie is set render Logout Button
         let navLogin = null;
         let redirectVar = null;
-        if (cookie.load('cookie')) {
+        if (cookie.load('userCookie')) {
             console.log("Able to read cookie");
             navLogin = (
                 <ul class="nav navbar-nav navbar-right">
@@ -182,13 +194,26 @@ class Navbar extends Component {
                 </ul>
             );
         }
+        else if (cookie.load("restaurantCookie")) {
+            navLogin = (
+                <ul class="nav navbar-nav navbar-right">
+                    <li><Link to="/restaurantProfile"><span class="glyphicon glyphicon-user"></span>{this.props.restaurantUser["name"]}'s Profile</Link></li>
+                    <li><Link to="/eventRestaurants"><span class="glyphicon glyphicon-user"></span>Events</Link></li>
+                    <li><Link to="/orderRestaurants"><span class="glyphicon glyphicon-user"></span>Orders</Link></li>
+                    <li><Link to="/restaurantList" onClick={this.handleLogout}><span class="glyphicon glyphicon-user"></span>Logout</Link></li>
+                </ul>
+            );
+        }
+
         else {
             //Else display login button
             console.log("Not Able to read cookie");
             navLogin = (
                 <ul class="nav navbar-nav navbar-right">
-                    <li><Link to="/userLogin"><span class="glyphicon glyphicon-log-in"></span> Login</Link></li>
-                    <li><Link to="/userSignup"><span class="glyphicon glyphicon-log-in"></span> Sign Up</Link></li>
+                    <li><Link to="/restaurantLogin"><span class="glyphicon glyphicon-log-in"></span> Restaurant Login</Link></li>
+                    <li><Link to="/restaurantSignup"><span class="glyphicon glyphicon-log-in"></span> Restaurant Sign Up</Link></li>
+                    <li><Link to="/userLogin"><span class="glyphicon glyphicon-log-in"></span> User Login</Link></li>
+                    <li><Link to="/userSignup"><span class="glyphicon glyphicon-log-in"></span> User Sign Up</Link></li>
                 </ul>
             )
             let splits = window.location.href.split("/");
@@ -245,7 +270,8 @@ const mapStateToProps = (state) => {
     return {
         user: state.user,
         restaurant: state.restaurant,
-        geolocation: state.geolocation
+        geolocation: state.geolocation,
+        restaurantUser: state.restaurantUser
     }
 };
 
@@ -254,9 +280,11 @@ const mapDispatchToProps = dispatch => {
         renderToProfile: (payload) => dispatch({ type: actionTypes.RENDER_TO_PROFILE, payload: payload }),
         renderToRestaurant: (payload) => dispatch({ type: actionTypes.RENDER_TO_RESTAURANT, payload: payload }),
         renderToGeolocation: (payload) => dispatch({ type: actionTypes.RENDER_TO_GEOLOCATION, payload: payload }),
+        renderToRestaurantProfile: (payload) => dispatch({type: actionTypes.RENDER_TO_RESTAURANT_PROFILE, payload: payload}),
         flushUser: () => dispatch({ type: actionTypes.FLUSH_USER }),
         flushSearch: () => dispatch({ type: actionTypes.FLUSH_SEARCH }),
         flushGeolocation: () => dispatch({ type: actionTypes.FLUSH_GEOLOCATION }),
+        flushRestaurantProfile: () => dispatch({type: actionTypes.FLUSH_RESTAURANT_PROFILE})
     }
 };
 

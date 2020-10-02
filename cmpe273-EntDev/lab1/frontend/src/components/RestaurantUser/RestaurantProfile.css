@@ -1,0 +1,156 @@
+.navbar-brand {
+    font-size: 75px;
+}
+
+.navbar-default {
+    background-color: white;
+    border-color: white;    
+    padding: 24px 40px 0;
+}
+
+.container {
+    padding: 0px 0px 0px 13%;
+}
+
+.navbar-form .form-control {
+    width: 500px;
+    height: 50px;
+} 
+
+.navbar-form .btn {
+    height: 50px;
+}
+
+.button-style {
+    font-size: 30px;
+}
+
+.header {
+    background-color: #f5f5f5;
+    border-bottom: 1px solid gray;
+    border-top: 1px solid gray;
+    width: 100%;
+    padding-top: 15px;
+    min-height: 300px;
+    display: table;
+}
+
+.user-profile-picture {
+    border: 5px solid black;
+    width: 217px;
+    height: 217px;
+    float: left;
+    margin-right: 10%;
+}
+
+.brief-summary {
+    margin-top: 2%;
+    /* border: 5px solid red; */
+    width: 550px;
+    height: 150px;
+    float: left;
+    margin-right: 8%;
+}
+
+.modify-menu {
+    margin-top: 2%;
+    padding-left: 2%;
+    border-left: 1px solid gray;
+    float: left;
+    width: 500px;
+    height: 150px;
+}
+
+.modify-menu ul li{
+    font-size: 30px;
+    margin-bottom: 3%;
+}
+
+.restaurant-main-content {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+}
+
+.profile-list {
+    margin-top: 2%;
+    /* border: 5px solid black; */
+    width: 217px;
+    height: 1000px;
+    float: left;
+    margin-right: 10%;
+}
+
+.recent-activity {
+    margin-top: 2%;
+    float: left;
+    border: 0px solid green;
+    width: 550px;
+    height: 700px;
+    margin-right: 8%;
+}
+
+.about-restaurant {
+    padding-left: 5%;
+    float: left;
+    border-left: 1px solid gray;
+    height: 700px;
+}
+
+.recent-activity h1 {
+    color: red;
+}
+
+.recent-activity hr {
+    height: 12px;
+}
+
+.about-restaurant h1 {
+    color: red;
+}
+
+.profile-list a {
+    font-size: 30px;
+}
+
+.navbar-header {
+    padding-right: 50px;
+}
+
+.restaurant-profile-reviews {
+    border-right: 1px solid gray;
+    min-height: 700px;
+}
+
+.restaurant-profile-menus {
+    padding-bottom: 30px;
+}
+
+.restaurant-profile-content-menu {
+    /* border: 1px solid black; */
+    min-height: 200px;
+    margin-bottom: 50px;
+}
+
+.restaurant-profile-content-menu-detail {
+    float: left;
+    min-height: 150px;
+    width: 305px;
+    border: 1px solid black;
+    padding-left: 5px;
+    margin-top: 15px;
+    margin-left: 7px;
+}
+
+.restaurant-profile-review-detail{
+    border: 1px solid black;
+    margin-top: 10px;
+    margin-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+
+.restaurant-profile-others-detail {
+    border: 1px solid black;
+}

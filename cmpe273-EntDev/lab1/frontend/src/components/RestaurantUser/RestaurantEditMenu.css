@@ -1,0 +1,15 @@
+.addmenu-container {
+    border: 1px solid black;
+    margin: 20px auto;
+    width: 50%;
+    min-height: 800px;
+}
+
+.addmenu-container div {
+    text-align: center;
+    padding-bottom: 25px;
+}
+
+.go-center {
+    text-align: center;
+}

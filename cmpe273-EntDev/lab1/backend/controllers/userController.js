@@ -81,7 +81,7 @@ module.exports = (app, conn) => {
                 } else if (rows.length == 0) {
                     throw "Check your ID or PASSWORD, and Try Again !";
                 }
-                res.cookie('cookie', rows[0].user_pk, { maxAge: 900000, httpOnly: false, path: '/' });
+                res.cookie('userCookie', rows[0].user_pk, { maxAge: 900000, httpOnly: false, path: '/' });
                 res.writeHead(200, {
                     'Content-Type': "application/json"
                 })
@@ -116,7 +116,7 @@ module.exports = (app, conn) => {
                 res.end("Succesful update !");
                 console.log("Succesful update !")
             } catch (e) {
-                console.log("Error has been catched when user login !", e);
+                console.log("Error has been catched when user update !", e);
                 rows = [];
                 res.writeHead(500, {
                     'Content-Type': "text/plain"

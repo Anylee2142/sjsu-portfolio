@@ -224,11 +224,11 @@ class RestaurantList extends Component {
                                         }
                                     }>{restaurant.name}</Link>
                                 </h2>
-                                <h2 class="res-inline inline-go-right">{restaurant.phone_number}</h2>
+                                <h2 class="res-inline inline-go-right">{(!restaurant.phone_number) ? "Not Specified" : restaurant.phone_number}</h2>
                                 <br></br>
                                 <p class="p-inline inline-go-right">{restaurant.city}, {restaurant.state}</p>
-                                <p class="p-inline">{restaurant.avg_rating} / 5.0</p>
-                                <p>{restaurant.type_of_food}</p>
+                                <p class="p-inline">[ {(!restaurant.avg_rating) ? "Not Specified" : restaurant.avg_rating} / 5.0 ]</p>
+                                <p>{(!restaurant.type_of_food) ? "Not Specified" : restaurant.type_of_food}</p>
                                 {/* Location, contact information */}
                                 <p class="delivery-spec">
                                 Dine-in: [{restaurant.is_dine_in_possible ? this.state.YES_SIGN : this.state.NO_SIGN}]

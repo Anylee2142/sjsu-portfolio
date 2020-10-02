@@ -3,7 +3,7 @@
     width: 90%;
     margin: 20px auto;
     padding: 40px;
-    height: 1800px;
+    min-height: 1800px;
 }
 
 .res-spec {
