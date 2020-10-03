@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Redirect } from 'react-router';
+// import { Redirect } from 'react-router';
 
 import UserProfile from './User/UserProfile';
 import UserLogin from './User/UserLogin';
@@ -20,9 +20,11 @@ import RestaurantEditMenu from './RestaurantUser/RestaurantEditMenu';
 import EventForUsers from './Events/EventForUsers'
 import EventDetailsForUsers from './Events/EventDetailsForUsers';
 import RegisteredEventForUsers from './Events/RegisteredEventForUsers';
+import EventForRestaurants from './Events/EventForRestaurants';
+import PostEventForRestaurants from './Events/PostEventForRestaurants';
+
 import OrderForUsers from './Orders/OrderForUsers';
 import OrderChangeForRestaurants from './Orders/OrderChangeForRestaurants';
-import EventForRestaurants from './Events/EventForRestaurants';
 import OrderForRestaurants from './Orders/OrderForRestaurants';
 
 import RootRouter from './Root/RootRouter';
@@ -43,6 +45,7 @@ class Main extends Component {
                     <Route path="/eventUsers" component={EventForUsers} />
                     <Route path="/eventDetailsUsers" component={EventDetailsForUsers} />
                     <Route path="/registeredEventUsers" component={RegisteredEventForUsers} />
+                    <Route path="/postEventRestaurants" component={PostEventForRestaurants} />
                     <Route path="/orderUsers" component={OrderForUsers} />
                     <Route path="/restaurantList" component={RootRouter}/>
                     <Route path="/restaurantDetail" component={RestaurantDetail}/>

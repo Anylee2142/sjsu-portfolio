@@ -15,6 +15,8 @@ class EventForRestaurants extends Component {
         //maintain the state required for this component
         this.state = {
             events: [],
+            myEvents: [],
+            otherEvents: [],
             errorMessage: ""
         }
         console.log("Event for props = ", this.props);
@@ -27,7 +29,9 @@ class EventForRestaurants extends Component {
             .then(response => {
                 console.log("Fetched Events = ", response.data);
                 this.setState({
-                    events: response.data
+                    events: response.data,
+                    myEvents: response.data.filter((event) => event.res_pk == this.props.restaurantUser.res_pk),
+                    otherEvents: response.data.filter((event) => event.res_pk != this.props.restaurantUser.res_pk)
                 });
                 console.log("Chaning Local State Finished !");
             }).catch(error => {
@@ -43,25 +47,54 @@ class EventForRestaurants extends Component {
     }
 
     render() {
+        console.log(this.props);
+        console.log(this.state);
+
 
         document.title = "Find your Events !"
         return (
             <div>
                 <Navbar {...this.props}></Navbar>
                 <div class="events-container">
-                    <h1 class="inline-h1">Events</h1>
+                    <h1 class="inline-h1">My Events</h1>
                     <Link class="inline-h1 go-right" to={{
-                        pathname: "/registeredEventUsers",
-                        state: { user_pk : this.props.user.user_pk}
-                    }}>[Click for Registered Events !]</Link>
+                        pathname: "/postEventRestaurants",
+                        state: {
+                            res_pk: this.props.restaurantUser.res_pk,
+                            res_name: this.props.restaurantUser.name
+                        }
+                    }}>[Click for Posting your Event !]</Link>
                     <br></br>
                     <ul>
-                        {this.state.events.map(event => (
+                        {this.state.myEvents.map(event => (
                             <li>
                                 <div class="res_name">
                                     <Link to= {{
                                         pathname: "/eventDetailsUsers",
-                                        state: { event: event }
+                                        state: { event: event, isMyEvent: true }
+                                    }}>{event.name}</Link>
+                                </div>
+                                <div>by {event.res_name}</div>
+                                <div>
+                                    {event.start_time.replace("T", " ").split(".")[0]} ~ {event.end_time.replace("T", " ").split(".")[0]}
+                                </div>
+                                <div>{event.location}</div>
+                                <div>Hash tags: [ {event.hashtags} ]</div>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
+                <div class="events-container">
+                    <h1 class="inline-h1">Other Events</h1>
+                    <br></br>
+                    <ul>
+                        {this.state.otherEvents.map(event => (
+                            <li>
+                                <div class="res_name">
+                                    <Link to= {{
+                                        pathname: "/eventDetailsUsers",
+                                        state: { event: event, isMyEvent: false }
                                     }}>{event.name}</Link>
                                 </div>
                                 <div>by {event.res_name}</div>
@@ -82,7 +115,8 @@ class EventForRestaurants extends Component {
 const mapStateToProps = state => {
     // console.log(state);
     return {
-        user: state.user
+        user: state.user,
+        restaurantUser: state.restaurantUser
     }
 };
 

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import './EventDetailsForUsers.css';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions';
 
 import Navbar from '../Header/Navbar';
+import cookie from 'react-cookies';
 
 //create the Navbar Component
 class EventDetailsForUsers extends Component {
@@ -13,9 +15,41 @@ class EventDetailsForUsers extends Component {
         //Call the constrictor of Super class i.e The Component
         super(props);
         this.state = {
-            event: this.props.location.state.event
+            event: this.props.location.state.event,
+            registeredUsers: null,
+            isMyEvent: this.props.location.state.isMyEvent,
+            render: false
         }
         this.submitRegister = this.submitRegister.bind(this);
+    }
+
+    componentWillMount() {
+        if (cookie.load("restaurantCookie")) {
+            axios.get(`http://localhost:3001/events/${this.state.event.event_pk}`)
+            .then(response => {
+                console.log("Status Code : ", response.status);
+                console.log(response.data);
+                if (response.status === 200) {
+                    this.setState({
+                        registeredUsers: response.data
+                    }) // Flush after successful register
+                    // this.props.history.push("/restaurantList"); // To Registered Events
+                    // this.props.history.push("/eventRestaurants");
+                    console.log("Finshed !");
+                }
+            }).catch((error) => {
+                console.log("Error has been catched : ", error.response.status);
+                console.log(error.response);
+                console.log("Error response data = ", error.response.data);
+                if (true) { // When couldn't find user
+                    this.setState({
+                        errorMessage: error.response.data
+                    })
+                    alert(error.response.data);
+                    this.props.history.push("/eventRestaurants");
+                }
+            });
+        }
     }
 
     submitRegister = (e) => {
@@ -58,7 +92,45 @@ class EventDetailsForUsers extends Component {
             });
     }
 
+    componentDidMount() {
+        // Put a little bit of delay so that it won't always display "no display" at the first blink
+        setTimeout(function () {
+            this.setState({
+                render: true,
+            })
+        }.bind(this), 200)
+    }
+
     render() {
+        console.log(this.state);
+        console.log(this.props);
+
+        var buttonVar = null;
+        var userListVar = null;
+
+        if (this.state.render) {
+            if (cookie.load("userCookie")) {
+                buttonVar = (
+                    <div class="btn-container">
+                        <button onClick={this.submitRegister} class="btn btn-primary register-btn">Register !</button>
+                    </div>
+                );
+            }
+            if (cookie.load("restaurantCookie") && this.state.isMyEvent) {
+                userListVar = (
+                    <div class="registerd-users">
+                        Registered Users:
+                        {this.state.registeredUsers.map((user) => ((<Link to={
+                            {
+                                pathname: "/userProfile",
+                                state: { user: user }
+                            }
+                        }>{" "+user.name}</Link>)))}
+                    </div>
+                );
+            }
+        }
+        
 
         document.title = "[ Event Details ]"
         return (
@@ -77,10 +149,9 @@ class EventDetailsForUsers extends Component {
                     </div>
                     <div>{this.state.event.location}</div>
                     <div>Hash tags: [ {this.state.event.hashtags} ]</div>
+                    {userListVar}
                 </div>
-                <div class="btn-container">
-                    <button onClick={this.submitRegister} class="btn btn-primary register-btn">Register !</button>
-                </div>
+                {buttonVar}
             </div>
         )
     }
