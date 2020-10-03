@@ -11,6 +11,10 @@ import Navbar from '../Header/Navbar';
 class UserProfile extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            user: (this.props.location.state && "user" in this.props.location.state) ? this.props.location.state.user : null
+        }
     }
 
     componentWillMount() {
@@ -22,6 +26,7 @@ class UserProfile extends Component {
             console.log("Reloaded object is", userProfile);
         }
         console.log("User profile = ", this.props);
+        console.log(this.state);
     }
 
     // TODO: text generator here
@@ -29,7 +34,21 @@ class UserProfile extends Component {
     // else, <p>No information yet !<p>
 
     render() {
-        console.log("###", this.props.user.dob);
+        var user = (this.state.user) ? this.state.user : this.props.user;
+        var updateProfileVar = (
+            <h1>Restaurant is viewing User Profile!</h1>
+        );
+        if (this.state.user === null) {
+            updateProfileVar = (
+                <ul class="list-unstyled">
+                    <li><a href="#">Add Profile Photos</a></li>
+                    <li><li><NavLink to="/userModify">Update Your Profile</NavLink></li></li>
+                    <li>Find Friends</li>
+                </ul>
+            );
+        }
+
+        console.log("###", user.dob);
         document.title = "Your Yelp Profile"
         return (
             <div>
@@ -40,17 +59,13 @@ class UserProfile extends Component {
                         Add a photo !
                     </div>
                     <div class="brief-summary">
-                        <h1>{this.props.user.name}</h1>
-                        <p>{this.props.user.city}, {this.props.user.state}</p>
-                        <p>{this.props.user.phone_number} {this.props.user.dob != null ? this.props.user.dob.split("T")[0] : ""}</p>
+                        <h1>{user.name}</h1>
+                        <p>{user.city}, {user.state}</p>
+                        <p>{user.phone_number} {user.dob != null ? user.dob.split("T")[0] : ""}</p>
                         <p>Friends, Reviews Photos</p>
                     </div>
                     <div class="modify-menu">
-                        <ul class="list-unstyled">
-                            <li><a href="#">Add Profile Photos</a></li>
-                            <li><li><NavLink to="/userModify">Update Your Profile</NavLink></li></li>
-                            <li><a href="#">Find Friends</a></li>
-                        </ul>
+                        {updateProfileVar}
                     </div>
                 </div>
 
@@ -75,23 +90,23 @@ class UserProfile extends Component {
                         <hr></hr>
                     </div>
                     <div class="about-user">
-                        <h1>About {this.props.user.name}</h1>
+                        <h1>About {user.name}</h1>
                         <ul class="list-unstyled">
                             <li>
                                 <h2>[ Location ]</h2>
-                                <p>{this.props.user.city}, {this.props.user.state}</p>
+                                <p>{user.city}, {user.state}</p>
                             </li>
                             <li>
                                 <h2>[ Things I Love ]</h2>
-                                <p>{this.props.user.til}, {this.props.user.favorite}</p>
+                                <p>{user.til}, {user.favorite}</p>
                             </li>
                             <li>
                                 <h2>[ Website ]</h2>
-                                <a href={this.props.user.website}>{this.props.user.website}</a>
+                                <a href={user.website}>{user.website}</a>
                             </li>
                             <li>
                                 <h2>[ Nickname ]</h2>
-                                <p>{this.props.user.nickname}</p>
+                                <p>{user.nickname}</p>
                             </li>
                         </ul>
                     </div>

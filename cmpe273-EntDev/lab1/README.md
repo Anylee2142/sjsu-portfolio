@@ -1,3 +1,9 @@
+# 1. ./mysql_start.sh
+# 2. ./backend_start.sh
+# 3. ./frontend_start.sh
+
+_____________________________________
+
 https://github.com/facebook/create-react-app
 1. npx create-react-app my-app
 2. cd my-app

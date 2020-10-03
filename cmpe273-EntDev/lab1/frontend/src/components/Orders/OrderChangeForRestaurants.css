@@ -1,0 +1,11 @@
+.orderchange-container {
+    border: 1px solid black;
+    margin: 20px auto;
+    width: 50%;
+    min-height: 350px;
+}
+
+.orderchange-container div {
+    text-align: center;
+    padding-bottom: 25px;
+}

@@ -50,7 +50,7 @@ class OrderForUsers extends Component {
     componentDidMount() {
         // Connect DB to fetch events
         axios.defaults.withCredentials = true;
-        axios.get(`http://localhost:3001/orders/${this.props.user.user_pk}`)
+        axios.get(`http://localhost:3001/orders/users/${this.props.user.user_pk}`)
             .then(response => {
                 console.log("Fetched Orderse = ", response.data);
                 let orders = response.data;
@@ -58,7 +58,7 @@ class OrderForUsers extends Component {
                     orders: orders
                 });
                 console.log("Chaning Local State Finished !");
-                axios.get(`http://localhost:3001/orderMenus/${this.props.user.user_pk}`)
+                axios.get(`http://localhost:3001/orderMenus/users/${this.props.user.user_pk}`)
                     .then(response => {
                         console.log("Fetched Order Menus = ", response.data);
                         console.log(this.state.orders);

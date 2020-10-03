@@ -21,6 +21,7 @@ import EventForUsers from './Events/EventForUsers'
 import EventDetailsForUsers from './Events/EventDetailsForUsers';
 import RegisteredEventForUsers from './Events/RegisteredEventForUsers';
 import OrderForUsers from './Orders/OrderForUsers';
+import OrderChangeForRestaurants from './Orders/OrderChangeForRestaurants';
 import EventForRestaurants from './Events/EventForRestaurants';
 import OrderForRestaurants from './Orders/OrderForRestaurants';
 
@@ -54,6 +55,7 @@ class Main extends Component {
                     <Route path="/restaurantEditMenu" component={RestaurantEditMenu}/>
                     <Route path="/eventRestaurants" component={EventForRestaurants}/>
                     <Route path="/orderRestaurants" component={OrderForRestaurants}/>
+                    <Route path="/orderChangeRestaurants" component={OrderChangeForRestaurants}/>
                     <Route path="/home" component={RestaurantList}/>
                     <Route exact path="/" component={RootRouter}/>  {/* If not `exact`, then all the other routes will be directed here */}
                     <Route component={NotFound_404}/>
