@@ -71,13 +71,14 @@ module.exports = (app, conn) => {
         let insertStatement = insertStatementQuery(req.body);
         console.log(insertStatement);
 
+        let rows;
         (async () => {
             try {
                 rows = await query(insertStatement);
                 res.writeHead(200, {
                     'Content-Type': "application/json"
                 })
-                res.end("Successfully created the menu !");
+                res.end(JSON.stringify(rows));
                 console.log("Succesful menu create !")
             } catch (e) {
                 console.log("Error has been catched when menu create !", e);

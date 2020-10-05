@@ -104,6 +104,13 @@ class RestaurantDetail extends Component {
             rating: this.state.your_rating,
             post_date: new Date().toISOString().slice(0, 19).replace('T', ' ')
         }
+
+        // If user enters nothing, then don't put it
+        if (!this.state.your_review.replace(/\s/g, '')) {
+            alert("Type something !");
+            return;
+        }
+
         this.setState({
             your_review: "",
             your_rating: 0
@@ -147,6 +154,7 @@ class RestaurantDetail extends Component {
         var reviewVar = "";
         var orderButtonVar = "";
         var reviewInputVar = "";
+        var pictureVar ="";
         if (this.state.render) {
             menuVar = (
                 <div class="restaurant-body-content-menu">
@@ -193,6 +201,13 @@ class RestaurantDetail extends Component {
                 ))
             );
 
+            pictureVar = (
+                <div class="menu-images">
+                    <img src={`http://localhost:3001/menu_${this.state.menus[0].menu_pk}_profile.png`}></img>
+                    <img src={`http://localhost:3001/menu_${this.state.menus[1].menu_pk}_profile.png`}></img>
+                    <img src={`http://localhost:3001/menu_${this.state.menus[2].menu_pk}_profile.png`}></img>
+                </div>
+            );
         }
 
         if (!cookie.load("restaurantCookie")) {
@@ -239,11 +254,15 @@ class RestaurantDetail extends Component {
             );
         }
 
+
+
         document.title = "[ Restaurant Details ]"
         return (
             <div>
                 <Navbar {...this.props}></Navbar>
-                <div class="restaurant-header">YOUR CAROUSEL HERE</div>
+                <div class="restaurant-header">
+                    {pictureVar}
+                </div>
                 <div class="restaurant-body">
                     <div class="row">
                         <div class="col-lg-8 restaurant-body-content">

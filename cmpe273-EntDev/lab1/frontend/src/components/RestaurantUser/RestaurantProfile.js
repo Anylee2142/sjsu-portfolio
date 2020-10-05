@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ImageUploader from 'react-images-upload';
 import './RestaurantProfile.css';
 import { NavLink, Link } from 'react-router-dom';
 
@@ -18,10 +19,43 @@ class RestaurantProfile extends Component {
             menus: [],
             YES_SIGN: "O",
             NO_SIGN: "X",
+            profile_picture: null,
             render: false
         }
 
         this.decodeCategoryCode = this.decodeCategoryCode.bind(this);
+        this.onFileChange = this.onFileChange.bind(this);
+        this.onFileUpload = this.onFileUpload.bind(this);
+    }
+
+    onFileChange = (e) => {
+        this.setState({
+            profile_picture: e.target.files[0]
+        })
+    }
+
+    onFileUpload = (e) => {
+        const data = new FormData();
+        if (!this.state.profile_picture) {
+            alert("Please proceed after uploading a picture !");
+        }
+        data.append('file', this.state.profile_picture);
+
+        axios.post(`http://localhost:3001/images/restaurants/${this.props.restaurantUser.res_pk}`, data)
+            .then(response => {
+                console.log(response);
+                window.location.reload();
+            })
+            .catch(error => {
+                console.log("Error has been catched : ", error.response.status);
+                console.log(error.response);
+                console.log("Error response data = ", error.response.data);
+                if (true) {
+                    this.setState({
+                        errorMessage: error.response.data
+                    })
+                }
+            });
     }
 
     componentWillMount() {
@@ -101,6 +135,7 @@ class RestaurantProfile extends Component {
         console.log("###", this.props);
         console.log(this.state);
 
+        var profilePicURL = `http://localhost:3001/restaurant_${this.props.restaurantUser.res_pk}_profile.png`;
         var menusVar = null;
         var reviewsVar = null;
         if (this.state.render) {
@@ -151,7 +186,7 @@ class RestaurantProfile extends Component {
 
                 <div class="header container">
                     <div class="user-profile-picture">
-                        Add a photo !
+                        <img src={profilePicURL}></img>
                     </div>
                     <div class="brief-summary">
                         <h1>{this.props.restaurantUser.name} [{(!this.props.restaurantUser.avg_rating) ? "Not Specified" : this.props.restaurantUser.avg_rating} / 5.0]</h1>
@@ -162,7 +197,14 @@ class RestaurantProfile extends Component {
                     </div>
                     <div class="modify-menu">
                         <ul class="list-unstyled">
-                            <li><a href="#">Add Photos</a></li>
+                            <li>Add Photos</li>
+                            <div>
+                                <input class="image-upload" type="file" class="form-control" onChange={this.onFileChange} />
+                                <button class="image-upload" onClick={this.onFileUpload}>
+                                    Upload!
+                                 </button>
+                            </div>
+                            <br></br>
                             <li><NavLink to="/restaurantModify">Update Your Profile</NavLink></li>
                             <li><NavLink to="/restaurantAddMenu">Add a New Menu</NavLink></li>
                         </ul>

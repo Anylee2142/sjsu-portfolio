@@ -12,9 +12,12 @@ var restaurantController = require('./controllers/restaurantController');
 var seacrhController = require('./controllers/seacrhController');
 var menuController = require('./controllers/menuControllers');
 var reviewController = require('./controllers/reviewController');
+var imageController = require('./controllers/imageController');
 
 var mysqlConnection = config.mysqlConnection;
 var port = process.env.PORT || 3001 ;
+
+app.use(express.static(__dirname + "/public/"))
 
 app.use(bodyParser.json());
 
@@ -38,6 +41,7 @@ restaurantController(app, mysqlConnection);
 seacrhController(app, mysqlConnection);
 menuController(app, mysqlConnection);
 reviewController(app, mysqlConnection);
+imageController(app);
 
 //start your server on designated port or 3001
 app.listen(port, () => {

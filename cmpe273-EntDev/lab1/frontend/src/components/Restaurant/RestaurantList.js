@@ -215,7 +215,7 @@ class RestaurantList extends Component {
                         <div class="res-spec">
                             {/* <img class="res-image" src={imageURL}></img> */}
                             <div class="res-content">
-                                <div class="res-image-container"><img class="res-image" src={imageURL}></img></div>
+                                <div class="res-image-container"><img class="res-image" src={`http://localhost:3001/restaurant_${restaurant.res_pk}_profile.png`}></img></div>
                                 <h2 class="res-inline">
                                     <Link to ={
                                         {

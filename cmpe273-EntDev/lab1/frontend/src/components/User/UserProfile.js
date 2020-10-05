@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component} from 'react';
 import './UserProfile.css';
-import { NavLink } from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions';
 
 import Navbar from '../Header/Navbar';
+import axios from 'axios';
 
 //create the Navbar Component
 class UserProfile extends Component {
@@ -13,8 +14,42 @@ class UserProfile extends Component {
         super(props);
 
         this.state = {
-            user: (this.props.location.state && "user" in this.props.location.state) ? this.props.location.state.user : null
+            user: (this.props.location.state && "user" in this.props.location.state) ? this.props.location.state.user : null,
+            profile_picture : null,
         }
+
+        this.onFileChange = this.onFileChange.bind(this);
+        this.onFileUpload = this.onFileUpload.bind(this);
+    }
+
+    onFileChange = (e) => {
+        this.setState({
+            profile_picture: e.target.files[0]
+        })
+    }
+
+    onFileUpload = (e) => {
+        const data = new FormData();
+        if (!this.state.profile_picture) {
+            alert("Please proceed after uploading a picture !");
+        }
+        data.append('file', this.state.profile_picture);
+
+        axios.post(`http://localhost:3001/images/users/${this.props.user.user_pk}`, data)
+            .then(response => {
+                console.log(response);
+                window.location.reload();
+            })
+            .catch(error => {
+                console.log("Error has been catched : ", error.response.status);
+                console.log(error.response);
+                console.log("Error response data = ", error.response.data);
+                if (true) {
+                    this.setState({
+                        errorMessage: error.response.data
+                    })
+                }
+            });
     }
 
     componentWillMount() {
@@ -29,19 +64,32 @@ class UserProfile extends Component {
         console.log(this.state);
     }
 
+
     // TODO: text generator here
     // if info, <p>{this.props.user.city}, {this.props.user.state}</p>
     // else, <p>No information yet !<p>
 
     render() {
+        console.log(this.state);
+
+        var profilePicURL = `http://localhost:3001/user_${this.props.user.user_pk}_profile.png`;
+        console.log(profilePicURL);
         var user = (this.state.user) ? this.state.user : this.props.user;
         var updateProfileVar = (
             <h1>Restaurant is viewing User Profile!</h1>
         );
+
         if (this.state.user === null) {
             updateProfileVar = (
                 <ul class="list-unstyled">
-                    <li><a href="#">Add Profile Photos</a></li>
+                    <li>Add Profile Photo</li>
+                    <div>
+                        <input class="image-upload" type="file" class="form-control" onChange={this.onFileChange} />
+                        <button class="image-upload" onClick={this.onFileUpload}>
+                            Upload!
+                         </button>
+                    </div>
+                    <br></br>
                     <li><li><NavLink to="/userModify">Update Your Profile</NavLink></li></li>
                     <li>Find Friends</li>
                 </ul>
@@ -53,10 +101,9 @@ class UserProfile extends Component {
         return (
             <div>
                 <Navbar {...this.props}></Navbar>
-
                 <div class="header container">
                     <div class="user-profile-picture">
-                        Add a photo !
+                        <img src={profilePicURL}></img>
                     </div>
                     <div class="brief-summary">
                         <h1>{user.name}</h1>

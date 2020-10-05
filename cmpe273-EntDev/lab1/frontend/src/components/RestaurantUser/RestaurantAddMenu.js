@@ -14,6 +14,7 @@ class RestaurantAddMenu extends Component {
         super(props);
         //maintain the state required for this component
         this.state = {
+            menu_picture: null,
             name: "",
             ingredient: "",
             price: 0,
@@ -36,6 +37,7 @@ class RestaurantAddMenu extends Component {
         this.toggleMainDish = this.toggleMainDish.bind(this);
         this.toggleDesserts = this.toggleDesserts.bind(this);
         this.toggleBeverages = this.toggleBeverages.bind(this);
+        this.onFileChange = this.onFileChange.bind(this);
 
         this.submitAddMenu = this.submitAddMenu.bind(this);
         this.convertToCategoryCode = this.convertToCategoryCode.bind(this);
@@ -135,8 +137,25 @@ class RestaurantAddMenu extends Component {
         })
     }
 
+    onFileChange = (e) => {
+        this.setState({
+            menu_picture: e.target.files[0]
+        })
+    }
+
     submitAddMenu = (e) => {
         e.preventDefault();
+
+        for (const key in this.state) {
+            if (key === "errorMessage") {
+                continue;
+            }
+            // If user enters nothing, then don't put it
+            if (typeof(this.state[key]) == "string" && !this.state[key].replace(/\s/g, '')) {
+                alert(`Please Specify the field "${key}"`);
+                return
+            }
+        }
 
         const data = {
             name: this.state.name,
@@ -163,11 +182,35 @@ class RestaurantAddMenu extends Component {
         axios.post("http://localhost:3001/menus", data)
             .then(response => {
                 console.log("Retunred message = ", response.data);
-                if (response.status === 200) {
-                    this.props.history.push("/restaurantProfile");
+                let insertId = response.data.insertId;
+                if (response.status === 200 && this.state.menu_picture) {
+                    const picture = new FormData();
+                    picture.append('file', this.state.menu_picture);
+                    axios.post(`http://localhost:3001/images/menus/${insertId}`, picture)
+                        .then(response => {
+                            if (response.status === 200) {
+                                console.log("Successfully created menu !");
+                            }
+                        })
+                        .catch(error => {
+                            console.log("Er ror has been catched : ", error.response.status);
+                            console.log(error.response);
+                            console.log("Error response data = ", error.response.data);
+                            if (true) {
+                                this.setState({
+                                    errorMessage: error.response.data
+                                })
+                                alert(error.response.data);
+                            }
+                        });
                 }
+                else {
+                    console.log("Created menu without picture !");
+                }
+                this.props.history.push("/restaurantProfile");
             })
             .catch(error => {
+                console.log(error)
                 console.log("Error has been catched : ", error.response.status);
                 console.log(error.response);
                 console.log("Error response data = ", error.response.data);
@@ -191,6 +234,10 @@ class RestaurantAddMenu extends Component {
                 <div class="addmenu-container">
                     <h1 class="go-center">Add Menu !</h1>
                     <hr></hr>
+                    <h2 class="go-center">The Food Picture !</h2>
+                    <div>
+                        <input class="image-upload" type="file" class="form-control" onChange={this.onFileChange} />
+                    </div>
                     <h2 class="go-center">Menu name</h2>
                     <div class="form-group">
                         <input onChange={this.nameChangeHandler} type="text" name="name" placeholder="Menu name" value={this.state.name} required />
